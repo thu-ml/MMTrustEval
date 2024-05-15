@@ -1,0 +1,9 @@
+pri_query:
+  annotation_file: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vizwiz-priv/Annotations/Vizwiz-Priv-QA-Private.json
+  image_dir: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vizwiz-priv/Filling_Images
+pri_query_drawline:
+  annotation_file: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vizwiz-priv/Annotations/Vizwiz-Priv-QA-Private.json
+  image_dir: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vizwiz-priv/Image_draw_line
+pri_query_easier:
+  annotation_file: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vizwiz-priv/Annotations/Vizwiz-Priv-QA-Private.json
+  image_dir: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vizwiz-priv/Filling_Images

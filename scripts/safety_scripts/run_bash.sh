@@ -1,0 +1,5 @@
+CUDA_VISIBLE_DEVICES=7 python test_run_george.py --task static_jailbreak_question --model_id mplug-owl-llama-7b --output_dir /data/zhangyichi/Trustworthy-MLLM/output/safety/static_jailbreak_question
+# CUDA_VISIBLE_DEVICES=7 python test_run_george.py --task static_jailbreak_prompt --model_id mplug-owl2-llama2-7b --output_dir /data/zhangyichi/Trustworthy-MLLM/output/safety/static_jailbreak_prompt
+# CUDA_VISIBLE_DEVICES=7 python test_run_george.py --task static_jailbreak_prompt --model_id InternVL-Chat-ViT-6B-Vicuna-13B --output_dir /data/zhangyichi/Trustworthy-MLLM/output/safety/static_jailbreak_prompt
+# CUDA_VISIBLE_DEVICES=7 python test_run_george.py --task static_jailbreak_prompt --model_id qwen-vl-chat --output_dir /data/zhangyichi/Trustworthy-MLLM/output/safety/static_jailbreak_prompt
+# CUDA_VISIBLE_DEVICES=7 python test_run_george.py --task static_jailbreak_prompt --model_id cogvlm-chat-hf --output_dir /data/zhangyichi/Trustworthy-MLLM/output/safety/static_jailbreak_prompt

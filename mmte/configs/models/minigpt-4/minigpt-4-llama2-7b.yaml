@@ -1,0 +1,28 @@
+model:
+  arch: minigpt4
+  model_type: pretrain_llama2
+  max_txt_len: 160
+  end_sym: "</s>"
+  low_resource: False
+  prompt_template: '[INST] {} [/INST] '
+  ckpt: '/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/MiniGPT-4/pretrained_minigpt4_llama2_7b.pth'
+
+
+  # vit encoder
+  image_size: 224
+  drop_path_rate: 0
+  use_grad_checkpoint: False
+  vit_precision: "fp16"
+  freeze_vit: True
+  has_qformer: False
+
+  # generation configs
+  prompt: ""
+
+  llama_model: "meta-llama/Llama-2-7b-chat-hf"
+
+preprocess:
+    vis_processor:
+        eval:
+          name: "blip2_image_eval"
+          image_size: 224

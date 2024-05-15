@@ -1,0 +1,5 @@
+from mmte.perspectives.fairness.stereo_recognition import StereoRegEval
+from mmte.perspectives.fairness.stereo_detection import VQAStereoDet
+from mmte.perspectives.fairness.stereo_query import StereoQueryEval
+from mmte.perspectives.fairness.subjective_choice import SubChoiceEval
+from mmte.perspectives.fairness.vision_subjective_choice import VisSubChoiceEval

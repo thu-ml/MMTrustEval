@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=7 python at.py --model_name=openflamingo

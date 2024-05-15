@@ -1,0 +1,4 @@
+DATA_ROOT: "./data/privacy/"
+N_SAMPLES: 1
+related_image_dir: '/data/zhangyichi/Trustworthy-MLLM/MMTrustEval/data/privacy/confaide_tier2_related_imgs'
+unrelated_image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/unrelated_images'

@@ -1,0 +1,7 @@
+vispriv-recognition-vizwiz:
+  annotation_file: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vizwiz-priv/Annotations/Vizwiz-Priv-Recognition.json
+  image_dir: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vizwiz-priv/Filling_Images
+
+vispriv-recognition-vispr:
+  annotation_file: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vispr/sampled_test2017/sampled_vispr.jsonl
+  image_dir: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vispr/test2017

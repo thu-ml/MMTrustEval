@@ -1,0 +1,2 @@
+from_pretrained: "THUDM/cogvlm-chat-hf"
+local_tokenizer: "lmsys/vicuna-7b-v1.5"

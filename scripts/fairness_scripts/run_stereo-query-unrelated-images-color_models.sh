@@ -1,0 +1,16 @@
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id ShareGPT4V-7B --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id cogvlm-chat-hf --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id instructblip-vicuna-7b --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id mplug-owl-llama-7b --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id mplug-owl2-llama2-7b --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id internlm-xcomposer-7b --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id kosmos2-chat --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id llama_adapter_v2 --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id lrv-instruction --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id minigpt-4-llama2-7b --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id minigpt-4-vicuna-7b-v0 --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id mmicl-instructblip-t5-xxl-chat --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id otter-mpt-7b-chat --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id qwen-vl-chat --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id LVIS-Instruct4V --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images
+python test_run_single_model.py --task stereo-query-unrelated-images-color --model_id llava-v1.5-7b --output_dir /data/zhangyichi/Trustworthy-MLLM/output/fairness/stereo_query_w_unrelated_images

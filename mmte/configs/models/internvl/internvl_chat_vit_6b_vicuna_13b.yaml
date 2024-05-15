@@ -1,0 +1,10 @@
+model:
+  model_name: 'InternVL-Chat-ViT-6B-Vicuna-13B'
+  model_path: '/data/zhangyichi/playground/InternVL/internvl_chat_llava/pretrained/InternVL-Chat-ViT-6B-Vicuna-13B'
+
+parameters:
+  sep: ','
+  temperature: 0
+  top_p: None
+  num_beams: 1
+  max_new_tokens: 512
