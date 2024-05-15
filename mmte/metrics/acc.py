@@ -1,5 +1,5 @@
-from typing import Dict, Any, Sequence, List
-from mmte.metrics.base import BasePerSampleMetrics
+from typing import Dict, Any, Sequence, List, Callable
+from mmte.metrics.base import BasePerSampleMetrics, default_process
 from mmte.utils.registry import registry
 
 @registry.register_metrics()
@@ -11,8 +11,9 @@ class Accuracy(BasePerSampleMetrics):
     def __init__(self) -> None:
         super().__init__()
 
-    def eval(self, preds: Sequence[Any], labels: Sequence[Any]) -> Dict[str, Sequence]:
+    def eval(self, preds: Sequence[Any], labels: Sequence[Any], process: Callable = default_process, **kwargs) -> Dict[str, Sequence]:
         acc = []
+        preds, labels = process(preds=preds, labels=labels)
         for pred, label in zip(preds, labels):
             assert isinstance(pred, str) and isinstance(label, str)
             if label in pred:

@@ -1,7 +1,7 @@
-from typing import Dict, Any, Sequence, List
-from mmte.metrics.base import BasePerSampleMetrics
+from mmte.metrics.base import BasePerSampleMetrics, default_process
 from mmte.utils.registry import registry
 from transformers import pipeline
+from typing import Dict, Any, Sequence, List, Callable
 import time
 
 @registry.register_metrics()
@@ -44,9 +44,10 @@ class Rejection(BasePerSampleMetrics):
         return False
 
 
-    def eval(self, preds: Sequence[Any], labels: Sequence[Any]) -> Dict[str, Sequence]:
+    def eval(self, preds: Sequence[Any], labels: Sequence[Any], process: Callable = default_process, **kwargs) -> Dict[str, Sequence]:
         
         rejection = []
+        preds, labels = process(preds=preds, labels=labels)
         for pred in preds:
             assert isinstance(pred, str)
             classification = self.classifier(pred)
