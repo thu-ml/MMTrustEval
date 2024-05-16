@@ -1,4 +1,3 @@
-from .base import BaseDataset
-from .unrelatedimg import UnrelatedImageDataset
-from .mock import MockDataset
-from .confaide import ConfAIde
+from .unrelatedimg import *
+from .mock import *
+from .confaide import *

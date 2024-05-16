@@ -2,5 +2,4 @@ DATA_ROOT: "/data/zhangyichi/fangzhengwei/framework/data/privacy"
 image_dir: '/data/zhangyichi/Trustworthy-MLLM/MMTrustEval/data/privacy/confaide_tier2_related_imgs'
 tier: 'tier_2'
 
-n_sample: 3
 img_num: 14
