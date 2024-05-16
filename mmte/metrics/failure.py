@@ -13,10 +13,7 @@ class Failure(BaseDatasetMetrics):
         super().__init__()
 
     def eval(self, preds: Sequence[Any], labels: Sequence[Any], process: Callable = default_process, **kwargs) -> Dict[str, float]:
-        
         assert len(preds) == len(labels)
-
-        # preds = process(preds=preds, labels=labels, fail_id=np.nan)
         preds, labels = process(preds=preds, labels=labels)
 
         def failure_rate_func(preds):

@@ -14,10 +14,7 @@ class Pearson(BaseDatasetMetrics):
         super().__init__()
 
     def eval(self, preds: Sequence[Any], labels: Sequence[Any], process: Callable = default_process, default_value: str = "0", **kwargs) -> Dict[str, float]:
-        
         assert len(preds) == len(labels)
-
-        # preds = process(preds=preds, labels=labels, fail_id=np.nan)
         preds, labels = process(preds=preds, labels=labels)
         
         def correlation_nan_func(preds, labels):

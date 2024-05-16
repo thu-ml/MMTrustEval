@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
-from typing import Dict, Any, Sequence, List
-from mmte.datasets.base import BaseDataset
+from typing import Any, List
+from mmte import _OutputType
 
 class BaseMethod(ABC):
 
@@ -12,7 +12,11 @@ class BaseMethod(ABC):
         self.method_id = method_id
 
     @abstractmethod
-    def run(self, dataset: BaseDataset, **kwargs) -> BaseDataset:
+    def run(self, data: _OutputType, **kwargs) -> _OutputType:
+        raise NotImplementedError
+    
+    @abstractmethod
+    def hash(self, to_hash_str: str, **kwargs) -> str:
         raise NotImplementedError
     
     def __call__(self, *args: Any, **kwds: Any) -> Any:

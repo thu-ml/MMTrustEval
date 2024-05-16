@@ -5,7 +5,7 @@ from itertools import chain
 import numpy as np
 import re
 
-# @registry.register_process()
+@registry.register_process()
 class Txt2Score(BaseProcess):
     
     process_id: str = 'txt2score'
