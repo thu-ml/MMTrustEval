@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Optional, List, Union, Any, Sequence, Tuple, Dict
+from typing import Optional, List, Union, Sequence, Any, Dict, Tuple, Type
 from torch.utils.data import DataLoader
-from mmte.datasets.base import BaseDataset
+from mmte.datasets.base import BaseDataset, collate_fn
 from mmte.metrics.base import BaseDatasetMetrics, BasePerSampleMetrics
 from mmte.utils.registry import registry
 from mmte.methods.base import BaseMethod
@@ -15,16 +15,25 @@ def task_pool() -> List['BaseTask']:
     return registry.list_tasks()
 
 class BaseTask(ABC):    
-    def __init__(self, dataset_id: str, model_id: str, method_id: Optional[str], metrics_ids: List[str]) -> None:
+    supported_model_list: List[str] = ['llava-v1.5-7b', 'minigpt-4-llama2-7b']
+    supported_method_list: Optional[List[str]] = ['unrelated-image-color', 'unrelated-image-nature', 'unrelated-image-noise'] # methods for text dataset
+    supported_dataset_list: List[str] = ["confaide-text", "confaide-image", "confaide-unrelated-image-color", "confaide-unrelated-image-nature", "confaide-unrelated-image-noise"]
+    supported_metrics_list: List[str] = ['pearson', 'failure']
+
+    def __init__(self, task_id: str, dataset_id: str, model_id: str, metrics_ids: List[str], method_id: Optional[str] = None, cfg: Optional[Dict] = None) -> None:
         self.dataset_id = dataset_id
         self.metrics_ids = metrics_ids
         self.method_id = method_id
         self.model_id = model_id
+        self.task_id = task_id
+        self.cfg = cfg
+        if cfg:
+            self.log_file = cfg.get('log_file', None)
     
     def get_handlers(self) -> None:
         self.metrics_list = self.get_metrics()
+        self.method = self.get_method() # get method before dataset
         self.dataset = self.get_dataset()
-        self.method = self.get_method()
         self.model = self.get_model()
 
     def get_metrics(self) -> List[Union[BaseDatasetMetrics, BasePerSampleMetrics]]:
@@ -42,26 +51,28 @@ class BaseTask(ABC):
     def get_method(self) -> BaseMethod:
         if self.method_id is None:
             return None
+        
+        if self.cfg:
+            method_cfg = self.cfg.get('method_cfg', {})
+        else:
+            method_cfg = {}
+
         method_cls = registry.get_method_class(self.method_id)
-        method = method_cls(self.method_id)
+        method = method_cls(self.method_id, **method_cfg)
         return method
 
     def get_dataset(self) -> BaseDataset:
-        dataset_cls = registry.get_dataset_class(self.dataset_id)
-        dataset = dataset_cls(self.dataset_id)
-        if self.method_id and self.method:
-            poisoned_dataset = self.method(dataset)
-            return poisoned_dataset
+        dataset_cls: Type[BaseDataset] = registry.get_dataset_class(self.dataset_id)
+        dataset = dataset_cls(self.dataset_id, method_hook=self.method)
         return dataset
     
-    @abstractmethod
     def get_dataloader(self) -> DataLoader:
-        raise NotImplementedError
+        dataloader = DataLoader(dataset=self.dataset, batch_size=1, collate_fn=collate_fn)
+        return dataloader
     
     @abstractmethod
     def pre_processing(self, preds: Sequence[Any], labels: Sequence[Any], **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
-        # return preds, labels
-        raise NotImplementedError
+        return preds, labels
     
     @abstractmethod
     def post_processing(self, responses: List[Dict[str, Any]]) -> Dict[str, Union[float, Sequence]]:
@@ -80,9 +91,9 @@ class BaseTask(ABC):
         
         return results
 
-    def save_results(self, results: Dict[str, Any], log_file: Optional[str] = None) -> None:
-        if log_file is not None:
-            with open(log_file, "w") as f:
+    def save_results(self, results: Dict[str, Any]) -> None:
+        if self.log_file is not None:
+            with open(self.log_file, "w") as f:
                 json.dump(results, f, indent=4)
 
     def generate(self, dataloader: DataLoader, **generate_kwargs) -> List[Dict[str, Any]]:
@@ -133,4 +144,4 @@ class BaseTask(ABC):
 
         responses = self.generate(dataloader)
         results = self.post_processing(responses)
-        self.save_results(results, log_file='./out.json')
+        self.save_results(results)

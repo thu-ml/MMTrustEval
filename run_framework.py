@@ -7,7 +7,8 @@ def test_method():
             'img_dir': './tmp_dir2',
             'img_size': (50, 50),
             'lazy_mode': True,
-        }
+        },
+        'log_file': f'./{dataset_ids[0]}-method.log'
     }
     task = ConfAIde_Task(
         task_id='confaide-task',
@@ -21,28 +22,36 @@ def test_method():
     task.pipeline()
 
 def test_reproducible():
+    cfg = {
+        'log_file': f'./{dataset_ids[0]}.log'
+    }
     task = ConfAIde_Task(
         task_id='confaide-task',
         dataset_id=dataset_ids[0],
         model_id='llava-v1.5-7b',
         metrics_ids=['pearson', 'failure'],
+        cfg=cfg,
+    )
+    
+
+    task.pipeline()
+
+    cfg = {
+        'log_file': f'./{dataset_ids[1]}.log'
+    }
+    task = ConfAIde_Task(
+        task_id='confaide-task',
+        dataset_id=dataset_ids[1],
+        model_id='llava-v1.5-7b',
+        metrics_ids=['pearson', 'failure'],
+        cfg=cfg
     )
     
     task.pipeline()
-
-    # task = ConfAIde_Task(
-    #     task_id='confaide-task',
-    #     dataset_id=dataset_ids[1],
-    #     model_id='llava-v1.5-7b',
-    #     metrics_ids=['pearson', 'failure'],
-    # )
-    
-    # task.pipeline()
 
 
 if __name__ == '__main__':
     dataset_ids = ["confaide-text", "confaide-image", "confaide-unrelated-image-color", "confaide-unrelated-image-nature", "confaide-unrelated-image-noise"]
     
-    # test_method()
-
-    test_reproducible()
+    test_method()
+    # test_reproducible()
