@@ -180,6 +180,7 @@ mmte/models/mPLUG_Owl/
 mmte/models/otter/
 mmte/models/ShareGPT4V/
 data/
+tmp_dir/
 *.log
 *.out
 *.csv
