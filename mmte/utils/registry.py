@@ -8,6 +8,7 @@ class Registry:
         "metrics_name_mapping": {},
         "process_name_mapping": {},
         "method_name_mapping": {},
+        "evaluator_name_mapping": {},
     }
     
     
@@ -193,6 +194,32 @@ class Registry:
             return method_cls
 
         return wrap
+        
+    @classmethod
+    def register_evaluator(cls):
+        r"""Register a evaluator to registry with key 'name'
+
+        Args:
+            name: Key with which the evaluator will be registered.
+        """
+
+        def wrap(evaluator_cls):
+            from mmte.evaluators.base import BaseEvaluator
+
+            assert issubclass(
+                evaluator_cls, BaseEvaluator
+            ), "All tasks must inherit BaseEvaluator class"
+            for evaluator_id in evaluator_cls.evaluator_ids:
+                if evaluator_id in cls.mapping["evaluator_name_mapping"]:
+                    raise KeyError(
+                        "Name '{}' already registered for {}.".format(
+                            evaluator_id, cls.mapping["evaluator_name_mapping"][evaluator_id]
+                        )
+                    )
+                cls.mapping["evaluator_name_mapping"][evaluator_id] = evaluator_cls
+            return evaluator_cls
+
+        return wrap
     
     @classmethod
     def get_task_class(cls, name):
@@ -215,16 +242,20 @@ class Registry:
         return cls.mapping["method_name_mapping"].get(name, None)
     
     @classmethod
+    def get_evaluator_class(cls, name):
+        return cls.mapping["evaluator_name_mapping"].get(name, None)
+    
+    # @classmethod
+    # def list_metrics(cls):
+    #     return sorted(cls.mapping["metrics_name_mapping"].keys())
+    
+    # @classmethod
+    # def list_processes(cls):
+    #     return sorted(cls.mapping["process_name_mapping"].keys())
+
+    @classmethod
     def list_tasks(cls):
         return sorted(cls.mapping["task_name_mapping"].keys())
-    
-    @classmethod
-    def list_metrics(cls):
-        return sorted(cls.mapping["metrics_name_mapping"].keys())
-    
-    @classmethod
-    def list_processes(cls):
-        return sorted(cls.mapping["process_name_mapping"].keys())
     
     @classmethod
     def list_datasets(cls):
@@ -233,6 +264,10 @@ class Registry:
     @classmethod
     def list_methods(cls):
         return sorted(cls.mapping["method_name_mapping"].keys())
+    
+    @classmethod
+    def list_evaluators(cls):
+        return sorted(cls.mapping["evaluator_name_mapping"].keys())
     
     
         

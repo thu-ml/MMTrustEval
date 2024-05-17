@@ -180,6 +180,11 @@ mmte/models/mPLUG_Owl/
 mmte/models/otter/
 mmte/models/ShareGPT4V/
 data/
+mmte/_processes_bk/
+mmte/_perspectives_bk/
+mmte/_metrics_bk/
+mmte/_tasks_bk/
+mmte/configs/datasets/extra/
 tmp_dir/
 *.log
 *.out

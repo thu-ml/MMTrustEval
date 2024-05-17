@@ -1,0 +1,13 @@
+task_id: 'confaide-image'
+dataset_id: 'confaide-image'
+model_id: 'llava-v1.5-7b'
+
+log_file: './confaide-image.log'
+
+evaluators_cfg:
+  rule_match_and_score_eval:
+    metrics_cfg:
+      {
+        pearson_corr: {},
+        failure: {},
+      }
