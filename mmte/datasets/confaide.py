@@ -16,8 +16,6 @@ def load_txt(filename):
 
 @registry.register_dataset()
 class ConfAIde(BaseDataset):
-    
-    dataset_id: str = 'confaide-text'
     dataset_ids: Sequence[str] = ["confaide-text", "confaide-image", "confaide-unrelated-image-color", "confaide-unrelated-image-nature", "confaide-unrelated-image-noise"]
     dataset_config: Optional[str] = "mmte/configs/datasets/confaide.yaml"
     def __init__(self, dataset_id: str, force_prompt: bool = True, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:

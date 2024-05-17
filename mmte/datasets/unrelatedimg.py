@@ -11,8 +11,6 @@ import os
 
 @registry.register_dataset()
 class UnrelatedImageDataset(BaseDataset):
-    
-    dataset_id: str = 'unrelated-image-color'
     dataset_ids: Sequence[str] = ["unrelated-image-color", "unrelated-image-nature", "unrelated-image-noise"]
     dataset_config: Optional[str] = "mmte/configs/datasets/unrelatedimg.yaml"
 

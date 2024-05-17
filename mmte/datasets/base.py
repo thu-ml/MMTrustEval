@@ -36,8 +36,6 @@ def collate_fn(batch_data: _OutputType):
     return collate_batch_data
 
 class BaseDataset(Dataset, ABC):
-    
-    dataset_id: str = ""
     dataset_ids: Sequence[str] = []
     dataset_config: Optional[str] = ""
 

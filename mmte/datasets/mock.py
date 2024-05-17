@@ -9,8 +9,6 @@ from torch.utils.data import DataLoader
 
 @registry.register_dataset()
 class MockDataset(BaseDataset):
-    
-    dataset_id: str = 'mockdata'
     dataset_ids: Sequence[str] = ["mock_dataset"]
     dataset_config: Optional[str] = None
 
