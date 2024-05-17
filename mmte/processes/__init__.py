@@ -1,1 +1,0 @@
-from .txt2score import Txt2Score

@@ -1,3 +1,0 @@
-from mmte.perspectives.safety.risk_identification import RiskIdentificationEval
-from mmte.perspectives.safety.image_description import ImageDescriptionEval
-from mmte.perspectives.safety.static_jailbreak import StaticJailbreakingEval
