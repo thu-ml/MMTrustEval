@@ -1,12 +1,11 @@
-task_id: 'confaide-text'
 dataset_id: 'confaide-text'
 model_id: 'llava-v1.5-7b'
 log_file: './confaide-text.log'
 
-evaluators_cfg:
-  rule_match_and_score_eval:
-    metrics_cfg:
-      {
-        pearson_corr: {},
-        failure: {},
-      }
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_match_and_score_eval":
+        { metrics_cfg: { pearson_corr: {}, failure: {} } },
+    },
+  ]

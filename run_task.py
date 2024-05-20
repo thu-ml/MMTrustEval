@@ -12,11 +12,11 @@ print("metrics: ", list(_supported_metrics.keys()))
 
 if __name__ == '__main__':
     configs = [
-        "mmte/configs/task/confaide_image.yaml",
-        "mmte/configs/task/confaide_text_color.yaml",
-        "mmte/configs/task/confaide_text.yaml",
-        "mmte/configs/task/vispriv_recognition_vispr.yaml",
-        "mmte/configs/task/vispriv_recognition_vizwiz.yaml",
+        # "mmte/configs/task/confaide_image.yaml",
+        # "mmte/configs/task/confaide_text_color.yaml",
+        # "mmte/configs/task/confaide_text.yaml",
+        # "mmte/configs/task/vispriv_recognition_vispr.yaml",
+        # "mmte/configs/task/vispriv_recognition_vizwiz.yaml",
         "mmte/configs/task/visual_leakage_protected.yaml",
         "mmte/configs/task/visual_leakage.yaml",
     ]
@@ -27,14 +27,13 @@ if __name__ == '__main__':
             print(config)
             print(cfg)
 
-            task_id = cfg.get('task_id')
             model_id = cfg.get('model_id')
             dataset_id = cfg.get('dataset_id')
             log_file = cfg.get('log_file')
             method_cfg = cfg.get('method_cfg', {})
-            evaluators_cfg = cfg.get('evaluators_cfg', {})
+            evaluator_seq_cfgs = cfg.get('evaluator_seq_cfgs', [])
             
-            runner = BaseTask(task_id=task_id, dataset_id=dataset_id, model_id=model_id, method_cfg=method_cfg, log_file=log_file, evaluators_cfg=evaluators_cfg)
+            runner = BaseTask(dataset_id=dataset_id, model_id=model_id, method_cfg=method_cfg, log_file=log_file, evaluator_seq_cfgs=evaluator_seq_cfgs)
             runner.pipeline()
 
 

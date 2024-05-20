@@ -1,4 +1,3 @@
-task_id: "confaide-text-color"
 dataset_id: "confaide-text"
 model_id: "llava-v1.5-7b"
 
@@ -13,6 +12,10 @@ method_cfg:
   }
 log_file: "./confaide-text-color.log"
 
-evaluators_cfg:
-  rule_match_and_score_eval:
-    metrics_cfg: { pearson_corr: {}, failure: {} }
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_match_and_score_eval":
+        { metrics_cfg: { pearson_corr: {}, failure: {} } },
+    },
+  ]

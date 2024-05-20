@@ -5,17 +5,16 @@ from mmte.datasets.base import BaseDataset, collate_fn
 from mmte.utils.registry import registry
 from mmte.methods.base import BaseMethod
 from mmte.models.base import BaseChat
-from mmte.evaluators.base import BaseEvaluator
+from mmte.evaluators.base import BaseEvaluator, SequentialEvaluator
 import warnings
 import json
 
 class BaseTask(ABC):    
-    def __init__(self, task_id: str, dataset_id: str, model_id: str, method_cfg: Optional[Dict] = {}, evaluators_cfg: Dict = {}, log_file: Optional[str] = None) -> None:
+    def __init__(self, dataset_id: str, model_id: str, method_cfg: Optional[Dict] = {}, evaluator_seq_cfgs: List = [], log_file: Optional[str] = None) -> None:
         self.dataset_id = dataset_id
         self.model_id = model_id
-        self.task_id = task_id
         self.method_cfg = method_cfg
-        self.evaluators_cfg = evaluators_cfg
+        self.evaluator_seq_cfgs = evaluator_seq_cfgs
         self.log_file = log_file
     
     def get_handlers(self) -> None:
@@ -40,12 +39,11 @@ class BaseTask(ABC):
         method = method_cls(method_id, **method_kwargs)
         return method
     
-    def get_evaluators(self) -> List[BaseEvaluator]:
+    def get_evaluators(self) -> List[SequentialEvaluator]:
         evaluators = []
-        for evaluator_id, evaluator_kwargs in self.evaluators_cfg.items():
-            evaluator_cls = registry.get_evaluator_class(evaluator_id)
-            evaluator = evaluator_cls(evaluator_id, **evaluator_kwargs)
-            evaluators.append(evaluator)
+
+        for evaluator_seq_cfg in self.evaluator_seq_cfgs:
+            evaluators.append(SequentialEvaluator(evaluator_seq_cfg=evaluator_seq_cfg))
         return evaluators
 
     def get_dataset(self) -> BaseDataset:
@@ -68,9 +66,35 @@ class BaseTask(ABC):
                 if key in results.keys():
                     warnings.warn(f"{key} already exists in results.")
             results.update(result)
+            
+        contents: Sequence[str] = [response['content'] for response in responses]
+        extra: Sequence[str] = [response['extra'] for response in responses]
+        results.update(
+            {
+                
+                'content': contents if any(contents) else None,
+                'pred': preds if any(preds) else None,
+                'label': labels if any(labels) else None,
+                'extra': extra if any(extra) else None,
+            }
+        )
         return results
 
     def save_results(self, results: Dict[str, Any]) -> None:
+        scatter_keys = [key for key, value in results.items() if isinstance(value, Sequence)]
+        if scatter_keys:
+            seq_len = len(results[scatter_keys[0]])
+            for key in scatter_keys:
+                assert len(results[key]) == seq_len
+        
+        per_sample_results = []
+        for idx in range(seq_len):
+            per_sample_result = {}
+            for key in scatter_keys:
+                per_sample_result[key] = results[key][idx]
+            per_sample_results.append(per_sample_result)
+
+        results['per_sample_results'] = per_sample_results
         if self.log_file is not None:
             with open(self.log_file, "w") as f:
                 json.dump(results, f, indent=4)
