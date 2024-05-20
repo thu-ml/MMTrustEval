@@ -5,15 +5,16 @@ from mmte.datasets.base import BaseDataset, collate_fn
 from mmte.utils.registry import registry
 from mmte.methods.base import BaseMethod
 from mmte.models.base import BaseChat
-from mmte.evaluators.base import BaseEvaluator, SequentialEvaluator
+from mmte.evaluators.base import SequentialEvaluator
 import warnings
 import json
 
 class BaseTask(ABC):    
-    def __init__(self, dataset_id: str, model_id: str, method_cfg: Optional[Dict] = {}, evaluator_seq_cfgs: List = [], log_file: Optional[str] = None) -> None:
+    def __init__(self, dataset_id: str, model_id: str, method_cfg: Optional[Dict] = {}, dataset_cfg: Optional[Dict] = {}, evaluator_seq_cfgs: List = [], log_file: Optional[str] = None) -> None:
         self.dataset_id = dataset_id
         self.model_id = model_id
         self.method_cfg = method_cfg
+        self.dataset_cfg = dataset_cfg
         self.evaluator_seq_cfgs = evaluator_seq_cfgs
         self.log_file = log_file
     
@@ -48,7 +49,7 @@ class BaseTask(ABC):
 
     def get_dataset(self) -> BaseDataset:
         dataset_cls: Type[BaseDataset] = registry.get_dataset_class(self.dataset_id)
-        dataset = dataset_cls(self.dataset_id, method_hook=self.method)
+        dataset = dataset_cls(self.dataset_id, method_hook=self.method, **self.dataset_cfg)
         return dataset
     
     def get_dataloader(self) -> DataLoader:
