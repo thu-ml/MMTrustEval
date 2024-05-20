@@ -1,6 +1,6 @@
 dataset_id: "vispr-leakage"
 model_id: "llava-v1.5-7b"
-log_file: "./vispr-leakage.log"
+log_file: "./logs/privacy/vispr-leakage.json"
 
 evaluator_seq_cfgs:
   [

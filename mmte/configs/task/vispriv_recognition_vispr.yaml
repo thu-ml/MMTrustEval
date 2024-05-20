@@ -1,6 +1,6 @@
 dataset_id: "vispr-recognition"
 model_id: "llava-v1.5-7b"
-log_file: "./vispriv-recognition-vispr.log"
+log_file: "./logs/privacy/vispriv-recognition-vispr.json"
 
 evaluator_seq_cfgs:
   [

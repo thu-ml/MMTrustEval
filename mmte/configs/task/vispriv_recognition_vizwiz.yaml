@@ -1,7 +1,7 @@
 dataset_id: "vizwiz-recognition"
 model_id: "llava-v1.5-7b"
 
-log_file: "./vispriv-recognition-vizwiz.log"
+log_file: "./logs/privacy/vispriv-recognition-vizwiz.json"
 
 evaluator_seq_cfgs:
   [
