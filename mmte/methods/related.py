@@ -5,7 +5,6 @@ from mmte import _OutputType, ImageTxtSample
 from mmte.utils.registry import registry
 from diffusers import DiffusionPipeline
 from PIL import Image
-import random
 import hashlib
 import torch
 import math
@@ -19,9 +18,8 @@ class RelatedGeneratedImage(BaseMethod):
     ckpt_path = '/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/stable-diffusion-xl-base-1.0'
 
     def __init__(self, method_id: str, img_dir: str, img_size: Tuple[int, int], lazy_mode: bool = True) -> None:
-        super().__init__(method_id)
+        super().__init__(method_id=method_id, lazy_mode=lazy_mode)
         self.img_dir = img_dir
-        self.lazy_mode = lazy_mode
         self.img_size = (img_size[1], img_size[0]) # (h, w) -> (w, h)
         os.makedirs(self.img_dir, exist_ok=True)
 
@@ -71,9 +69,8 @@ class RelatedTextEmbedImage(BaseMethod):
     font_path: str = "/data/zhangyichi/Trustworthy-MLLM/MMTrustEval/privacy_scripts/data/txt2img/FreeMonoBold.ttf"
 
     def __init__(self, method_id: str, img_dir: str, img_size: Optional[Tuple[int, int]] = None, lazy_mode: bool = True, font_size: int = 90, max_width: int = 1024) -> None:
-        super().__init__(method_id)
+        super().__init__(method_id=method_id, lazy_mode=lazy_mode)
         self.img_dir = img_dir
-        self.lazy_mode = lazy_mode
         self.img_size = (img_size[1], img_size[0]) # (h, w) -> (w, h)
         self.font_size = font_size
         self.max_width = max_width

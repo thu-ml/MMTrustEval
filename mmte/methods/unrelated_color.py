@@ -14,9 +14,8 @@ class UnrelatedColorImage(BaseMethod):
     method_ids: List[str] = ["unrelated-image-color"]
 
     def __init__(self, method_id: str, img_dir: str, img_size: Tuple[int, int], lazy_mode: bool = True) -> None:
-        super().__init__(method_id)
+        super().__init__(method_id=method_id, lazy_mode=lazy_mode)
         self.img_dir = img_dir
-        self.lazy_mode = lazy_mode
         self.img_size = (img_size[1], img_size[0]) # (h, w) -> (w, h)
         os.makedirs(self.img_dir, exist_ok=True)
 

@@ -1,3 +1,0 @@
-# IMAGE_DIR: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vispr/test2017
-IMAGE_DIR: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vispr/categorized
-ANNOTATION_FILE: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vispr/categorized/image_annotations.json

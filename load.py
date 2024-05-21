@@ -1,6 +1,3 @@
-from mmte.tasks.base import BaseTask
-from mmte.utils.registry import registry
-from mmte.evaluators.metrics import _supported_metrics
 from mmte.utils.utils import DictAction, merge_config
 import argparse
 import yaml
@@ -21,12 +18,6 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-print("models: ", registry.list_chatmodels())
-print("datasets: ", registry.list_datasets())
-print("methods: ", registry.list_methods())
-print("evaluators: ", registry.list_evaluators())
-print("metrics: ", list(_supported_metrics.keys()))
-
 
 if __name__ == '__main__':
     args = parse_args()
@@ -38,12 +29,4 @@ if __name__ == '__main__':
             cfg = merge_config(cfg, args.cfg_options)
         print(config)
         print(cfg)
-        model_id = cfg.get('model_id')
-        dataset_id = cfg.get('dataset_id')
-        log_file = cfg.get('log_file')
-        method_cfg = cfg.get('method_cfg', {})
-        dataset_cfg = cfg.get('dataset_cfg', {})
-        evaluator_seq_cfgs = cfg.get('evaluator_seq_cfgs', [])
-        
-        runner = BaseTask(dataset_id=dataset_id, model_id=model_id, method_cfg=method_cfg, dataset_cfg=dataset_cfg, log_file=log_file, evaluator_seq_cfgs=evaluator_seq_cfgs)
-        runner.pipeline()
+        import pdb; pdb.set_trace()

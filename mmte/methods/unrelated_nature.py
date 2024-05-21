@@ -17,9 +17,8 @@ class UnrelatedNatureImage(BaseMethod):
     nature_src_dir: str = '/data/zhangyichi/fangzhengwei/framework/data/unrelated_nature_images'
 
     def __init__(self, method_id: str, img_dir: str, img_size: Tuple[int, int], lazy_mode: bool = True, nature_src_dir: str = None) -> None:
-        super().__init__(method_id)
+        super().__init__(method_id=method_id, lazy_mode=lazy_mode)
         self.img_dir = img_dir
-        self.lazy_mode = lazy_mode
         self.img_size = (img_size[1], img_size[0]) # (h, w) -> (w, h)
         if nature_src_dir is not None:
             self.nature_src_dir = nature_src_dir

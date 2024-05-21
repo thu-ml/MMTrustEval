@@ -7,9 +7,10 @@ class BaseMethod(ABC):
     method_id: str
     method_ids: List[str]
     
-    def __init__(self, method_id: str) -> None:
+    def __init__(self, method_id: str, lazy_mode: bool = True) -> None:
         assert method_id in self.method_ids
         self.method_id = method_id
+        self.lazy_mode = lazy_mode
 
     @abstractmethod
     def run(self, data: _OutputType, **kwargs) -> _OutputType:

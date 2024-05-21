@@ -1,11 +1,11 @@
 dataset_ids=(
-    # "enron-email-text"
+    "enron-email-text"
     "enron-email-image-oneinfo"
-    # "enron-email-image-typeinfo"
-    # "enron-email-image-allinfo"
-    # "enron-email-unrelated-image-color"
-    # "enron-email-unrelated-image-nature"
-    # "enron-email-unrelated-image-noise"
+    "enron-email-image-typeinfo"
+    "enron-email-image-allinfo"
+    "enron-email-unrelated-image-color"
+    "enron-email-unrelated-image-nature"
+    "enron-email-unrelated-image-noise"
 )
 
 for dataset_id in "${dataset_ids[@]}";

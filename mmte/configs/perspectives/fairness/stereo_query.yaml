@@ -1,3 +1,0 @@
-name_list: '/data/zhangyichi/Trustworthy-MLLM/data/fairness/stereo_query.csv'
-image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/fairness/stereo_query_images'
-unrelated_image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/unrelated_images'
