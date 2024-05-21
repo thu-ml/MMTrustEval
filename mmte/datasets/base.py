@@ -4,7 +4,7 @@ from torch.utils.data import Dataset
 from mmte.methods.base import BaseMethod
 from mmte import _OutputType, ImageTxtSample, TxtSample
 
-def collate_fn(batch_data: _OutputType):
+def collate_fn(batch_data: List[_OutputType]):
     collate_batch_data = []
     for data in batch_data:    
         if isinstance(data, ImageTxtSample):

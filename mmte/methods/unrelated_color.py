@@ -47,7 +47,7 @@ class UnrelatedColorImage(BaseMethod):
         filename = self.hash(text) + '.png'
         filepath = os.path.join(self.img_dir, filename)
         if not self.lazy_mode or not os.path.exists(filepath):
-            UnrelatedColorImage.generate_color_image(size=self.img_size, output_path=filepath)
+            self.generate_color_image(size=self.img_size, output_path=filepath)
 
         return ImageTxtSample(image_path=filepath, text=text, target=data.target, extra=data.extra)
         
