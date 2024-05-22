@@ -50,9 +50,9 @@ project_root: `/data/zhangyichi/fangzhengwei/framework`
 
 
 
-<div style="text-align: center;">
-  <img src="README.assets/image-20240522145344912.png" alt="image-20240522145344912" style="width: 50%;">
-</div>
+<p align="center">
+  <img src="README.assets/image-20240522145344912.png" alt="image-20240522145344912" style="width: 40%;">
+</p>
 
 # Dataclass
 
