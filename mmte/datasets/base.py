@@ -36,10 +36,25 @@ def collate_fn(batch_data: List[_OutputType]):
     return collate_batch_data
 
 class BaseDataset(Dataset, ABC):
-    dataset_ids: Sequence[str] = []
-    dataset_config: Optional[str] = ""
+    """
+    Base class for datasets, __getitem__ function return Union[ImageTxtSample, TxtSample].
+    """
+
+    dataset_id: str # Identifier for the dataset
+    dataset_ids: Sequence[str] = [] # List of available datasets
+    dataset_config: Optional[str] = "" # dataset config path
 
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
+        """
+        Initializing dataset instance.
+        
+        Arguments:
+            dataset_id: Identifier for the dataset
+            method_hook: A method instance, which is used as a preprocess hook for __getitem__ funtion
+            kwargs: extra configurations
+            
+        """
+
         assert dataset_id in self.dataset_ids, f"Dataset {dataset_id} must be one of {self.dataset_ids}."
         self.dataset_id = dataset_id
         if method_hook:

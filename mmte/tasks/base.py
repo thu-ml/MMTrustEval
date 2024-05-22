@@ -145,7 +145,6 @@ class BaseTask(ABC):
     def pipeline(self) -> None:
         self.get_handlers()
         dataloader = self.get_dataloader()
-
         responses = self.generate(dataloader)
         results = self.eval(responses)
         self.save_results(results)
