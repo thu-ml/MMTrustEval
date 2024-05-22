@@ -199,3 +199,5 @@ tmp_dir/
 *.jsonl
 *.patch
 *.pth
+
+!README.assets/*
