@@ -58,7 +58,7 @@ class Vispr(BaseDataset):
         self.annotation_file: str = self.config.get('annotation_file', '')
         assert os.path.exists(self.image_dir)
 
-        if self.annotation_file.endswith('.jsonl'):
+        if self.annotation_file.endswith('.jsonl') or "vispr-leakage" in self.dataset_id:
             annotations = [json.loads(q) for q in open(self.annotation_file, "r")]
         else:
             annotations = json.load(open(self.annotation_file, 'r'))
