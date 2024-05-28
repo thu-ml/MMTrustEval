@@ -186,6 +186,7 @@ mmte/_metrics_bk/
 mmte/_tasks_bk/
 mmte/configs/datasets/extra/
 tmp_dir/
+comp/
 *.log
 *.out
 *.csv
@@ -200,4 +201,4 @@ tmp_dir/
 *.patch
 *.pth
 
-!README.assets/*
+!docs/structure/*
