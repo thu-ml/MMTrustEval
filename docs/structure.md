@@ -3,8 +3,6 @@
 
 ## Project Structure
 
-project_root: `/data/zhangyichi/fangzhengwei/framework`
-
 ```
 ├── mmte
 │   ├── __init__.py
