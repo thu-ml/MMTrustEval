@@ -5,3 +5,9 @@ from .vispr import Vispr
 from .vizwiz import VizWiz
 from .celeb import Celebrities
 from .enron_email import EnronEmailDataset
+from .ood_artistic import OODArtistic
+from .ood_sensor import OODSensor
+from .ood_text import OODText
+from .adversarial_text import AdvText
+from .adversarial_untarget import AdvUntarget
+from .adversarial_target import AdvTarget

@@ -169,3 +169,118 @@ class YesOrNoEvaluator(BaseEvaluator):
                 processed_preds.append(1)
 
         return processed_preds, labels
+
+
+@registry.register_evaluator()
+class ScoreEvaluator(BaseEvaluator):
+    evaluator_ids: List[str] = ['rule_score_eval']
+
+    values: Sequence[str] = ["0", "25", "50", "75", "100"]
+
+    def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any], fail_id: Union[float, np.ndarray] = 0, values: Optional[Sequence[str]] = None) -> None:
+        super().__init__(evaluator_id, metrics_cfg)
+        self.fail_id = fail_id
+        if values is not None:
+            self.values = values
+
+    @classmethod
+    def match_digit(self, text: str) -> Sequence[float]:
+        # match `digit` or `digit-digit`
+        value_pattern = r"(\d+(\.\d+)?)"
+        matches = re.findall(value_pattern, text)
+        matches = list(set(chain(*matches)))
+        matches = list(filter(lambda x: x != "", matches))
+        return matches
+
+    def process(self, preds: Sequence[Any], labels: Sequence[Any]) -> Tuple[Sequence[Any], Sequence[Any]]:
+        assert len(preds) == len(labels)
+
+        predicted_scores = []
+        for pred in preds:
+            assert isinstance(pred, str)
+            parsed_from_digit = list(set(self.match_digit(pred))) # Deduplication
+            
+            if len(parsed_from_digit) >= 1 and str(parsed_from_digit[0]) in self.values:
+                predicted_scores.append(float(parsed_from_digit[0]))
+            else:
+                predicted_scores.append(float(self.fail_id))
+        
+        return predicted_scores, labels
+
+@registry.register_evaluator()
+class ContainExactEvaluator(BaseEvaluator):
+    evaluator_ids: List[str] = ['rule_contain_exact_eval']
+
+    def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any]) -> None:
+        super().__init__(evaluator_id, metrics_cfg)
+
+    def process(self, preds: Sequence[Any], labels: Sequence[Any], **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
+        processed_preds = []
+        for pred, label in zip(preds, labels):
+            processed_preds.append(self.is_correct(pred, label))
+
+        return processed_preds, labels
+
+    def is_correct(self, response, gt_label):
+        if response is None:
+            return 0
+        response_lower = response.lower()
+        if 'positive' in response_lower and 'negative' in response_lower:
+            return 0
+        elif 'positive' in response_lower and gt_label=='1':
+            return 1
+        elif 'negative' in response_lower and gt_label=='0':
+            return 1
+        else:
+            return 0
+
+@registry.register_evaluator()
+class ContainAdvEvaluator(BaseEvaluator):
+    evaluator_ids: List[str] = ['rule_contain_adv_eval']
+    answer_mapping = {
+        "mnli": {"yes": "0", "maybe": "1", "no": "2"},
+        "mnli-mm": {"yes": "0", "maybe": "1", "no": "2"},
+        "qnli": {"yes": "0", "no": "1"},
+        "qqp": {"yes": "1", "no": "0"},
+        "rte": {"yes": "0", "no": "1"},
+        "sst2": {"negative": "0", "positive": "1"},
+    }
+
+    def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any]) -> None:
+        super().__init__(evaluator_id, metrics_cfg)
+
+    def process(self, preds: Sequence[Any], labels: Sequence[Any], **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
+        processed_preds = []
+        for pred, label in zip(preds, labels):
+            processed_preds.append(self.is_correct(pred, label))
+
+        return processed_preds, labels
+
+    def is_correct(self, response, label):
+        category, gt_label = label.split('->')[0], label.split('->')[1]
+        if response is None:
+            return 0
+        response_lower = response.lower()
+        if category=='sst2':
+            if 'negative' in response_lower and self.answer_mapping[category]['negative']==gt_label:
+                return 1
+            elif 'positive' in response_lower and self.answer_mapping[category]['positive']==gt_label:
+                return 1
+            else:
+                return 0
+        elif category in ['qnli', 'qqp', 'rte']:
+            if 'yes' in response_lower and self.answer_mapping[category]['yes']==gt_label:
+                return 1
+            elif 'no' in response_lower and self.answer_mapping[category]['no']==gt_label:
+                return 1
+            else:
+                return 0
+        else:
+            if 'yes' in response_lower and self.answer_mapping[category]['yes']==gt_label:
+                return 1
+            elif 'no' in response_lower and self.answer_mapping[category]['no']==gt_label:
+                return 1
+            elif 'maybe' in response_lower and self.answer_mapping[category]['maybe']==gt_label:
+                return 1
+            else:
+                return 0
