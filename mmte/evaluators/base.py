@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from typing import Dict, Any, Sequence, List, Tuple, Union
+from typing import Dict, Any, Sequence, List, Tuple, Union, Optional
 from mmte.evaluators.metrics import _supported_metrics
 from mmte.utils.registry import registry
 
@@ -18,16 +18,16 @@ class BaseEvaluator(ABC):
             metrics_cfg: config dict for metrics hooks, format: {metrics_id: metrics_kwargs, ...}
             
         """
-
         assert evaluator_id in self.evaluator_ids, f"Evaluator {self.evaluator_id} is not available. Only Evaluators in {self.evaluator_ids} can be used."
 
         self.evaluator_id = evaluator_id
+        
         self.metrics_cfg = metrics_cfg
         for metrics_id in self.metrics_cfg.keys():
             assert metrics_id in _supported_metrics.keys(), f"{metrics_id} is not supported."
 
     @abstractmethod
-    def process(self, preds: Sequence[Any], labels: Sequence[Any], **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
+    def process(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
         """
         1. Perform some processing on sequence data, mainly including scoring/text-extraction with chatmodel/classifier/rule-based, etc.
         2. Different evaluators can be concatenated, and the process function can be cascaded to perform multi-step processing on sequence data.
@@ -44,7 +44,7 @@ class BaseEvaluator(ABC):
         # no-op
         return preds, labels
     
-    def eval(self, preds: Sequence[Any], labels: Sequence[Any], **kwargs) -> Dict[str, Union[Sequence, float]]:
+    def eval(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, **kwargs) -> Dict[str, Union[Sequence, float]]:
         """
         Evaluate pipeline including data processing and metrics calculation.
         
@@ -57,6 +57,8 @@ class BaseEvaluator(ABC):
         """
 
         processed_preds, processed_labels = self.process(preds, labels)
+        # print("preds",processed_preds)
+        # print("labels",processed_labels)
         results = {}
 
         for metrics_id, kwargs in self.metrics_cfg.items():
@@ -92,7 +94,7 @@ class SequentialEvaluator:
         self.evaluator_seq = evaluator_seq
         self.keyname_prefix = "->".join(evaluator_cls_names)
     
-    def eval(self, preds: Sequence[Any], labels: Sequence[Any], **kwargs) -> Dict[str, Union[Sequence, float]]:
+    def eval(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, **kwargs) -> Dict[str, Union[Sequence, float]]:
         """
         Evaluate pipeline including data processing and metrics calculation.
         

@@ -1,0 +1,16 @@
+dataset_id: "stereo-classify-image"
+model_id: "llava-v1.5-7b"
+log_file: "./logs/fairness/stereo-classify-image.json"
+
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_contain_eval":
+        {
+          metrics_cfg:
+            {
+              pred_mean: {},
+            },
+        },
+    },
+  ]

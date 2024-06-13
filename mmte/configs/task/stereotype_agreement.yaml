@@ -1,0 +1,16 @@
+dataset_id: "stereo-agreement-text"
+model_id: "llava-v1.5-7b"
+log_file: "./logs/fairness/stereo-agreement-text.json"
+
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_yes_or_no_eval":
+        {
+          metrics_cfg:
+            {
+              pred_mean: {},
+            },
+        },
+    },
+  ]

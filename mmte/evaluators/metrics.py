@@ -39,6 +39,36 @@ def failure(y_true, y_pred, fails_num: Optional[Union[float, int]] = np.nan):
         failure = (x == fails_num).sum() / x.size
     return failure
 
+def iou_judge(self, box1_list, box2_list):
+    #TODO:目前只针对单个box计算，并不是对所有全部结果的统一计算，需要添加遍历和判断逻辑（iou>0.5则cnt+=1）
+    cnt = 0
+    for i in range(len(box1_list)):
+        x1_min, y1_min, x1_max, y1_max = box1[i]
+        x2_min, y2_min, x2_max, y2_max = box2[i]
+        # print(x1_min, y1_min, x1_max, y1_max, x2_min, y2_min, x2_max, y2_max)
+        x_inter_min = max(x1_min, x2_min)
+        y_inter_min = max(y1_min, y2_min)
+        x_inter_max = min(x1_max, x2_max)
+        y_inter_max = min(y1_max, y2_max)
+        # print(x_inter_min,y_inter_min,x_inter_max,y_inter_max)
+        inter_width = max(0, x_inter_max - x_inter_min)
+        inter_height = max(0, y_inter_max - y_inter_min)
+        inter_area = inter_width * inter_height 
+        box1_area = (x1_max - x1_min) * (y1_max - y1_min)
+        box2_area = (x2_max - x2_min) * (y2_max - y2_min)
+        union_area = box1_area + box2_area - inter_area
+        # print("area",inter_area, box1_area, box2_area)
+        if inter_area == 0 or union_area == 0:
+            iou = 0
+        else:
+            iou = inter_area / union_area
+        print("iou",iou)
+        if iou > 0.5:
+            print("success grounding!")
+            cnt += 1
+    grounding_rate = (cnt*1.0/len(box1_list)) *100.0       
+    return grounding_rate
+
 _supported_metrics = {
     # aggregation op
     "pred_no_op": pred_no_op,
@@ -52,4 +82,5 @@ _supported_metrics = {
     "f1_score": f1_score,
     "pearson_corr": pearson_corr,
     "failure": failure,
+    "iou_judge": iou_judge
 }

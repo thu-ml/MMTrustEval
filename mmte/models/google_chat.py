@@ -62,16 +62,19 @@ class GoogleChat(BaseChat):
         
     def chat(self, messages: List, **generation_kwargs):
         conversation = []
+        multimodal = False
         for message in messages:
             if message["role"] in ["system", "user", "assistant"]:
                 if isinstance(message['content'], dict):
-                    
+                    multimodal = True
                     # multimodal content
                     text = message['content']['text']
                     image_path = message['content']['image_path']
                     if os.path.exists(image_path):
                         local_image = image_path
                     image = Image.open(local_image)
+                    if image.mode != 'RGB':
+                        image = image.convert('RGB')
                     
                     content = [text, image]
                 else:
@@ -81,6 +84,14 @@ class GoogleChat(BaseChat):
                 conversation.append({"role": message["role"], "parts": content})
             else:
                 raise ValueError("Unsupported role. Only system, user and assistant are supported.")
+        
+        if multimodal and 'vision' not in self.model_id:
+            self.model_id = 'gemini-pro-vision'
+            self.client = genai.GenerativeModel(self.model_id)
+        if not multimodal and 'vision' in self.model_id:
+            self.model_id = 'gemini-pro'
+            self.client = genai.GenerativeModel(self.model_id)
+        
         
         generation_config = {}
         if "stop_sequences" in generation_kwargs:
@@ -112,7 +123,7 @@ class GoogleChat(BaseChat):
                 finish_reason = to_finish_reason(response.candidates[0].finish_reason)
             except Exception as e:
                 print(f"Error in response extraction: {e}")
-                pass
+                response_message = f"Error in response extraction: {e}"
             
         
         

@@ -60,7 +60,7 @@ class QwenMaxChat(BaseChat):
 
         messages = transform_messages(messages)
         print(messages)
-        response = dashscope.MultiModalConversation.call(model='qwen-vl-plus',
+        response = dashscope.MultiModalConversation.call(model='qwen-vl-max',
                                                         messages=messages)
         # The response status_code is HTTPStatus.OK indicate success,
         # otherwise indicate request is failed, you can get error code
@@ -73,6 +73,6 @@ class QwenMaxChat(BaseChat):
         else:
             print(response.code)  # The error code.
             print(response.message)  # The error message.
-            return Response(self.model_id, "API FAILED", None, None)
+            return Response(self.model_id, f"Error in generation:{response.message}", None, None)
 
     

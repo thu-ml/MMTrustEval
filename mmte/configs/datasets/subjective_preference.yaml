@@ -1,0 +1,2 @@
+image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/fairness/subjective_choice_images'
+json_dir: '/data/zhangyichi/Trustworthy-MLLM/data/fairness/preference.json'

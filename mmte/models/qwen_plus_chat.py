@@ -60,18 +60,21 @@ class QwenPlusChat(BaseChat):
 
         messages = transform_messages(messages)
         response = dashscope.MultiModalConversation.call(model='qwen-vl-plus',
-                                                        messages=messages)
+                                                        messages=messages, seed=1234)
         # The response status_code is HTTPStatus.OK indicate success,
         # otherwise indicate request is failed, you can get error code
         # and message from code and message.
-        if response.status_code == HTTPStatus.OK:                    
-            response_message = response.output.choices[0].message.content[0]['text']
+        if response.status_code == HTTPStatus.OK:              
+            if 'text' in response.output.choices[0].message.content[0].keys():
+                response_message = response.output.choices[0].message.content[0]['text']
+            elif 'box' in response.output.choices[0].message.content[0].keys():
+                response_message = response.output.choices[0].message.content[0]['box']
             finish_reason = response.output.choices[0].finish_reason
             logprobs = None
             return Response(self.model_id, response_message, logprobs, finish_reason)
         else:
             print(response.code)  # The error code.
             print(response.message)  # The error message.
-            return Response(self.model_id, "API FAILED", None, None)
+            return Response(self.model_id, f"Error in generation:{response.message}", None, None)
 
     

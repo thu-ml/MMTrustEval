@@ -1,0 +1,18 @@
+dataset_id: "vision-preference"
+model_id: "llava-v1.5-7b"
+log_file: "./logs/fairness/vision-preference-plain.json"
+
+dataset_cfg: 
+  force_prompt: False
+
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_reject_template_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
+    },
+    {
+      "classifer_reject_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
+    },
+  ]

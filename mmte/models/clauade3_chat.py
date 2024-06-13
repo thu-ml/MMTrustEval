@@ -14,25 +14,26 @@ import imghdr
 
 def encode_image(image_path: str):
     buffer = io.BytesIO()
-    with open(image_path, "rb") as image_file:
-        img_data = base64.b64encode(image_file.read())
         
-        img = Image.open(io.BytesIO(base64.b64decode(img_data))).convert('RGB')
-        print(img.size)
-        if img.width>400 or img.height>400:
-            if img.width > img.height:
-                new_width = 400
-                concat = float(new_width/float(img.width))
-                size = int((float(img.height)*float(concat)))
-                img = img.resize((new_width, size), Image.LANCZOS)
-            else:
-                new_height = 400
-                concat = float(new_height/float(img.height))
-                size = int((float(img.width)*float(concat)))
-                img = img.resize((size, new_height), Image.LANCZOS)
-            img.save(buffer, format=imghdr.what(image_path))
-            img_data = base64.b64encode(buffer.getvalue())
-        return img_data.decode('utf-8')
+    img = Image.open(image_path).convert('RGB')
+    print(img.size)
+    if img.width>400 or img.height>400:
+        if img.width > img.height:
+            new_width = 400
+            concat = float(new_width/float(img.width))
+            new_height = int((float(img.height)*float(concat)))
+        else:
+            new_height = 400
+            concat = float(new_height/float(img.height))
+            new_width = int((float(img.width)*float(concat)))
+        img = img.resize((new_width, new_height), Image.LANCZOS)
+    
+    format = imghdr.what(image_path)
+    if not format:
+        format = 'JPEG'
+    img.save(buffer, format=format)
+    img_data = base64.b64encode(buffer.getvalue())
+    return img_data.decode('utf-8')
 
 @registry.register_chatmodel()
 class ClaudeChat(BaseChat):
@@ -63,7 +64,10 @@ class ClaudeChat(BaseChat):
                     # multimodal content
                     text = message['content']['text']
                     image_data = encode_image(message['content']['image_path'])
-                    image_media_type = "image/{}".format(imghdr.what(message['content']['image_path']))
+                    format = imghdr.what(message['content']['image_path'])
+                    if not format:
+                        format = 'jpeg'
+                    image_media_type = "image/{}".format(format)
                     content = [
                         {
                             "type": "image",
@@ -95,6 +99,7 @@ class ClaudeChat(BaseChat):
             "model": self.model_id,
             "messages": conversation,
             "max_tokens": generation_kwargs.get("max_new_tokens"),
+            "temperature": 0,
         }
 
 
@@ -104,11 +109,11 @@ class ClaudeChat(BaseChat):
                 response = self.client.messages.create(**raw_request)
                 break
             except Exception as e:
-                response = None
-                print(e)
+                print(f"Error in generation: {e}")
+                response = f"Error in generation: {e}"
                 time.sleep(self.timeout)
-        if response is None:
-            return Response(self.model_id, "API FAILED", None, None)
+        if isinstance(response, str):
+            return Response(self.model_id, response, None, None)
         response_message = response.content[0].text
         finish_reason = response.stop_reason
         logprobs = None
