@@ -43,7 +43,13 @@ if __name__ == '__main__':
         log_file = cfg.get('log_file')
         method_cfg = cfg.get('method_cfg', {})
         dataset_cfg = cfg.get('dataset_cfg', {})
+        generation_kwargs = cfg.get('generation_kwargs', {})
         evaluator_seq_cfgs = cfg.get('evaluator_seq_cfgs', [])
         
-        runner = BaseTask(dataset_id=dataset_id, model_id=model_id, method_cfg=method_cfg, dataset_cfg=dataset_cfg, log_file=log_file, evaluator_seq_cfgs=evaluator_seq_cfgs)
+        if 'max_new_tokens' not in generation_kwargs.keys():
+            generation_kwargs['max_new_tokens'] = 50
+        if 'do_sample' not in generation_kwargs.keys(): 
+            generation_kwargs['do_sample'] = False
+        
+        runner = BaseTask(dataset_id=dataset_id, model_id=model_id, method_cfg=method_cfg, dataset_cfg=dataset_cfg, generation_kwargs=generation_kwargs, log_file=log_file, evaluator_seq_cfgs=evaluator_seq_cfgs)
         runner.pipeline()

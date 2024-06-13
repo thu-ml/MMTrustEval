@@ -10,12 +10,13 @@ import warnings
 import json
 
 class BaseTask(ABC):    
-    def __init__(self, dataset_id: str, model_id: str, method_cfg: Optional[Dict] = {}, dataset_cfg: Optional[Dict] = {}, evaluator_seq_cfgs: List = [], log_file: Optional[str] = None) -> None:
+    def __init__(self, dataset_id: str, model_id: str, method_cfg: Optional[Dict] = {}, dataset_cfg: Optional[Dict] = {}, generation_kwargs: Optional[Dict] = {}, evaluator_seq_cfgs: List = [], log_file: Optional[str] = None) -> None:
         self.dataset_id = dataset_id
         self.model_id = model_id
         self.method_cfg = method_cfg
         self.dataset_cfg = dataset_cfg
         self.evaluator_seq_cfgs = evaluator_seq_cfgs
+        self.generation_kwargs = generation_kwargs
         self.log_file = log_file
     
     def get_handlers(self) -> None:
@@ -130,7 +131,7 @@ class BaseTask(ABC):
                 target = data['target']
                 extra: Dict[str, Any] = data['extra']
             
-                response = self.model.chat(messages=message, max_new_tokens=50, do_sample=False, **generate_kwargs)
+                response = self.model.chat(messages=message, **generate_kwargs)
                 output = {
                     "content": message[0]['content'],
                     "response": response.content,
@@ -145,6 +146,6 @@ class BaseTask(ABC):
     def pipeline(self) -> None:
         self.get_handlers()
         dataloader = self.get_dataloader()
-        responses = self.generate(dataloader)
+        responses = self.generate(dataloader, **self.generation_kwargs)
         results = self.eval(responses)
         self.save_results(results)
