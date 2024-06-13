@@ -200,10 +200,6 @@ class BaseChat(ABC):
 
 
 
-
-
-
-
 ##  Evaluators
 
 source_code: `mmte/evaluators/base.py`
@@ -372,55 +368,6 @@ _supported_metrics = {
 }
 
 ```
-
-
-
-
-
-##  Tasks
-
-### BaseTask
-
-source_code: `mmte/tasks/base.py`
-
-1. 支持从run_task.py入口one-cmd执行评测任务，无需继承BaseTask
-2. 通过从 `task_config.yaml`读取配置或者通过添加 `cfg-options`命令行参数对配置进行覆盖或者添加
-
-
-
-### task_config
-
-- model_id：模型的id
-
-- dataset_id：数据集的id
-
-- log_file：结果输出的json文件路径
-
-- method_cfg：method的config，{method_id: method_kwargs, ...}，default：{}
-
-- dataset_cfg：dataset_kwargs，初始化dataset时需要的额外参数，default：{}
-
-- evaluator_seq_cfgs：evaluator sequence的config，List中表示不同的evaluator sequence，一个sequence里面有多个evaluator，一个evaluator对应多个metrics，default：[]
-
-
-
-```python
-List[
-    {evaluator_id: 
-
-        {metrics_cfg: 
-
-            {metrics_id: metrics_kwargs},
-            {metrics_id: metrics_kwargs},
-            ...
-            
-        },
-        ...
-    },
-    ...
-]
-```
-
 
 
 

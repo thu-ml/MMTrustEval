@@ -1,9 +1,10 @@
-site_name: MMTE Framework
+site_name: MMTrustEval Docs
 nav:
   - Home: index.md
   - Structure: structure.md
   - Dataclass: dataclass.md
   - Modules: modules.md
+  - Task: task.md
   - Tutorial: tutorial.md
 theme: readthedocs
 # theme: material
