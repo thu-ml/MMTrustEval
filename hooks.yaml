@@ -1,0 +1,4 @@
+dynamic_hooks:
+  subtract: "hooks.prompt_templates"
+  add: "hooks.prompt_templates"
+      

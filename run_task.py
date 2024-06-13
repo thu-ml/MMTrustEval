@@ -2,6 +2,7 @@ from mmte.tasks.base import BaseTask
 from mmte.utils.registry import registry
 from mmte.evaluators.metrics import _supported_metrics
 from mmte.utils.utils import DictAction, merge_config
+from hooks_load import get_hooks
 import argparse
 import yaml
 
@@ -45,6 +46,7 @@ if __name__ == '__main__':
         dataset_cfg = cfg.get('dataset_cfg', {})
         generation_kwargs = cfg.get('generation_kwargs', {})
         evaluator_seq_cfgs = cfg.get('evaluator_seq_cfgs', [])
+        hooks = get_hooks(cfg)
         
         if 'max_new_tokens' not in generation_kwargs.keys():
             generation_kwargs['max_new_tokens'] = 50
