@@ -1,0 +1,46 @@
+pip install gdown
+
+
+#Instruction data
+gdown https://drive.google.com/uc?id=1OlNxY1eC9Fg10LEcEo1xS6cyOWYera_G
+
+#vicuna-7b
+gdown https://drive.google.com/uc?id=1WEX-jTOErhatRd6ijQhRqmvCsngADfPq
+
+
+#Images from VG dataset
+gdown https://drive.google.com/uc?id=1k9MNV-ImEV9BYEOeLEIb4uGEUZjd3QbM
+
+#The annotation file from vg dataset(dense captions and bounding boxes)
+gdown https://drive.google.com/uc?id=1h7_gsriFZTmDjQVtfClN-zLxFOCI9HSV
+
+#model checkpoint
+gdown https://drive.google.com/uc?id=11KJA8bSNi1yxgcijsG3xfBHvWe8C748F
+
+#More Instruction data
+gdown https://drive.google.com/uc?id=1E83vpCY8ofEDGFZLjpIjPWHHJvocrWVj
+
+#lora checkpoint of finetune mplug-owl
+gdown https://drive.google.com/uc?id=1049ICFtqg8_1Os7YQ8jpgQerQbMa6I_7
+
+
+#Instruction data without coordinates
+gdown https://drive.google.com/uc?id=1pWkxE2kqpys1VdwBi99ZXN6-XY5SqhwU
+
+#More Instruction data without coordinates
+gdown https://drive.google.com/uc?id=1NTxkuRPlvDn7aWaJpK_yb0p5r0cxPLNZ
+
+#chart instruction data
+gdown https://drive.google.com/uc?id=13j2U-ectsYGR92r6J5hPdhT8T5ezItHF
+
+#Chart insruction image
+gdown https://drive.google.com/uc?id=1Dey-undzW2Nl21CYLFSkP_Y4RrfRJkYd
+
+Since the website of Visual Genome dataset is down, we upload images for better reproducing our work in research community. 
+It must not be used for any other purposes. The use of these images must comply with the Visual Genome license. 
+This may be taken down at any time when requested by the original Visual Genome dataset owner or owners of the referenced images.
+
+
+
+
+
