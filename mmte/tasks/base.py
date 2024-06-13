@@ -60,7 +60,6 @@ class BaseTask(ABC):
     def eval(self, responses: List[Dict[str, Any]]) -> Dict[str, Union[float, Sequence]]:
         preds: Sequence[str] = [response['response'] for response in responses]
         labels: Sequence[str] = [response['target'] for response in responses]
-        
         results = {}
         for evaluator in self.evaluators:
             result = evaluator(preds, labels)

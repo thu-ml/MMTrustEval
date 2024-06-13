@@ -106,15 +106,10 @@ ipython_config.py
 #pdm.lock
 #   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
 #   in version control.
-<<<<<<< HEAD
-#   https://pdm.fming.dev/#use-with-ide
-.pdm.toml
-=======
 #   https://pdm.fming.dev/latest/usage/project/#working-with-version-control
 .pdm.toml
 .pdm-python
 .pdm-build/
->>>>>>> 54d4623 (Initial commit)
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
@@ -168,4 +163,16 @@ docker/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-docker/
+
+*.jsonl
+*.json
+*.pth
+*.tar
+*.zip
+*.model
+.DS_Store
+mmte/models/**/*.jpeg
+mmte/models/**/*.jpg
+mmte/models/**/*.svg
+mmte/models/**/*.png
+mmte/models/**/*.pdf
