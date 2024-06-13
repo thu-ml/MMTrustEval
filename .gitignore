@@ -106,8 +106,15 @@ ipython_config.py
 #pdm.lock
 #   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
 #   in version control.
+<<<<<<< HEAD
 #   https://pdm.fming.dev/#use-with-ide
 .pdm.toml
+=======
+#   https://pdm.fming.dev/latest/usage/project/#working-with-version-control
+.pdm.toml
+.pdm-python
+.pdm-build/
+>>>>>>> 54d4623 (Initial commit)
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
@@ -159,46 +166,4 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-data/
-*yichi*
-
-
-
-# jankin
-.mypy_cache/
-.DS_Store/
-__pycache__/
-mmte/models/InternVL/
-mmte/models/kosmos2/
-mmte/models/llama_adapter_v2/
-mmte/models/llava/
-mmte/models/llava_rlhf/
-mmte/models/LRV_Instruction/
-mmte/models/mic/
-mmte/models/minigpt4/
-mmte/models/mPLUG_Owl/
-mmte/models/otter/
-mmte/models/ShareGPT4V/
-data/
-mmte/_processes_bk/
-mmte/_perspectives_bk/
-mmte/_metrics_bk/
-mmte/_tasks_bk/
-mmte/configs/datasets/extra/
-tmp_dir/
-comp/
-*.log
-*.out
-*.csv
-*.xlsx
-*.svg
-*.jpg
-*.jpeg
-*.png
-*.txt
-*.json
-*.jsonl
-*.patch
-*.pth
-
-!docs/structure/*
+docker/

@@ -1,0 +1,3 @@
+DATA_ROOT: "/data/zhangyichi/Trustworthy-MLLM/data/fairness"
+image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/fairness/stereo_images'
+statement_dir: '/data/zhangyichi/Trustworthy-MLLM/data/fairness/stereo_statement.csv'

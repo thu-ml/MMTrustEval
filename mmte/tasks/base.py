@@ -10,13 +10,12 @@ import warnings
 import json
 
 class BaseTask(ABC):    
-    def __init__(self, dataset_id: str, model_id: str, method_cfg: Optional[Dict] = {}, dataset_cfg: Optional[Dict] = {}, generation_kwargs: Optional[Dict] = {}, evaluator_seq_cfgs: List = [], log_file: Optional[str] = None) -> None:
+    def __init__(self, dataset_id: str, model_id: str, method_cfg: Optional[Dict] = {}, dataset_cfg: Optional[Dict] = {}, evaluator_seq_cfgs: List = [], log_file: Optional[str] = None) -> None:
         self.dataset_id = dataset_id
         self.model_id = model_id
         self.method_cfg = method_cfg
         self.dataset_cfg = dataset_cfg
         self.evaluator_seq_cfgs = evaluator_seq_cfgs
-        self.generation_kwargs = generation_kwargs
         self.log_file = log_file
     
     def get_handlers(self) -> None:
@@ -61,6 +60,7 @@ class BaseTask(ABC):
     def eval(self, responses: List[Dict[str, Any]]) -> Dict[str, Union[float, Sequence]]:
         preds: Sequence[str] = [response['response'] for response in responses]
         labels: Sequence[str] = [response['target'] for response in responses]
+        
         results = {}
         for evaluator in self.evaluators:
             result = evaluator(preds, labels)
@@ -71,9 +71,25 @@ class BaseTask(ABC):
             
         contents: Sequence[str] = [response['content'] for response in responses]
         extra: Sequence[str] = [response['extra'] for response in responses]
+
+        #sub aspects
+        extra_values = set(extra)
+        for extra_value in extra_values:
+            preds_subset = [preds[i] for i in range(len(preds)) if extra[i] == extra_value]
+            labels_subset = [labels[i] for i in range(len(labels)) if extra[i] == extra_value]
+
+            subset_results = {}
+            for evaluator in self.evaluators:
+                subset_result = evaluator(preds_subset, labels_subset)
+                for key in subset_result.keys():
+                    subset_key = f"{key}_{extra_value}"
+                    if subset_key in results.keys():
+                        warnings.warn(f"{subset_key} already exists in results.")
+                    subset_results[subset_key] = subset_result[key]
+
+            results.update(subset_results)
         results.update(
             {
-                
                 'content': contents if any(contents) else None,
                 'pred': preds if any(preds) else None,
                 'label': labels if any(labels) else None,
@@ -86,15 +102,13 @@ class BaseTask(ABC):
         scatter_keys = [key for key, value in results.items() if isinstance(value, Sequence)]
         if scatter_keys:
             seq_len = len(results[scatter_keys[0]])
+            per_sample_results = []
             for key in scatter_keys:
-                assert len(results[key]) == seq_len
-        
-        per_sample_results = []
-        for idx in range(seq_len):
-            per_sample_result = {}
-            for key in scatter_keys:
-                per_sample_result[key] = results[key][idx]
-            per_sample_results.append(per_sample_result)
+                seq_len = len(results[key])  
+                for idx in range(seq_len):
+                    per_sample_result = {}
+                    per_sample_result[key] = results[key][idx]
+                per_sample_results.append(per_sample_result)
 
         results['per_sample_results'] = per_sample_results
         if self.log_file is not None:
@@ -131,13 +145,14 @@ class BaseTask(ABC):
                 target = data['target']
                 extra: Dict[str, Any] = data['extra']
             
-                response = self.model.chat(messages=message, **generate_kwargs)
+                response = self.model.chat(messages=message, max_new_tokens=200, do_sample=False, **generate_kwargs)
                 output = {
                     "content": message[0]['content'],
                     "response": response.content,
                     "target": target,
                     "extra": extra,
                 }
+                print("output:",output)
             
                 responses.append(output)
         
@@ -146,6 +161,6 @@ class BaseTask(ABC):
     def pipeline(self) -> None:
         self.get_handlers()
         dataloader = self.get_dataloader()
-        responses = self.generate(dataloader, **self.generation_kwargs)
+        responses = self.generate(dataloader)
         results = self.eval(responses)
         self.save_results(results)

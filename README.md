@@ -1,2 +1,2 @@
-source activate mllm-dev
-run `mkdocs serve` to see the docs.
+# MultiTrust
+A toolkit for benchmarking trustworthiness of multimodal large language models (MLLMs)
