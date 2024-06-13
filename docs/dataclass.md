@@ -1,24 +1,26 @@
 
 # Dataclass
 
-source_code: `mmte/__init__.py`
+We primarily define two dataclasses to contain the multimodal data to be processed by MLLMs, one for text-only samples and the other for image-text pairs. The detailed attributes in the dataclass are introduced below. 
 
-dataset的输出类型有两种：
-
-- `TxtSample`：支持纯文本的输入
-    - `text`：文本prompt
-    - `target`：groundtruth标签（默认为None）
-    - `extra`：其他参数（默认为None）
+- `TxtSample`: to support text-only sample
+    - `text`: prompt in text
+    - `target`: ground-truth label（Default: None）
+    - `extra`: auxiliary arguments that may help in the process afterwards, e.g., adversarial example generation（Default: None）
 
 
-- `ImageTxtSample`：支持多模态的输入
-    - `image_path`：图像路径
-    - `text`：文本prompt
-    - `target`：groundtruth标签（默认为None）
-    - `extra`：其他参数（默认为None）
+- `ImageTxtSample`: to support multimodal input, i.e., an image-text pair
+    - `image_path`: path to the image file
+    - `text`: prompt in text
+    - `target`: ground-truth label（Default: None）
+    - `extra`：auxiliary arguments that may help in the process afterwards, e.g., adversarial example generation（Default: None）
 
-> _OutputType = Union[ImageTxtSample, TxtSample] 
+The type of the output from an MLLM is also restricted to these two dataclasses.
 
+- `_OutputType = Union[ImageTxtSample, TxtSample]`
+
+
+Source code in `mmte/__init__.py`.
 ```python
 @dataclass
 class TxtSample:
