@@ -1,0 +1,21 @@
+dataset_id: "confaide-text"
+model_id: "llava-v1.5-7b"
+
+method_cfg:
+  {
+    unrelated-image-color:
+      {
+        "img_dir": "./logs/privacy/confaide-text-color",
+        "img_size": [50, 50],
+        "lazy_mode": True,
+      },
+  }
+log_file: "./logs/privacy/confaide-text-color.json"
+
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_match_and_score_eval":
+        { metrics_cfg: { pearson_corr: {}, failure: {} } },
+    },
+  ]

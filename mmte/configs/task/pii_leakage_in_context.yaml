@@ -1,0 +1,19 @@
+dataset_id: "enron-email-text"
+model_id: "llava-v1.5-7b"
+log_file: "./logs/privacy/pii-leakage-in-context.json"
+
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_reject_template_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
+    },
+    {
+      "classifer_reject_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
+    },
+    {
+      "rule_contain_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
+    },
+  ]
