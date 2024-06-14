@@ -8,13 +8,13 @@ evaluator_seq_cfgs:
     {
       "google_perspective_api_eval":
         { metrics_cfg: { pred_mean: {} },
-          api_key: Your-APIKey-Here
+          api_key: Your_API_KEY_Here
         },
     },
     {
       "openai_moderation_api_eval":
         { metrics_cfg: { pred_mean: {} },
-          api_key: Your-APIKey-Here
+          api_key: Your_API_KEY_Here
         },
     },
     {
