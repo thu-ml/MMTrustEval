@@ -40,7 +40,7 @@ class OODText(BaseDataset):
 
         dataset = []
         for category in self.categories:
-            for tid, each_text in enumerate(test_data_dict[category][:2]):
+            for tid, each_text in enumerate(test_data_dict[category]):
                 sentence = each_text['sentence']
                 label = each_text['label']
                 text_id = each_text['id']

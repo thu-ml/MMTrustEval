@@ -1,6 +1,6 @@
 dataset_id: "adv-untarget"
 model_id: "cogvlm-chat-hf"
-log_file: "./logs/robustness/adversarial-untarget.json"
+log_file: "./logs/robustness/adversarial-image-untarget.json"
 
 dataset_cfg: 
   generate_image: false
@@ -10,7 +10,7 @@ evaluator_seq_cfgs:
     {
       "chatmodel_score":
         { 
-          model_id: 'gpt-3.5-turbo',
+          model_id: 'gpt-4-1106-preview',
           prompt_template: "Given a chatbot's description of an image: '{}'. If it is stated in the description that there is a/an '{}'? Please answer 'Yes.' or 'No.'.",
           metrics_cfg: { pred_mean: {} },
           full_score: 'Yes.'

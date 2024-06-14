@@ -55,7 +55,7 @@ class AdvText(BaseDataset):
 
         dataset = []
         for category in self.categories:
-            for tid, each_text in enumerate(test_data_dict[category][:2]):
+            for tid, each_text in enumerate(test_data_dict[category]):
                 text_keys = self.task_to_keys[category]
                 prompt_template = self.task2prompt[category]
                 text_id = each_text['idx']

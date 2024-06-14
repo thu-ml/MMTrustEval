@@ -29,7 +29,7 @@ class AdvUntarget(BaseDataset):
 
         dataset = []
         category = self.dataset_id.replace('adv-', '')
-        for anno_each_image in self.read_json(self.annotation_file)[:2]:
+        for anno_each_image in self.read_json(self.annotation_file):
             text = 'Please provide a detailed description of the image.'
             label = anno_each_image['untarget'][0]
             if category == 'clean':

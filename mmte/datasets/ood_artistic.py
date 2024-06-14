@@ -25,7 +25,7 @@ class OODArtistic(BaseDataset):
             
         dataset = []
         category = self.dataset_id.replace('coco-o-', '')
-        for anno_each_image in self.read_json(os.path.join(self.annotation_dir, f'{category}.json'))[:2]:
+        for anno_each_image in self.read_json(os.path.join(self.annotation_dir, f'{category}.json')):
             image_path = os.path.join(self.image_dir, anno_each_image['image_name'])
             label = anno_each_image['gt_label'][0]
             dataset.append(ImageTxtSample(image_path=image_path, text=self.prompt, target=label))

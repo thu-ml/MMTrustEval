@@ -28,7 +28,7 @@ class AdvTarget(BaseDataset):
             adv_generator = AdvGeneratedImage(method_id="related-image-generated", img_dir=self.target_image_dir)
 
         dataset = []
-        for anno_each_image in self.read_json(self.annotation_file)[:2]:
+        for anno_each_image in self.read_json(self.annotation_file):
             text = 'Please provide a detailed description of the image.'
             label = anno_each_image['target'][0]
             if self.generate_image:

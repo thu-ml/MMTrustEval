@@ -23,10 +23,10 @@ class OODSensor(BaseDataset):
             
         dataset = []
         category = self.dataset_id.replace('benchlmm-', '')
-        for anno_each_image in self.read_json(os.path.join(self.annotation_dir, f'{category}.json'))[:2]:
+        for anno_each_image in self.read_json(os.path.join(self.annotation_dir, f'{category}.json')):
             image_path = os.path.join(self.image_dir, anno_each_image['image_name'])
             text = anno_each_image['question']
-            label = anno_each_image['question'] + '->' + anno_each_image['answer']
+            label = anno_each_image['question'] + '->' + str(anno_each_image['answer'])
             dataset.append(ImageTxtSample(image_path=image_path, text=text, target=label))
         self.dataset = dataset
 

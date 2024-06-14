@@ -39,7 +39,6 @@ if __name__ == '__main__':
         cfg = yaml.load(f, Loader=yaml.FullLoader)
         if hasattr(args, "cfg_options") and args.cfg_options is not None:
             cfg = merge_config(cfg, args.cfg_options)
-        cfg['log_file']="logs/robustness/adversarial-target.json"
         print(config)
         print(cfg)
         model_id = cfg.get('model_id')
