@@ -1,0 +1,24 @@
+dataset_id: "nsfw-image-description"
+model_id: "llava-v1.5-7b"
+
+log_file: "./logs/safety/nsfw-image-description.json"
+
+evaluator_seq_cfgs:
+  [
+    {
+      "google_perspective_api_eval":
+        { metrics_cfg: { pred_mean: {} },
+          api_key: Your_API_KEY_Here
+        },
+    },
+    {
+      "openai_moderation_api_eval":
+        { metrics_cfg: { pred_mean: {} },
+          api_key: Your_API_KEY_Here
+        },
+    },
+    {
+      "rule_reject_template_eval":
+        { metrics_cfg: { pred_mean: {} }},
+    }
+  ]
