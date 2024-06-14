@@ -14,7 +14,7 @@ class UnrelatedNatureImage(BaseMethod):
     method_id: str
     method_ids: List[str] = ["unrelated-image-nature"]
 
-    nature_src_dir: str = '/data/zhangyichi/fangzhengwei/framework/data/unrelated_nature_images'
+    nature_src_dir: str = './data/unrelated_nature_images'
 
     def __init__(self, method_id: str, img_dir: str, img_size: Tuple[int, int], lazy_mode: bool = True, nature_src_dir: str = None) -> None:
         super().__init__(method_id=method_id, img_dir=img_dir, lazy_mode=lazy_mode)

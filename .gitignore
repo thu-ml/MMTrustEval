@@ -154,8 +154,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-docker/
-
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
@@ -170,6 +168,7 @@ docker/
 *.tar
 *.zip
 *.model
+*.run
 .DS_Store
 mmte/models/**/*.jpeg
 mmte/models/**/*.jpg
@@ -178,3 +177,5 @@ mmte/models/**/*.png
 mmte/models/**/*.pdf
 
 logs/
+data
+playground

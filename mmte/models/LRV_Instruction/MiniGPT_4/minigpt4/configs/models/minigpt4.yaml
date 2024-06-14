@@ -12,7 +12,7 @@ model:
   # Q-Former
   num_query_token: 32
   # Vicuna
-  llama_model: "/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/vicuna-7b"
+  llama_model: "./playground/model_weights/vicuna-7b"
 
   # generation configs
   prompt: ""

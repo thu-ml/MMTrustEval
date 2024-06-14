@@ -15,7 +15,7 @@ class RelatedGeneratedImage(BaseMethod):
 
     method_id: str
     method_ids: List[str] = ["related-image-generated"]
-    ckpt_path = '/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/stable-diffusion-xl-base-1.0'
+    ckpt_path = './playground/model_weights/stable-diffusion-xl-base-1.0'
 
     def __init__(self, method_id: str, img_dir: str, img_size: Tuple[int, int], lazy_mode: bool = True) -> None:
         super().__init__(method_id=method_id, img_dir=img_dir, lazy_mode=lazy_mode)
@@ -65,7 +65,7 @@ class RelatedTextEmbedImage(BaseMethod):
 
     method_id: str
     method_ids: List[str] = ["related-image-txtembed"]
-    font_path: str = "/data/zhangyichi/Trustworthy-MLLM/MMTrustEval/privacy_scripts/data/txt2img/FreeMonoBold.ttf"
+    font_path: str = './data/fonts/FreeMonoBold.ttf'
 
     def __init__(self, method_id: str, img_dir: str, img_size: Optional[Tuple[int, int]] = None, lazy_mode: bool = True, font_size: int = 90, max_width: int = 1024) -> None:
         super().__init__(method_id=method_id, img_dir=img_dir, lazy_mode=lazy_mode)

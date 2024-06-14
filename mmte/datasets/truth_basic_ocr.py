@@ -1,5 +1,5 @@
 # import sys
-# sys.path.append('/data/zhangyichi/MMTrustEval-dev/yitong')
+# sys.path.append('.')
 from typing import Optional, Sequence, Dict
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
@@ -19,7 +19,7 @@ import sys
 class OcrData(BaseDataset):
     
     dataset_ids: Sequence[str] = ["g-basic-ocr"]
-    dataset_config: Optional[str] = "/data/zhangyichi/MMTrustEval-dev/yitong/mmte/configs/datasets/g-basic-ocr.yaml"
+    dataset_config: Optional[str] = "./mmte/configs/datasets/g-basic-ocr.yaml"
     
     prompt_template = "\n {Statement}\n Please directly answer its content without other information."
     

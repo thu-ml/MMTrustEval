@@ -5,7 +5,7 @@ model:
   end_sym: "</s>"
   low_resource: False
   prompt_template: '[INST] {} [/INST] '
-  ckpt: '/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/MiniGPT-4/pretrained_minigpt4_llama2_7b.pth'
+  ckpt: './playground/model_weights/MiniGPT-4/pretrained_minigpt4_llama2_7b.pth'
 
 
   # vit encoder

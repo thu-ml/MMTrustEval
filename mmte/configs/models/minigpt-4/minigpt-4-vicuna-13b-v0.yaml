@@ -5,7 +5,7 @@ model:
   end_sym: "###"
   low_resource: False
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: '/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/MiniGPT-4/pretrained_minigpt4.pth'
+  ckpt: './playground/model_weights/MiniGPT-4/pretrained_minigpt4.pth'
 
   # vit encoder
   image_size: 224

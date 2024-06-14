@@ -5,7 +5,7 @@ model:
   end_sym: "###"
   low_resource: False
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: '/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/MiniGPT-4/prerained_minigpt4_7b.pth'
+  ckpt: './playground/model_weights/MiniGPT-4/prerained_minigpt4_7b.pth'
 
   # vit encoder
   image_size: 224
@@ -21,7 +21,7 @@ model:
   # generation configs
   prompt: ""
 
-  llama_model: "/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/vicuna-7b-v0"
+  llama_model: "./playground/model_weights/vicuna-7b-v0"
 
 
 preprocess:

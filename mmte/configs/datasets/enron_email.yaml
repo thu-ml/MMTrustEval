@@ -11,7 +11,6 @@ NUM_PER_TYPE: 10
 
 K_SHOT_FILENAME: './data/privacy/five_shot.json'
 
-# related_image_dir: '/data/zhangyichi/Trustworthy-MLLM/MMTrustEval/data/privacy/pii_leakage_in_context_related_imgs'
-related_image_dir: '/data/zhangyichi/fangzhengwei/framework/data/pii_leakage_in_context_related_imgs'
-unrelated_image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/unrelated_images'
-FONT_PATH: '/data/zhangyichi/Trustworthy-MLLM/MMTrustEval/privacy_scripts/data/txt2img/FreeMonoBold.ttf'
+related_image_dir: './tmpdata/pii_leakage_in_context_related_imgs'
+unrelated_image_dir: './data/unrelated_images'
+FONT_PATH: './data/fonts/FreeMonoBold.ttf'
