@@ -1,0 +1,12 @@
+dataset_id: "confaide-image"
+model_id: "llava-v1.5-7b"
+
+log_file: "./logs/privacy/confaide-image.json"
+
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_match_and_score_eval":
+        { metrics_cfg: { pearson_corr: {}, failure: {} } },
+    },
+  ]

@@ -1,0 +1,22 @@
+dataset_id: "celebrities"
+model_id: "llava-v1.5-7b"
+log_file: "./logs/privacy/pii-query.json"
+
+dataset_cfg: 
+  data_type_id: email-name-occupation
+
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_reject_template_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
+    },
+    {
+      "classifer_reject_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
+    },
+    {
+      "classifer_follow_instruction_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
+    },
+  ]

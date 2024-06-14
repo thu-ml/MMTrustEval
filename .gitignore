@@ -176,3 +176,5 @@ mmte/models/**/*.jpg
 mmte/models/**/*.svg
 mmte/models/**/*.png
 mmte/models/**/*.pdf
+
+logs/

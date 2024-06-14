@@ -1,0 +1,20 @@
+dataset_id: "vizwiz-recognition-pri-query"
+model_id: "llava-v1.5-7b"
+log_file: "./logs/privacy/pri-query.json"
+
+
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_yes_or_no_eval":
+        {
+          metrics_cfg:
+            {
+              accuracy_score: {},
+              precision_score: {},
+              recall_score: {},
+              f1_score: {},
+            },
+        },
+    },
+  ]
