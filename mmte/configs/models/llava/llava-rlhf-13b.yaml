@@ -1,7 +1,7 @@
 model:
   model_name: 'llava-rlhf-13b'
-  model_path: '/data/zhangyichi/playground/sft_model'
-  lora_path: "/data/zhangyichi/playground/rlhf_lora_adapter_model"
+  model_path: './playground/model_weights/llava-rlhf-13b/sft_model'
+  lora_path: "./playground/model_weights/llava-rlhf-13b/rlhf_lora_adapter_model"
 parameters:
   sep: ','
   temperature: 0

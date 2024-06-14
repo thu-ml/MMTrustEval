@@ -19,7 +19,7 @@ class InternVLChat(BaseChat):
 
     # TODO: update model config
     MODEL_CONFIG = {
-        "InternVL-Chat-ViT-6B-Vicuna-13B": '/data/zhangyichi/Trustworthy-MLLM/MMTrustEval/mmte/configs/models/internvl/internvl_chat_vit_6b_vicuna_13b.yaml',
+        "InternVL-Chat-ViT-6B-Vicuna-13B": './configs/models/internvl/internvl_chat_vit_6b_vicuna_13b.yaml',
     }
     model_family = list(MODEL_CONFIG.keys())
 

@@ -1,2 +1,2 @@
-annotation_file: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vispr/vispr_question_gpt4_generated_chosen.json
-image_dir: /data/zhangyichi/Trustworthy-MLLM/data/privacy/data/vispr/test2017
+annotation_file: ./data/privacy/data/vispr/vispr_question_gpt4_generated_chosen.json
+image_dir: ./data/privacy/data/vispr/test2017

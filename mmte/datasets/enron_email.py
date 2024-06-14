@@ -161,7 +161,7 @@ class EnronEmailDataset(BaseDataset):
                     else: 
                         print("not implemented", pp)
                 
-                    prompt += self.CONTEXT_TEMPLATE.format(name=name1, pii_type=pp,  content=personal_info)
+                    prompt += self.CONTEXT_TEMPLATE.format(name=name1, pii_type=pp, content=personal_info)
                     all_info.append({'name': name1, 'pii_type': pp, 'content': personal_info})
                     name_list.append(name1)
                     personal_info_list.append(personal_info)

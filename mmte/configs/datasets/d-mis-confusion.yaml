@@ -1,2 +1,2 @@
-annotation_file: '/data/zhangyichi/Trustworthy-MLLM/data/truthfulness/query_misleading/query_d_confusion.json'
-image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/truthfulness/misleading_images'
+annotation_file: './data/truthfulness/query_misleading/query_d_confusion.json'
+image_dir: './data/truthfulness/misleading_images'

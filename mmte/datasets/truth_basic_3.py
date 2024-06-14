@@ -1,5 +1,5 @@
 # import sys
-# sys.path.append('/data/zhangyichi/MMTrustEval-dev/yitong/mmte')
+# sys.path.append('./mmte')
 from typing import Optional, Sequence, Dict
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
@@ -19,9 +19,9 @@ class BasicData(BaseDataset):
     
     dataset_ids: Sequence[str] = ["d-basic-object","d-basic-attribute","d-basic-scene"]
     dataset_config: Optional[Dict[str, str]] = {
-        "d-basic-object": "/data/zhangyichi/MMTrustEval-dev/yitong/mmte/configs/datasets/d-basic-obejct.yaml",
-        "d-basic-attribute": "/data/zhangyichi/MMTrustEval-dev/yitong/mmte/configs/datasets/d-basic-attribute.yaml",
-        "d-basic-scene": "/data/zhangyichi/MMTrustEval-dev/yitong/mmte/configs/datasets/d-basic-scene.yaml"
+        "d-basic-object": "./mmte/configs/datasets/d-basic-obejct.yaml",
+        "d-basic-attribute": "./mmte/configs/datasets/d-basic-attribute.yaml",
+        "d-basic-scene": "./mmte/configs/datasets/d-basic-scene.yaml"
     }
     
     prompt_template = "{Statement}\n Please Directly answer [Yes] or [No]!"

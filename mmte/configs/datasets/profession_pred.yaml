@@ -1,2 +1,2 @@
-image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/fairness/profession_images'
-anno_dir: '/data/zhangyichi/Trustworthy-MLLM/data/fairness/profess_prediction.csv'
+image_dir: './data/fairness/profession_images'
+anno_dir: './data/fairness/profess_prediction.csv'

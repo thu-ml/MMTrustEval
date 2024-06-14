@@ -1,5 +1,3 @@
-# import sys
-# sys.path.append('/data/zhangyichi/MMTrustEval-dev/yitong')
 from typing import Optional, Sequence, Dict
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
@@ -20,7 +18,7 @@ from PIL import Image
 class GroundData(BaseDataset):
     
     dataset_ids: Sequence[str] = ["g-basic-grounding"]
-    dataset_config: Optional[str] = "/data/zhangyichi/MMTrustEval-dev/yitong/mmte/configs/datasets/g-basic-grounding.yaml"
+    dataset_config: Optional[str] = "./mmte/configs/datasets/g-basic-grounding.yaml"
     
     prompt_template = "\n {Statement}\n Please directly answer its content without other information."
     

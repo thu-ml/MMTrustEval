@@ -1,6 +1,6 @@
 model:
   model_name: 'llava-v1.5-7b'
-  model_path: '/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/LVIS-Instruct4V-Nodetail-mix619k-7b'
+  model_path: './playground/model_weights/LVIS-Instruct4V-Nodetail-mix619k-7b'
 
 parameters:
   sep: ','

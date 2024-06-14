@@ -1,6 +1,6 @@
 model:
   model_name: 'llava-v1.5-7b'
-  model_path: '/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/llava-v1.5-7b'
+  model_path: './playground/model_weights/llava-v1.5-7b'
 
 parameters:
   sep: ','

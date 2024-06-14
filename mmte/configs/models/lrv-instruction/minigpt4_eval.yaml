@@ -6,9 +6,9 @@ model:
   max_txt_len: 160
   end_sym: "###"
   low_resource: False
-  prompt_path: "/data/zhangyichi/Trustworthy-MLLM/MMTrustEval/mmte/models/LRV_Instruction/MiniGPT_4/prompts/alignment.txt"
+  prompt_path: "./mmte/models/LRV_Instruction/MiniGPT_4/prompts/alignment.txt"
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: '/data/zhangyichi/Trustworthy-MLLM/playground/LRV-Instruction/checkpoint.pth'
+  ckpt: './playground/LRV-Instruction/checkpoint.pth'
 
   
 datasets:

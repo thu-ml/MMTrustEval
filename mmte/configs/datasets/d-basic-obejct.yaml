@@ -1,2 +1,2 @@
-annotation_file: '/data/zhangyichi/Trustworthy-MLLM/data/truthfulness/query_basic/query_d_existence.json'
-image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/truthfulness/basic_images/object'
+annotation_file: './data/truthfulness/query_basic/query_d_existence.json'
+image_dir: './data/truthfulness/basic_images/object'
