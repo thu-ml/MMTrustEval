@@ -5,7 +5,7 @@ import torch
 from PIL import Image
 from transformers import StoppingCriteria
 
-from share4v.constants import IMAGE_TOKEN_INDEX
+from mmte.models.ShareGPT4V.share4v.constants import IMAGE_TOKEN_INDEX
 
 
 def load_image_from_base64(image):

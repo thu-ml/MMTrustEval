@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 import torch
 
-from share4v.constants import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
+from mmte.models.ShareGPT4V.share4v.constants import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
                                DEFAULT_IMAGE_PATCH_TOKEN, IGNORE_INDEX,
                                IMAGE_TOKEN_INDEX)
 

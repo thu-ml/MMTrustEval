@@ -3,7 +3,7 @@ import argparse
 import json
 import re
 
-from share4v.eval.m4c_evaluator import TextVQAAccuracyEvaluator
+from mmte.models.ShareGPT4V.share4v.eval.m4c_evaluator import TextVQAAccuracyEvaluator
 
 
 def get_args():

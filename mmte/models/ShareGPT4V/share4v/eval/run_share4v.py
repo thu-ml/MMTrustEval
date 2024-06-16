@@ -5,13 +5,13 @@ import requests
 import torch
 from PIL import Image
 
-from share4v.constants import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
+from mmte.models.ShareGPT4V.share4v.constants import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
                                DEFAULT_IMAGE_TOKEN, IMAGE_TOKEN_INDEX)
-from share4v.conversation import SeparatorStyle, conv_templates
-from share4v.mm_utils import (KeywordsStoppingCriteria,
+from mmte.models.ShareGPT4V.share4v.conversation import SeparatorStyle, conv_templates
+from mmte.models.ShareGPT4V.share4v.mm_utils import (KeywordsStoppingCriteria,
                               get_model_name_from_path, tokenizer_image_token)
-from share4v.model.builder import load_pretrained_model
-from share4v.utils import disable_torch_init
+from mmte.models.ShareGPT4V.share4v.model.builder import load_pretrained_model
+from mmte.models.ShareGPT4V.share4v.utils import disable_torch_init
 
 
 def load_image(image_file):
