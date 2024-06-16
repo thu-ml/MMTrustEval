@@ -21,9 +21,9 @@ import torch
 
 
 try:
-    from flash_attn.flash_attn_interface import flash_attn_unpadded_func
+    from flash_attn.flash_attn_interface import flash_attn_varlen_func
 
-    flash_attn_func = flash_attn_unpadded_func
+    flash_attn_func = flash_attn_varlen_func
 except ImportError:
     flash_attn_func = None
     print("install flash-attn first.")

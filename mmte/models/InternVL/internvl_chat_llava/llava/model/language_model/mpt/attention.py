@@ -100,7 +100,7 @@ def flash_attn_fn(query, key, value, n_heads, past_key_value=None, softmax_scale
         value_unpad = value_unpad.expand(value_unpad.size(0), n_heads, value_unpad.size(-1))
     dropout_p = dropout_p if training else 0.0
     reset_is_causal = _reset_is_causal(query.size(1), key.size(1), is_causal)
-    output_unpad = flash_attn_interface.flash_attn_unpadded_func(query_unpad, key_unpad, value_unpad, cu_seqlens_q, cu_seqlens_k, max_seqlen_q, max_seqlen_k, dropout_p, softmax_scale=softmax_scale, causal=reset_is_causal, return_attn_probs=needs_weights)
+    output_unpad = flash_attn_interface.flash_attn_varlen_func(query_unpad, key_unpad, value_unpad, cu_seqlens_q, cu_seqlens_k, max_seqlen_q, max_seqlen_k, dropout_p, softmax_scale=softmax_scale, causal=reset_is_causal, return_attn_probs=needs_weights)
     output = bert_padding.pad_input(rearrange(output_unpad, 'nnz h d -> nnz (h d)'), indices_q, batch_size, seqlen)
     return (output, None, past_key_value)
 
