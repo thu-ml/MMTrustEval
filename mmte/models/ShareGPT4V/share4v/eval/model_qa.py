@@ -7,8 +7,8 @@ import torch
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer, StoppingCriteria
 
-from share4v.conversation import default_conversation
-from share4v.utils import disable_torch_init
+from mmte.models.ShareGPT4V.share4v.conversation import default_conversation
+from mmte.models.ShareGPT4V.share4v.utils import disable_torch_init
 
 
 # new stopping implementation

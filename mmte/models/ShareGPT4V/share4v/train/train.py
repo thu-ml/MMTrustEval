@@ -29,12 +29,12 @@ from PIL import Image
 from torch.utils.data import Dataset
 from transformers import AutoConfig
 
-from share4v import conversation as conversation_lib
-from share4v.constants import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
+from mmte.models.ShareGPT4V.share4v import conversation as conversation_lib
+from mmte.models.ShareGPT4V.share4v.constants import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
                                DEFAULT_IMAGE_TOKEN, IGNORE_INDEX)
-from share4v.mm_utils import tokenizer_image_token
-from share4v.model import *
-from share4v.train.share4v_trainer import Share4VTrainer
+from mmte.models.ShareGPT4V.share4v.mm_utils import tokenizer_image_token
+from mmte.models.ShareGPT4V.share4v.model import *
+from mmte.models.ShareGPT4V.share4v.train.share4v_trainer import Share4VTrainer
 
 local_rank = None
 

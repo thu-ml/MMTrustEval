@@ -7,8 +7,8 @@ import argparse
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from share4v.model import *
-from share4v.model.utils import auto_upgrade
+from mmte.models.ShareGPT4V.share4v.model import *
+from mmte.models.ShareGPT4V.share4v.model.utils import auto_upgrade
 
 
 def consolidate_ckpt(src_path, dst_path):

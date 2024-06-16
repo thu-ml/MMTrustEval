@@ -2,7 +2,7 @@ import os
 import argparse
 import json
 
-from share4v.eval.m4c_evaluator import EvalAIAnswerProcessor
+from mmte.models.ShareGPT4V.share4v.eval.m4c_evaluator import EvalAIAnswerProcessor
 
 
 def parse_args():

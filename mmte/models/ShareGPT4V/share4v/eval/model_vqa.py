@@ -5,11 +5,11 @@ import json
 from tqdm import tqdm
 import shortuuid
 
-from share4v.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
-from share4v.conversation import conv_templates, SeparatorStyle
-from share4v.model.builder import load_pretrained_model
-from share4v.utils import disable_torch_init
-from share4v.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
+from mmte.models.ShareGPT4V.share4v.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
+from mmte.models.ShareGPT4V.share4v.conversation import conv_templates, SeparatorStyle
+from mmte.models.ShareGPT4V.share4v.model.builder import load_pretrained_model
+from mmte.models.ShareGPT4V.share4v.utils import disable_torch_init
+from mmte.models.ShareGPT4V.share4v.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
 
 from PIL import Image
 import math
