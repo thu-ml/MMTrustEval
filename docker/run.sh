@@ -69,7 +69,7 @@ docker commit -a "jankinf" -m "mllm-dev env" af79020a95c9  mllm:all_dep
 
 
 docker run -it \
-    --name multitrust_v2 \
+    --name multitrust \
     --gpus all \
     --privileged=true \
     --shm-size=10gb \
@@ -80,6 +80,8 @@ docker run -it \
     -v /data/zhangyichi/Trustworthy-MLLM/data:/workspace/MMTrustEval-dev/framework/data \
     -v /data/zhangyichi/Trustworthy-MLLM/playground:/workspace/MMTrustEval-dev/framework/playground \
     -p 11181:22 \
-    -d mllm:conda_dep /bin/bash
+    -d mllm:all_dep /bin/bash
 
-docker exec -it multitrust_v2 /bin/bash
+docker exec -it multitrust /bin/bash
+
+pipreqs --ignore docker/,data/,logs/,results/,playground/ --force --use-local --savepath req.txt ./
