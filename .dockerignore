@@ -1,0 +1,8 @@
+*.tar
+*.run
+__pycache__/
+data/
+logs/
+playground/
+results/
+score/
