@@ -1,0 +1,14 @@
+dataset_id: "dt-related-image"
+model_id: "cogvlm-chat-hf"
+log_file: "./logs/robustness/ood-text-dt-text.json"
+
+dataset_cfg: 
+  generate_image: false
+
+evaluator_seq_cfgs:
+  [
+    {
+      "rule_contain_exact_eval":
+        { metrics_cfg: { pred_mean: {} } },
+    },
+  ]

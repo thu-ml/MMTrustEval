@@ -1,0 +1,21 @@
+dataset_id: "benchlmm-infrared"
+model_id: "cogvlm-chat-hf"
+
+log_file: "./logs/robustness/ood-sensor-infrared.json"
+
+evaluator_seq_cfgs:
+  [
+    {
+      "chatmodel_score":
+        { 
+          model_id: 'gpt-4-1106-preview',
+          prompt_template: "You now play the role of a rater, evaluating a chatbot's answer to question '{}'. The standard answer is '{}', and the chatbot's answer is '{}'. Please give a score from 0, 25, 50, 75, 100. Just give the score.",
+          metrics_cfg: { pred_mean: {} }
+        },
+      "rule_score_eval":
+        {
+          metrics_cfg: { pred_mean: {} }
+        },
+
+    },
+  ]
