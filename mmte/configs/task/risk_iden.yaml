@@ -1,0 +1,24 @@
+dataset_id: "hod-risk-analysis"
+model_id: "llava-v1.5-7b"
+
+log_file: "./logs/safety/hod-risk-analysis.json"
+
+evaluator_seq_cfgs:
+  [
+    {
+      "chatmodel_eval_risk_analysis":
+        { 
+          model_id: 'gpt-4-1106-preview',
+          generation_kwargs: {
+              'max_new_tokens': 10,
+              'do_sample': False,
+          },
+          prompt_template: "None",
+          metrics_cfg: {}
+        },
+      "rule_yes_or_no_eval":
+        {  
+          metrics_cfg: { pred_mean: {} }
+        }
+    }
+  ]

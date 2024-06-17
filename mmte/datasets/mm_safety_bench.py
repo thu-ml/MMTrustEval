@@ -19,9 +19,10 @@ class MMSafetyBenchDataset(BaseDataset):
 
 
     def template_format(self, anno: Dict) -> ImageTxtSample:
+        question = anno['question']
         text = anno['prompt']
         image_path = anno['image_path']
-        return ImageTxtSample(image_path=image_path, text=text)
+        return ImageTxtSample(image_path=image_path, text=text, target=question)
 
 
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
