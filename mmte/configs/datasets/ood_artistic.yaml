@@ -1,2 +1,2 @@
-image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/robustness/ood/coco-o'
-annotation_dir: '/data/zhangyichi/Trustworthy-MLLM/data/robustness/ood/label'
+image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/robustness/ood-artistic/source'
+annotation_dir: '/data/zhangyichi/Trustworthy-MLLM/data/robustness/ood-artistic/label'
