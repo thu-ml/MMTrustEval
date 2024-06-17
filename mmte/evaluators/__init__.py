@@ -6,3 +6,4 @@ from .rule_eval import (
     MatchAndScoreEvaluator,
     YesOrNoEvaluator,
 )
+from .score_eval import PerspectiveAPIEvaluator, ModerationAPIEvaluator

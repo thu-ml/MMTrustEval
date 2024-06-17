@@ -1,0 +1,2 @@
+name_list: './data/safety/SafeBench_selected/safebench_selected.csv'
+image_dir: './data/safety/SafeBench_selected'

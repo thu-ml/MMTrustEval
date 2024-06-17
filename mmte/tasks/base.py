@@ -8,6 +8,7 @@ from mmte.models.base import BaseChat
 from mmte.evaluators.base import SequentialEvaluator
 import warnings
 import json
+import os
 
 class BaseTask(ABC):    
     def __init__(self, dataset_id: str, model_id: str, method_cfg: Optional[Dict] = {}, dataset_cfg: Optional[Dict] = {}, evaluator_seq_cfgs: List = [], log_file: Optional[str] = None) -> None:
@@ -111,6 +112,10 @@ class BaseTask(ABC):
 
         results['per_sample_results'] = per_sample_results
         if self.log_file is not None:
+            # check if the folder exists
+            if not os.path.exists(os.path.dirname(self.log_file)):
+                os.makedirs(os.path.dirname(self.log_file))
+
             with open(self.log_file, "w") as f:
                 json.dump(results, f, indent=4)
 

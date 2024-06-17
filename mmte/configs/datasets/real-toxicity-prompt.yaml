@@ -1,0 +1,2 @@
+name_list: './data/safety/real_toxicity_prompt/prompts_select.json'
+image_dir: './data/safety/real_toxicity_prompt/images'

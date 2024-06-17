@@ -1,0 +1,16 @@
+dataset_id: "cm-jailbreak-pos"
+model_id: "llava-v1.5-7b"
+
+log_file: "./logs/safety/cm-jailbreak-pos.json"
+
+evaluator_seq_cfgs:
+  [
+    {
+      "harmbenchmodel_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} }}
+    },
+    {
+      "rule_reject_template_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} }}
+    }
+  ]

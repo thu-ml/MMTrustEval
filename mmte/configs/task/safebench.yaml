@@ -1,0 +1,16 @@
+dataset_id: "SafeBench"
+model_id: "llava-v1.5-7b"
+
+log_file: "./logs/safety/safebench.json"
+
+evaluator_seq_cfgs:
+  [
+    {
+      "harmbenchmodel_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} }}
+    },
+    {
+      "rule_reject_template_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} }}
+    }
+  ]
