@@ -38,3 +38,4 @@ from .real_toxicity_prompts import RealToxicityPromptsDataset
 from .safebench import SafeBenchDataset
 from .crossmodal_jailbreak import CrossModalJailbreakDataset
 from .mm_safety_bench import MMSafetyBenchDataset
+from .hod import HodDataset
