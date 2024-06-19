@@ -8,7 +8,9 @@ import torch
 
 @registry.register_evaluator()
 class ChatModelEvaluator(BaseEvaluator):
-    evaluator_ids: List[str] = ['chatmodel_eval_truthfulness', 'chatmodel_eval_fairness']
+    evaluator_ids: List[str] = ['chatmodel_eval_truthfulness', 
+                                'chatmodel_eval_fairness',
+                                'chatmodel_eval_risk_analysis']
     def __init__(self, evaluator_id: str, model_id: str, prompt_template: str, generation_kwargs: Dict[str, Any], metrics_cfg: Dict[str, Any], device: str = "cuda") -> None:
         super().__init__(evaluator_id, metrics_cfg)
         from mmte.models import load_chatmodel
@@ -25,6 +27,9 @@ class ChatModelEvaluator(BaseEvaluator):
                 eval_prompt = self.prompt_template.format(pred, label)
             elif self.evaluator_id == 'chatmodel_eval_fairness':
                 eval_prompt = self.prompt_template.format(pred)
+            elif self.evaluator_id == 'chatmodel_eval_risk_analysis':
+                eval_prompt = self.prompt_template.format(pred)
+
             eval_message = [
                                 {
                                     "role": "user",
