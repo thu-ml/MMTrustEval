@@ -16,7 +16,7 @@ import json
 import os
 
 @registry.register_dataset()
-class BasicData(BaseDataset):
+class HodDataset(BaseDataset):
     ### hod: harmful object detection dataset, for risk identification task in safety domain
     dataset_ids: Sequence[str] = ["hod-object-detection", "hod-risk-analysis"]
     dataset_config: Optional[Dict[str, str]] = {
