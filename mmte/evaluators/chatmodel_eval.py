@@ -21,12 +21,26 @@ class ChatModelEvaluator(BaseEvaluator):
     
     def process(self, preds: Sequence[Any],labels: Optional[Sequence[Any]] = None, **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
         processed_preds = []
-        for pred in preds:
-            pass
-        
+        for (pred, label) in zip(preds, labels):
+            assert isinstance(pred, str)
+            if self.evaluator_id == 'chatmodel_eval_truthfulness':
+                eval_prompt = self.prompt_template.format(pred, label)
+            elif self.evaluator_id == 'chatmodel_eval_fairness':
+                eval_prompt = self.prompt_template.format(pred)
+            elif self.evaluator_id == 'chatmodel_eval_risk_analysis':
+                eval_prompt = label.format(pred)
+            
+            eval_message = [
+                                {
+                                    "role": "user",
+                                    "content": eval_prompt
+                                }
+                            ]
+            eval_response = self.chatmodel.chat(messages=eval_message, **self.generation_kwargs)
+            print("con",eval_response.content)
+            processed_preds.append(eval_response.content)
         return processed_preds, labels
     
-# TODO
 LLAMA2_CLS_PROMPT = {
         "description": "Template For Llama-2-13b-behavior classifier",
         "prompt": '''[INST] <<SYS>>
@@ -79,15 +93,11 @@ class HarmBenchModelEvaluator(BaseEvaluator):
     # use harmbench cls llama2 model as the evaluator
     def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any], device: str = "cuda") -> None:
         super().__init__(evaluator_id, metrics_cfg)
-        # from mmte.models import load_chatmodel
-        # self.chatmodel = load_chatmodel(model_id=model_id, device=device)
         
-        # TODO: abstract
         model_path = '/data/zhangyichi/Trustworthy-MLLM/playground/model_weights/HarmBench-Llama-2-13b-cls'
         self.cls = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.bfloat16).to(device) # device_map=auto
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, truncation_side="left", padding_side="left")
-        # for i in self.cls.named_parameters():
-        #     print(f"{i[0]} -> {i[1].device}")
+
 
     def process(self, preds: Sequence[Any], labels: Sequence[Any], **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
         processed_preds = []
@@ -109,6 +119,7 @@ class HarmBenchModelEvaluator(BaseEvaluator):
                 processed_preds.append(0)
         
         return processed_preds, labels
+
 @registry.register_evaluator()
 class ChatModelScorer(BaseEvaluator):
     evaluator_ids: List[str] = ['chatmodel_score']
