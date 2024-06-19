@@ -21,24 +21,9 @@ class ChatModelEvaluator(BaseEvaluator):
     
     def process(self, preds: Sequence[Any],labels: Optional[Sequence[Any]] = None, **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
         processed_preds = []
-        for (pred, label) in zip(preds, labels):
-            assert isinstance(pred, str)
-            if self.evaluator_id == 'chatmodel_eval_truthfulness':
-                eval_prompt = self.prompt_template.format(pred, label)
-            elif self.evaluator_id == 'chatmodel_eval_fairness':
-                eval_prompt = self.prompt_template.format(pred)
-            elif self.evaluator_id == 'chatmodel_eval_risk_analysis':
-                eval_prompt = self.prompt_template.format(pred)
-
-            eval_message = [
-                                {
-                                    "role": "user",
-                                    "content": eval_prompt
-                                }
-                            ]
-            eval_response = self.chatmodel.chat(messages=eval_message, **self.generation_kwargs)
-            print("con",eval_response.content)
-            processed_preds.append(eval_response.content)
+        for pred in preds:
+            pass
+        
         return processed_preds, labels
     
 # TODO
@@ -124,7 +109,6 @@ class HarmBenchModelEvaluator(BaseEvaluator):
                 processed_preds.append(0)
         
         return processed_preds, labels
-
 @registry.register_evaluator()
 class ChatModelScorer(BaseEvaluator):
     evaluator_ids: List[str] = ['chatmodel_score']
