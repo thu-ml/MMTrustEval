@@ -1,6 +1,6 @@
 # Welcome to MMTrustEval
 <figure markdown="span">
-  ![Image title](structure/framework.png){ width="400" }
+  ![Image title](structure/framework.jpg){ width="600" }
   <figcaption>Framework of MultiTrust</figcaption>
 </figure>
 

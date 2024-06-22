@@ -1,7 +1,7 @@
 
 # Modules
 
-In this section, we introduce each element in the [task flow](#flow) about their interface, typical usage, etc., in the order of their parts in the workflow. All elements are registered by an unique identifier into the global `registry` (defined in `mmte/utils/registry.py`) and can be accessed by the `registry.get_**_class(id)` method.
+In this section, we introduce each element in the [task flow](structure.md#flow) about their interface, typical usage, etc., in the order of their parts in the workflow. All elements are registered by an unique identifier into the global `registry` (defined in `mmte/utils/registry.py`) and can be accessed by the `registry.get_**_class(id)` method.
 
 
 
@@ -208,14 +208,19 @@ source_code: `mmte/evaluators/base.py`
 
 ### BaseEvaluator
 
-1. 该类主要用于对chatmodel输出的结果进行评测，process的作用是对输入的preds和labels序列（可以是数值序列或文本序列）进行预处理，得到一些简单的数值序列，便于之后在eval函数中直接调用metrics函数（metrics函数只接受数值序列）。
-2. 目前主要分为三大类evaluator：
-   1. chatmodel evaluator：用chatmodel对结果进行处理和评估
-   2. classifier evaluator：用classifier对结果打分，目前支持longformer-action-ro
-   3. rule-based evaluator：包含一些拒答模版匹配和分数提取等工具
-3. evaluator可以被级联起来作为evaluator sequence（具体可以参考SequentialEvaluator），主要目的是为了复用不同evaluator的process函数（例如先用chatmodel evaluator进行文本预处理，再用rule-based evaluator打分等）。
+This class is primarily used for evaluating the results output by a chat model. The `process` function preprocesses the input sequences of predictions (`preds`) and labels (`labels`)—these sequences can be numerical or textual. The preprocessing aims to generate simple numerical sequences that can be directly used in the `eval` function, which subsequently calls the `metrics` function (the `metrics` function only accepts numerical sequences).
+
+Currently, there are three main types of evaluators:
+
+1. **ChatModel Evaluator**: Processes and evaluates the results using a chat model.
+2. **Classifier Evaluator**: Scores the results using a classifier. Currently, it supports the `longformer-action-ro` model.
+3. **Rule-based Evaluator**: Includes tools for template matching for refusal and score extraction.
+
+Evaluators can be chained together to form an evaluator sequence (refer to `SequentialEvaluator` for details). The primary purpose is to reuse the `process` functions of different evaluators (for example, first using the chat model evaluator for text preprocessing, followed by the rule-based evaluator for scoring).
+
 
 ```python
+
 class BaseEvaluator(ABC):
     """
     Base class for evaluators, to evaluate the responses from chatmodels.
@@ -231,16 +236,16 @@ class BaseEvaluator(ABC):
             metrics_cfg: config dict for metrics hooks, format: {metrics_id: metrics_kwargs, ...}
             
         """
-
         assert evaluator_id in self.evaluator_ids, f"Evaluator {self.evaluator_id} is not available. Only Evaluators in {self.evaluator_ids} can be used."
 
         self.evaluator_id = evaluator_id
+        
         self.metrics_cfg = metrics_cfg
         for metrics_id in self.metrics_cfg.keys():
             assert metrics_id in _supported_metrics.keys(), f"{metrics_id} is not supported."
 
     @abstractmethod
-    def process(self, preds: Sequence[Any], labels: Sequence[Any], **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
+    def process(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, extras: Optional[Sequence[Any]] = None, **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
         """
         1. Perform some processing on sequence data, mainly including scoring/text-extraction with chatmodel/classifier/rule-based, etc.
         2. Different evaluators can be concatenated, and the process function can be cascaded to perform multi-step processing on sequence data.
@@ -248,28 +253,31 @@ class BaseEvaluator(ABC):
         Arguments:
             preds: responses from chatmodels or preds from `process` function of another evaluator
             labels: groundtruth labels or labels from `process` function of another evaluator
+            extras: extra parameters or extra sequence from `process` function of another evaluator
             
         Return:
             preds: processed preds sequence
             labels: processed labels sequence
+            extras: processed extra sequence
         """
 
         # no-op
-        return preds, labels
+        return preds, labels, extras
     
-    def eval(self, preds: Sequence[Any], labels: Sequence[Any], **kwargs) -> Dict[str, Union[Sequence, float]]:
+    def eval(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, extras: Optional[Sequence[Any]] = None, **kwargs) -> Dict[str, Union[Sequence, float]]:
         """
         Evaluate pipeline including data processing and metrics calculation.
         
         Arguments:
             preds: responses from chatmodels
             labels: groundtruth labels
+            extras: extra parameters
             
         Return:
             results
         """
 
-        processed_preds, processed_labels = self.process(preds, labels)
+        processed_preds, processed_labels, processed_extras = self.process(preds, labels, extras)
         results = {}
 
         for metrics_id, kwargs in self.metrics_cfg.items():
@@ -280,6 +288,7 @@ class BaseEvaluator(ABC):
     
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         return self.eval(*args, **kwds)
+
 ```
 
 
@@ -308,30 +317,47 @@ class SequentialEvaluator:
             evaluator_cls_names.append(evaluator_cls.__name__)
             evaluator_seq.append(evaluator)
         self.evaluator_seq = evaluator_seq
-        self.keyname_prefix = "->".join(evaluator_cls_names)
+        self.keyname_prefix_seq = self.create_sequence_list(evaluator_cls_names)
     
-    def eval(self, preds: Sequence[Any], labels: Sequence[Any], **kwargs) -> Dict[str, Union[Sequence, float]]:
+    def create_sequence_list(self, input_list: List[str]) -> List[str]:
+        result = []
+        current = ""
+        for item in input_list:
+            if current:
+                current += f"->{item}"
+            else:
+                current = item
+            result.append(current)
+        return result
+
+    def eval(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, extras: Optional[Sequence[Any]] = None, **kwargs) -> Dict[str, Union[Sequence, float]]:
         """
         Evaluate pipeline including data processing and metrics calculation.
         
         Arguments:
             preds: responses from chatmodels
             labels: groundtruth labels
+            extras: extra parameters
             
         Return:
             results
         """
+        prefix_results = {}
+        seq_len = len(self.evaluator_seq)
+        for evaluator_idx, (evaluator, keyname_prefix) in enumerate(zip(self.evaluator_seq, self.keyname_prefix_seq)):
+            if evaluator_idx < seq_len - 1:
+                preds, labels, extras = evaluator.process(preds, labels, extras)
+                prefix_results.update({f"{keyname_prefix}:pred_no_op": preds})
+            else:
+                # final evaluator
+                results = evaluator(preds, labels, extras)
+                prefix_results.update({f"{keyname_prefix}:{key}": value for key, value in results.items()})
         
-        for evaluator in self.evaluator_seq[:-1]:
-            preds, labels = evaluator.process(preds, labels)   
-        
-        final_evaluator = self.evaluator_seq[-1]
-        results = final_evaluator(preds, labels)
-        prefix_results = {f"{self.keyname_prefix}:{key}": value for key, value in results.items()}
         return prefix_results
     
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         return self.eval(*args, **kwds)
+    
     
 ```
 

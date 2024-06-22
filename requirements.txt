@@ -1,4 +1,5 @@
 --index-url https://pypi.tuna.tsinghua.edu.cn/simple/
+--find-links https://download.pytorch.org/whl/torch_stable.html
 accelerate==0.21.0
 bitsandbytes==0.43.1
 clip @ git+https://github.com/openai/CLIP.git
@@ -31,7 +32,6 @@ timm==0.4.12
 tokenizers==0.13.3
 numpy==1.26.4
 ninja==1.11.1.1
---find-links https://download.pytorch.org/whl/torch_stable.html
 torch==2.3.0+cu121
 torchvision==0.18.0+cu121
 tqdm==4.66.1
@@ -43,3 +43,6 @@ google-generativeai==0.4.1
 anthropic==0.25.5
 tiktoken==0.6.0
 transformers_stream_generator==0.0.5
+mkdocs==1.6.0
+mkdocs-glightbox==0.4.0
+mkdocs-include-markdown-plugin==6.0.6
