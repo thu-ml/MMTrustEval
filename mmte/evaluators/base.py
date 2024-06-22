@@ -27,7 +27,7 @@ class BaseEvaluator(ABC):
             assert metrics_id in _supported_metrics.keys(), f"{metrics_id} is not supported."
 
     @abstractmethod
-    def process(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
+    def process(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, extras: Optional[Sequence[Any]] = None, **kwargs) -> Tuple[Sequence[Any], Sequence[Any]]:
         """
         1. Perform some processing on sequence data, mainly including scoring/text-extraction with chatmodel/classifier/rule-based, etc.
         2. Different evaluators can be concatenated, and the process function can be cascaded to perform multi-step processing on sequence data.
@@ -35,30 +35,31 @@ class BaseEvaluator(ABC):
         Arguments:
             preds: responses from chatmodels or preds from `process` function of another evaluator
             labels: groundtruth labels or labels from `process` function of another evaluator
+            extras: extra parameters or extra sequence from `process` function of another evaluator
             
         Return:
             preds: processed preds sequence
             labels: processed labels sequence
+            extras: processed extra sequence
         """
 
         # no-op
-        return preds, labels
+        return preds, labels, extras
     
-    def eval(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, **kwargs) -> Dict[str, Union[Sequence, float]]:
+    def eval(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, extras: Optional[Sequence[Any]] = None, **kwargs) -> Dict[str, Union[Sequence, float]]:
         """
         Evaluate pipeline including data processing and metrics calculation.
         
         Arguments:
             preds: responses from chatmodels
             labels: groundtruth labels
+            extras: extra parameters
             
         Return:
             results
         """
 
-        processed_preds, processed_labels = self.process(preds, labels)
-        # print("preds",processed_preds)
-        # print("labels",processed_labels)
+        processed_preds, processed_labels, processed_extras = self.process(preds, labels, extras)
         results = {}
 
         for metrics_id, kwargs in self.metrics_cfg.items():
@@ -92,26 +93,43 @@ class SequentialEvaluator:
             evaluator_cls_names.append(evaluator_cls.__name__)
             evaluator_seq.append(evaluator)
         self.evaluator_seq = evaluator_seq
-        self.keyname_prefix = "->".join(evaluator_cls_names)
+        self.keyname_prefix_seq = self.create_sequence_list(evaluator_cls_names)
     
-    def eval(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, **kwargs) -> Dict[str, Union[Sequence, float]]:
+    def create_sequence_list(self, input_list: List[str]) -> List[str]:
+        result = []
+        current = ""
+        for item in input_list:
+            if current:
+                current += f"->{item}"
+            else:
+                current = item
+            result.append(current)
+        return result
+
+    def eval(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, extras: Optional[Sequence[Any]] = None, **kwargs) -> Dict[str, Union[Sequence, float]]:
         """
         Evaluate pipeline including data processing and metrics calculation.
         
         Arguments:
             preds: responses from chatmodels
             labels: groundtruth labels
+            extras: extra parameters
             
         Return:
             results
         """
+
+        prefix_results = {}
+        seq_len = len(self.evaluator_seq)
+        for evaluator_idx, (evaluator, keyname_prefix) in enumerate(zip(self.evaluator_seq, self.keyname_prefix_seq)):
+            if evaluator_idx < seq_len - 1:
+                preds, labels, extras = evaluator.process(preds, labels, extras)
+                prefix_results.update({f"{keyname_prefix}:pred_no_op": preds})
+            else:
+                # final evaluator
+                results = evaluator(preds, labels, extras)
+                prefix_results.update({f"{keyname_prefix}:{key}": value for key, value in results.items()})
         
-        for evaluator in self.evaluator_seq[:-1]:
-            preds, labels = evaluator.process(preds, labels)   
-        
-        final_evaluator = self.evaluator_seq[-1]
-        results = final_evaluator(preds, labels)
-        prefix_results = {f"{self.keyname_prefix}:{key}": value for key, value in results.items()}
         return prefix_results
     
     def __call__(self, *args: Any, **kwds: Any) -> Any:

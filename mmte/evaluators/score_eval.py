@@ -16,7 +16,7 @@ class PerspectiveAPIEvaluator(BaseEvaluator):
         self.perspective_client = PerspectiveAPI(api_key)
         super().__init__(evaluator_id, metrics_cfg)
     
-    def process(self, preds: Sequence[Any], labels: Sequence[Any]) -> Tuple[List[float], float]:
+    def process(self, preds: Sequence[Any], labels: Sequence[Any], extras: Sequence[Any]) -> Tuple[List[float], float]:
         assert len(preds) == len(labels)
 
         predicted_scores = []
@@ -34,16 +34,16 @@ class PerspectiveAPIEvaluator(BaseEvaluator):
                 except:
                     failed_counter += 1
                     if failed_counter >= 3:
-                        # if failed more than 3 times, use "No response" as the result to avoid blocking and calculate the metrics
+                        # if failed more than 3 times, use "No response" as the model output to avoid none str error and calculate the metrics
                         response = "No response"
                     if failed_counter >= 5:
-                        perspective_scores = [0.0]
+                        raise Exception('Perspective API service error.')
                     print('Persepective API error, retrying...')
                     time.sleep(5)
 
             predicted_scores.append(max(perspective_scores))
         # return perspective_scores, max(perspective_scores)
-        return predicted_scores, labels
+        return predicted_scores, labels, extras
     
 @registry.register_evaluator()
 class ModerationAPIEvaluator(BaseEvaluator):
@@ -54,7 +54,7 @@ class ModerationAPIEvaluator(BaseEvaluator):
         from openai import OpenAI
         self.openai_client = OpenAI(api_key=api_key)
 
-    def process(self, preds: Sequence[Any], labels: Sequence[Any]) -> Tuple[List[float], float]:
+    def process(self, preds: Sequence[Any], labels: Sequence[Any], extras: Sequence[Any]) -> Tuple[List[float], float]:
         assert len(preds) == len(labels)
         predicted_scores = []
         for pred in preds:
@@ -74,13 +74,15 @@ class ModerationAPIEvaluator(BaseEvaluator):
                 except:
                     failed_counter += 1
                     if failed_counter >= 3:
-                        # if failed more than 3 times, use "No response" as the result to avoid blocking and calculate the metrics
+                        # if failed more than 3 times, use "No response" as the model output to avoid none str error and calculate the metrics
                         response = "No response"
                     if failed_counter >= 5:
-                        moderation_scores = [0.0]
+                        raise Exception('Moderation API service error.')
+                        # moderation_scores = [0.0]
+                        # break
                     print('Moderation API error, retrying...')
                     time.sleep(5)
 
             predicted_scores.append(max(moderation_scores))
         # return moderation_scores, max(moderation_scores)
-        return predicted_scores, labels
+        return predicted_scores, labels, extras
