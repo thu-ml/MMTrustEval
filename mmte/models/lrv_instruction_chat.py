@@ -3,7 +3,6 @@ import torch
 from mmte.models.base import BaseChat, Response
 from mmte.utils.utils import get_abs_path
 from mmte.utils.registry import registry
-from omegaconf import OmegaConf
 from transformers import StoppingCriteriaList
 from copy import deepcopy
 from mmte.models.LRV_Instruction.MiniGPT_4.minigpt4.common.config import Config
@@ -23,7 +22,7 @@ class LRVInstructionChat(BaseChat):
     Chat class for MiniGPT4 models, e.g., minigpt-4-vicuna-7b-v0
     """
     
-    MODEL_CONFIG = {"lrv-instruction": 'configs/models/lrv-instruction/minigpt4_eval.yaml'}
+    MODEL_CONFIG = {"lrv-instruction": 'configs/models/lrv-instruction/minigpt4-eval.yaml'}
     
     CONV_DICT = {"lrv-instruction": CONV_VISION}
     
@@ -31,10 +30,8 @@ class LRVInstructionChat(BaseChat):
     
     def __init__(self, model_id: str, device: str="cuda:0"):
         super().__init__(model_id)
-        config = self.MODEL_CONFIG[self.model_id]
-        self.config = OmegaConf.load(get_abs_path(config))
         self.device = device
-        self.cfg_path = "configs/models/lrv-instruction/minigpt4_eval.yaml"
+        self.cfg_path = self.MODEL_CONFIG[self.model_id]
         self.options = []
         cfg = Config(get_abs_path(self.cfg_path))
         model_config = cfg.model_cfg
