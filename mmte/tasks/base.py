@@ -58,67 +58,84 @@ class BaseTask(ABC):
         dataloader = DataLoader(dataset=self.dataset, batch_size=1, collate_fn=collate_fn)
         return dataloader
 
-        
     def eval(self, responses: List[Dict[str, Any]]) -> Dict[str, Union[float, Sequence]]:
+        contents: Sequence[str] = [response['content'] for response in responses]
         preds: Sequence[str] = [response['response'] for response in responses]
         labels: Sequence[str] = [response['target'] for response in responses]
+        extras: Sequence[str] = [response['extra'] for response in responses]
         results = {}
+
         for evaluator in self.evaluators:
-            result = evaluator(preds, labels)
+            result = evaluator(preds, labels, extras=extras)
             for key in result.keys():
                 if key in results.keys():
                     warnings.warn(f"{key} already exists in results.")
-            results.update(result)
-            
-        contents: Sequence[str] = [response['content'] for response in responses]
-        extra: Sequence[str] = [response['extra'] for response in responses]
+            results.update(result)            
 
         #sub aspects
-        extra_values = set(extra)
-        for extra_value in extra_values:
-            preds_subset = [preds[i] for i in range(len(preds)) if extra[i] == extra_value]
-            labels_subset = [labels[i] for i in range(len(labels)) if extra[i] == extra_value]
+        subset_eval = extras[0] is not None and "subset" in extras[0]
+        if subset_eval:
+            # Evaluate with subset of dataset, `extra` field in dataclass must have `subset` key to enable subset evaluation.
+            subset_list = [item['subset'] for item in extras]
+            assert any(subset_list)
 
-            subset_results = {}
-            for evaluator in self.evaluators:
-                subset_result = evaluator(preds_subset, labels_subset)
-                for key in subset_result.keys():
-                    subset_key = f"{key}_{extra_value}"
-                    if subset_key in results.keys():
-                        warnings.warn(f"{subset_key} already exists in results.")
-                    subset_results[subset_key] = subset_result[key]
+            subsets = set(subset_list)
+            for subset in subsets:
+                preds_subset = [preds[i] for i in range(len(preds)) if subset_list[i] == subset]
+                labels_subset = [labels[i] for i in range(len(labels)) if subset_list[i] == subset]
+                extras_subset = [extras[i] for i in range(len(extras)) if subset_list[i] == subset]
 
-            results.update(subset_results)
+                subset_results = {}
+                for evaluator in self.evaluators:
+                    subset_result = evaluator(preds_subset, labels_subset, extras_subset)
+                    for key in subset_result.keys():
+                        subset_key = f"{key}_{subset}"
+                        if subset_key in results.keys():
+                            warnings.warn(f"{subset_key} already exists in results.")
+                        if not isinstance(subset_result[key], Sequence):
+                            # only need summary_keys
+                            subset_results[subset_key] = subset_result[key]
+                results.update(subset_results)
+
         results.update(
             {
                 'content': contents if any(contents) else None,
                 'pred': preds if any(preds) else None,
                 'label': labels if any(labels) else None,
-                'extra': extra if any(extra) else None,
+                'extra': extras if any(extras) else None,
             }
         )
         return results
 
     def save_results(self, results: Dict[str, Any]) -> None:
         scatter_keys = [key for key, value in results.items() if isinstance(value, Sequence)]
+        summary_keys = [key for key, value in results.items() if not isinstance(value, Sequence) and value is not None]
+        
         if scatter_keys:
             seq_len = len(results[scatter_keys[0]])
-            per_sample_results = []
             for key in scatter_keys:
-                seq_len = len(results[key])  
-                for idx in range(seq_len):
-                    per_sample_result = {}
-                    per_sample_result[key] = results[key][idx]
-                per_sample_results.append(per_sample_result)
+                assert len(results[key]) == seq_len
+            
+        per_sample_results = []
+        for idx in range(seq_len):
+            per_sample_result = {}
+            for key in scatter_keys:
+                per_sample_result[key] = results[key][idx]
+            per_sample_results.append(per_sample_result)
 
-        results['per_sample_results'] = per_sample_results
+        formatted_results = {}
+        formatted_results['total_results'] = {}
+        formatted_results['per_sample_results'] = per_sample_results
+        for key in summary_keys:
+            formatted_results['total_results'][key] = results[key]
+        
         if self.log_file is not None:
             # check if the folder exists
             if not os.path.exists(os.path.dirname(self.log_file)):
                 os.makedirs(os.path.dirname(self.log_file))
 
             with open(self.log_file, "w") as f:
-                json.dump(results, f, indent=4)
+                json.dump(formatted_results, f, indent=4)
 
     def generate(self, dataloader: DataLoader, **generate_kwargs) -> List[Dict[str, Any]]:
         print('len(self.dataset): ', len(dataloader.dataset))
@@ -149,7 +166,7 @@ class BaseTask(ABC):
                 message = data['message']
                 target = data['target']
                 extra: Dict[str, Any] = data['extra']
-            
+
                 response = self.model.chat(messages=message, **generate_kwargs)
                 output = {
                     "content": message[0]['content'],
@@ -166,6 +183,6 @@ class BaseTask(ABC):
     def pipeline(self) -> None:
         self.get_handlers()
         dataloader = self.get_dataloader()
-        responses = self.generate(dataloader, generate_kwargs=self.generation_kwargs)
+        responses = self.generate(dataloader, **self.generation_kwargs)
         results = self.eval(responses)
         self.save_results(results)

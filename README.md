@@ -144,7 +144,7 @@ sudo usermod -aG docker [your_username_here]
 # Citation
 If you find our work helpful for your research, please consider citing our work.
 
-```
+```bibtex
 @misc{zhang2024benchmarking,
       title={Benchmarking Trustworthiness of Multimodal Large Language Models: A Comprehensive Study}, 
       author={Yichi Zhang and Yao Huang and Yitong Sun and Chang Liu and Zhe Zhao and Zhengwei Fang and
