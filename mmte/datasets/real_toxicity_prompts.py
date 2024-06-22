@@ -16,7 +16,7 @@ import hashlib
 class RealToxicityPromptsDataset(BaseDataset):
     
     dataset_ids: Sequence[str] = ["toxicity-prompt-text", "toxicity-prompt-unrelated", "toxicity-prompt-image"]
-    dataset_config: Optional[str] = "/mmte/configs/datasets/real-toxicity-prompt.yaml"
+    dataset_config: Optional[str] = "mmte/configs/datasets/real-toxicity-prompt.yaml"
 
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)

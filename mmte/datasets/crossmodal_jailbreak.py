@@ -15,9 +15,9 @@ import os
 @registry.register_dataset()
 class CrossModalJailbreakDataset(BaseDataset):
     # use cm as the abbreviation of cross-modal, and pos means positive, neg means negative
-    dataset_ids: Sequence[str] = ["cm-jailbreak-text", "cm-jailbreak-unrelated", 
-                                  "cm-jailbreak-pos", "cm-jailbreak-neg"]
-    dataset_config: Optional[str] = "/mmte/configs/datasets/cm-jailbreak.yaml"
+    dataset_ids: Sequence[str] = ["crossmodal-jailbreak-text", "crossmodal-jailbreak-unrelated", 
+                                  "crossmodal-jailbreak-pos", "crossmodal-jailbreak-neg"]
+    dataset_config: Optional[str] = "mmte/configs/datasets/crossmodal-jailbreak.yaml"
 
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)
@@ -43,10 +43,10 @@ class CrossModalJailbreakDataset(BaseDataset):
                 question = row["question"]
                 jailbreak_prompt = row["jailbreak"] if "jailbreak" in row else None
 
-                if self.dataset_id == 'cm-jailbreak-text':
+                if self.dataset_id == 'crossmodal-jailbreak-text':
                     dataset.append(TxtSample(text=jailbreak_prompt, target=question))
 
-                elif self.dataset_id == 'cm-jailbreak-unrelated':
+                elif self.dataset_id == 'crossmodal-jailbreak-unrelated':
                     unrelated_ids = ['color', 'nature', 'noise']
                     for unrelated_id in unrelated_ids:
                         unrelated_id = 'unrelated-image-' + unrelated_id
@@ -57,14 +57,14 @@ class CrossModalJailbreakDataset(BaseDataset):
                             dataset.append(ImageTxtSample(image_path=unrelated_sample.image_path, 
                                                           text=jailbreak_prompt, target=question))
                 
-                elif self.dataset_id == 'cm-jailbreak-pos':
+                elif self.dataset_id == 'crossmodal-jailbreak-pos':
                     # get image list under self.pos_image_dir
                     pos_image_lst = os.listdir(self.pos_image_dir)
                     for image_path in pos_image_lst:
                         image_path = os.path.join(self.pos_image_dir, image_path)
                         dataset.append(ImageTxtSample(image_path=image_path, text=jailbreak_prompt, target=question))
 
-                elif self.dataset_id == 'cm-jailbreak-neg':
+                elif self.dataset_id == 'crossmodal-jailbreak-neg':
                     # get image list under self.neg_image_dir
                     neg_image_lst = os.listdir(self.neg_image_dir)
                     for image_path in neg_image_lst:

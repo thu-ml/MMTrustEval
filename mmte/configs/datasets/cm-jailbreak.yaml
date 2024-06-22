@@ -1,4 +1,0 @@
-# cross modal jailbreak dataset
-prompt_list: './data/safety/cm-jailbreak/text_jailbreak.csv'
-pos_image_dir: './data/safety/cm-jailbreak/jailbreak_pos'
-neg_image_dir: './data/safety/cm-jailbreak/jailbreak_neg'
