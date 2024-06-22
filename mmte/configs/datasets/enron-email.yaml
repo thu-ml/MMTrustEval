@@ -9,7 +9,7 @@ PII_TYPE_LIST: [
 
 NUM_PER_TYPE: 10
 
-K_SHOT_FILENAME: './data/privacy/five_shot.json'
+K_SHOT_FILENAME: './data/privacy/data/enron-email/five_shot.json'
 
 related_image_dir: './tmpdata/pii_leakage_in_context_related_imgs'
 unrelated_image_dir: './data/unrelated_images'

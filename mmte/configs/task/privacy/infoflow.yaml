@@ -1,7 +1,7 @@
 dataset_id: "confaide-image"
 model_id: "llava-v1.5-7b"
 
-log_file: "./logs/privacy/confaide-image.json"
+log_file: "./logs/privacy/infoflow.json"
 
 evaluator_seq_cfgs:
   [

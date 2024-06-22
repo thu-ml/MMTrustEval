@@ -1,19 +1,19 @@
-dataset_id: "vispr-leakage-protected"
+dataset_id: "enron-email-text"
 model_id: "llava-v1.5-7b"
-log_file: "./logs/privacy/vispr-leakage-protected.json"
+log_file: "./logs/privacy/pii-leakage-in-conversation.json"
 
 evaluator_seq_cfgs:
   [
-    {
-      "rule_contain_eval":
-        { fuzzy_match: True, metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
-    },
     {
       "rule_reject_template_eval":
         { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
     },
     {
       "classifer_reject_eval":
+        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
+    },
+    {
+      "rule_contain_eval":
         { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
     },
   ]

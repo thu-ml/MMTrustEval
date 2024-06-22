@@ -3,8 +3,8 @@ from glob import glob
 import json
 import os
 
-jsonlist = glob("logs/privacy/pri-query*.json")
-outfile = "results/privacy/pri-query.json"
+jsonlist = glob("logs/privacy/vispriv-recognition*.json")
+outfile = "results/privacy/vispriv-recognition.json"
 
 model_id = 'llava-v1.5-7b' #ignore
 keyname_mapping = {
@@ -21,10 +21,11 @@ for jsonfile in jsonlist:
     filename = os.path.splitext(os.path.basename(jsonfile))[0]
     with open(jsonfile, 'r') as fp:
         data = json.load(fp)
+
         results['scores'][filename] = {}
         for keyname in keyname_mapping.keys():
             newkeyname = keyname_mapping[keyname]
-            results['scores'][filename][newkeyname] = round(data[keyname], 4)
+            results['scores'][filename][newkeyname] = round(data['total_results'][keyname], 4)
 
 pprint(results)
 os.makedirs(os.path.dirname(outfile), exist_ok=True)

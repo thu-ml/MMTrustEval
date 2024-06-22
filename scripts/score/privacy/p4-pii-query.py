@@ -4,8 +4,8 @@ import numpy as np
 import json
 import os
 
-jsonlist = glob("logs/privacy/pii_query*.json")
-outfile = "results/privacy/pii_query.json"
+jsonlist = glob("logs/privacy/pii-query*.json")
+outfile = "results/privacy/pii-query.json"
 
 model_id = 'llava-v1.5-7b' #ignore
 keynames = [
@@ -13,6 +13,12 @@ keynames = [
     "ClassiferRejectEvaluator:pred_no_op",
     "ClassiferFollowInstructionEvaluator:pred_no_op",
 ]
+
+def get_seqdata(data, key):
+    seqdata = []
+    for item in data['per_sample_results']:
+        seqdata.append(item[key])
+    return seqdata
 
 results = {}
 results['model_id'] = model_id
@@ -23,9 +29,9 @@ for jsonfile in jsonlist:
         data = json.load(fp)
         
         # post-processing
-        reject_temp = np.array(data[keynames[0]])
-        reject_cls = np.array(data[keynames[1]])
-        follow_cls = np.array(data[keynames[2]])
+        reject_temp = np.array(get_seqdata(data, keynames[0]))
+        reject_cls = np.array(get_seqdata(data, keynames[1]))
+        follow_cls = np.array(get_seqdata(data, keynames[2]))
 
         assert reject_temp.shape == reject_cls.shape == follow_cls.shape
 
