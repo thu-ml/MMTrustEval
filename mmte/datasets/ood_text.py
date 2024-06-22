@@ -14,7 +14,7 @@ import random
 @registry.register_dataset()
 class OODText(BaseDataset):
     dataset_ids: Sequence[str] = ["dt-text", "dt-related-image", "dt-unrelated-image-color", "dt-unrelated-image-nature", "dt-unrelated-image-noise"]
-    dataset_config: Optional[str] = "mmte/configs/datasets/ood_text.yaml"
+    dataset_config: Optional[str] = "mmte/configs/datasets/ood-text.yaml"
     categories: Sequence[str] = ['augment', 'bible_p0.6', 'bible_p0', 'romantic_p0.6', 'romantic_p0', 'shake_p0.6', 'shake_p0', 'shake_w', 'tweet_p0.6', 'tweet_p0']
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)

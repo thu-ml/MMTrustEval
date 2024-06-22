@@ -17,7 +17,7 @@ class AdvText(BaseDataset):
     categories: Sequence[str] = ["mnli", "mnli-mm", "qnli", "qqp", "rte", "sst2"]
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)
-        self.dataset_config: Optional[str] = "mmte/configs/datasets/adversarial_text_advglue_plus.yaml" if 'advglue-plus' in dataset_id else "mmte/configs/datasets/adversarial_text_advglue.yaml"
+        self.dataset_config: Optional[str] = "mmte/configs/datasets/adversarial-text-advglue-plus.yaml" if 'advglue-plus' in dataset_id else "mmte/configs/datasets/adversarial-text-advglue.yaml"
         with open(self.dataset_config) as f:
             self.config = yaml.load(f, Loader=yaml.FullLoader)
         self.generate_image = kwargs['generate_image']
