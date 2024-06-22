@@ -19,7 +19,7 @@ class LlamaAdapterChat(BaseChat):
 
     # TODO: update model config
     MODEL_CONFIG = {
-        "llama_adapter_v2": 'configs/models/llama_adapter/llama-adapter-v2-bias-7b.yaml',
+        "llama-adapter-v2": 'configs/models/llama-adapter/llama-adapter-v2-bias-7b.yaml',
     }
     model_family = list(MODEL_CONFIG.keys())
 

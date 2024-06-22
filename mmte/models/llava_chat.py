@@ -33,7 +33,6 @@ class LLaVAChat(BaseChat):
         self.device = device
         config = self.MODEL_CONFIG[self.model_id]
         self.config = OmegaConf.load(get_abs_path(config))
-        # print(self.config)
 
         self.model_name = self.config.model.model_name
         model_path = self.config.model.model_path
@@ -44,8 +43,6 @@ class LLaVAChat(BaseChat):
             model_name=self.model_name,    # get_model_name_from_path(model_path)
             device=self.device
         )
-        # print(f"Loaded model {self.model_name}")
-        # print(self.tokenizer, self.model, self.image_processor)
 
     @torch.no_grad()
     def chat(self, messages: List, **generation_kwargs):

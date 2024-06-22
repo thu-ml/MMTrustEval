@@ -15,7 +15,7 @@ class BLIP2Chat(BaseChat):
     """
     
     MODEL_CONFIG = {
-        "blip2_pretrain_flant5xl": 'configs/models/blip2/blip2_t5-pretrain_flant5xl.yaml',
+        "blip2-pretrain-flant5xl": 'configs/models/blip2/blip2-t5-pretrain-flant5xl.yaml',
     }
         
     model_family = list(MODEL_CONFIG.keys())
