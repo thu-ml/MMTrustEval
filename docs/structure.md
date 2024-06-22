@@ -4,51 +4,50 @@
 ## Project Structure
 
 ```
+./
 ├── mmte
 │   ├── __init__.py
 │   ├── configs
-│   │   ├── __init__.py
-│   │   ├── datasets/*
-│   │   ├── models/*
-│   │   └── task/*
+│   │   ├── datasets/*.yaml
+│   │   ├── models/**/*.yaml
+│   │   └── task
+│   │       ├── privacy/*.yaml
+│   │       ├── safety/*.yaml
+│   │       ├── fairness/*.yaml
+│   │       ├── robustness/*.yaml
+│   │       └── trustfulness/*.yaml
 │   ├── datasets
 │   │   ├── __init__.py
 │   │   ├── base.py
-│   │   ├── celeb.py
-│   │   ├── confaide.py
-│   │   ├── enron_email.py
-│   │   ├── vispr.py
-│   │   └── ...
+│   │   └── *.py
 │   ├── evaluators
 │   │   ├── __init__.py
 │   │   ├── base.py
-│   │   ├── chatmodel_eval.py
-│   │   ├── classifier_eval.py
 │   │   ├── metrics.py
-│   │   └── rule_eval.py
+│   │   └── *.py
 │   ├── methods
 │   │   ├── __init__.py
 │   │   ├── base.py
-│   │   ├── related.py
-│   │   ├── unrelated_color.py
-│   │   ├── unrelated_nature.py
-│   │   ├── unrelated_noise.py
-│   │   └── ...
+│   │   └── *.py
 │   ├── models
+│   │   ├── [model_dependence]
 │   │   ├── __init__.py
 │   │   ├── base.py
-│   │   ├── openai_chat.py
-│   │   └──...
+│   │   └── *.py
 │   ├── tasks
 │   │   └── base.py
 │   └── utils
-│       ├── __init__.py
-│       ├── registry.py
-│       └── utils.py
+├── docs/
+├── data/
+├── score/
+├── scripts/
+├── LICENSE
+├── mkdocs.yml
+├── README.md
+├── requirements.txt
 └── run_task.py
-
-  
 ```
+
 
 
 ## <a name="flow"></a> Task Workflow

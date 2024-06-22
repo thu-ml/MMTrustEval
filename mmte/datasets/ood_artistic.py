@@ -11,7 +11,7 @@ import json
 @registry.register_dataset()
 class OODArtistic(BaseDataset):
     dataset_ids: Sequence[str] = ["coco-o-cartoon", "coco-o-handmake", "coco-o-painting", "coco-o-sketch", "coco-o-tattoo", "coco-o-weather"]
-    dataset_config: Optional[str] = "mmte/configs/datasets/ood_artistic.yaml"
+    dataset_config: Optional[str] = "mmte/configs/datasets/ood-artistic.yaml"
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)
         with open(self.dataset_config) as f:

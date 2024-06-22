@@ -48,7 +48,7 @@
     ```shell
     #  Note: 
     # [code] is an `absolute path` of project root: abspath(./)
-    # [data] and [playground] are `absolute paths` of user-defined directory, one need to decompress provided data and model_playground into [data] and [playground].
+    # [data] and [playground] are `absolute paths` of data and model_playground(decompress our provided data/playground).
     
     docker build -t multitrust:v0.0.1 -f Dockerfile .
 

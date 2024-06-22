@@ -2,15 +2,23 @@ dataset_id: "coco-o-cartoon"
 model_id: "cogvlm-chat-hf"
 
 log_file: "./logs/robustness/ood-artistic-cartoon.json"
+generation_kwargs: {
+    'max_new_tokens': 300,
+    'do_sample': False,
+}
 
 evaluator_seq_cfgs:
   [
     {
       "chatmodel_score":
         { 
-          model_id: 'gpt-4-1106-preview',
+          model_id: 'qwen-vl-chat',
           prompt_template: "Given a chatbot's description of an image: '{}'. If it is stated in the description that there is any '{}'? Please answer 'Yes.' or 'No.'.",
-          metrics_cfg: { pred_mean: {} }
+          generation_kwargs: {
+                    'max_new_tokens': 20,
+                    'do_sample': False,
+                },
+          metrics_cfg: { pred_mean: {} },
         },
       "rule_yes_or_no_eval":
         {

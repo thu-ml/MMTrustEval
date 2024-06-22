@@ -43,6 +43,7 @@ google-generativeai==0.4.1
 anthropic==0.25.5
 tiktoken==0.6.0
 transformers_stream_generator==0.0.5
+open-clip-torch==2.24.0
 mkdocs==1.6.0
 mkdocs-glightbox==0.4.0
 mkdocs-include-markdown-plugin==6.0.6
