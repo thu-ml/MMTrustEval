@@ -37,19 +37,19 @@ class BaseTask(ABC):
 
 ## Task Configuration
 
-This is to be done.
+- `model_id`: The ID of the model
 
-- model_id：模型的id
+- `dataset_id`: The ID of the dataset
 
-- dataset_id：数据集的id
+- `log_file`: The file path for the output JSON file
 
-- log_file：结果输出的json文件路径
+- `method_cfg`: Configuration for the method, formatted as `{method_id: method_kwargs, ...}`. Default: `{}`
 
-- method_cfg：method的config，{method_id: method_kwargs, ...}，default：{}
+- `dataset_cfg`: Additional parameters required for initializing the dataset, formatted as `dataset_kwargs`. Default: `{}`
 
-- dataset_cfg：dataset_kwargs，初始化dataset时需要的额外参数，default：{}
+- `generation_kwargs`: Additional parameters used for inference with the chat model. Default: `{}`
 
-- evaluator_seq_cfgs：evaluator sequence的config，List中表示不同的evaluator sequence，一个sequence里面有多个evaluator，一个evaluator对应多个metrics，default：[]
+- `evaluator_seq_cfgs`: Configuration for the evaluator sequence. Each list item represents a different evaluator sequence, with each sequence containing multiple evaluators, and each evaluator corresponding to multiple metrics. Default: `[]`
 
 
 
