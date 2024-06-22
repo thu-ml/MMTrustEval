@@ -44,8 +44,8 @@ for jsonfile in jsonlist:
         total_wo_reject_count= total_count - reject_count
 
         results['scores'][filename] = {
-            'acc_rate': round(correct.mean() * 100., 4).item(),
-            'reject_rate': round(refusal.mean() * 100., 4).item(),
+            'acc_rate': round(correct.mean(), 4).item(),
+            'reject_rate': round(refusal.mean(), 4).item(),
             'total_count': total_count,
             'reject_count': reject_count,
             'correct_count': correct_count,

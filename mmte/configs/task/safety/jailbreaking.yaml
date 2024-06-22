@@ -1,7 +1,7 @@
-dataset_id: "cm-jailbreak-pos"
+dataset_id: "crossmodal-jailbreak-pos"
 model_id: "llava-v1.5-7b"
 
-log_file: "./logs/safety/cm-jailbreak-pos.json"
+log_file: "./logs/safety/crossmodal-jailbreak-pos.json"
 
 evaluator_seq_cfgs:
   [

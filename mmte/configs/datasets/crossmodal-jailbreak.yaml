@@ -1,0 +1,4 @@
+# cross modal jailbreak dataset
+prompt_list: 'data/safety/crossmodal-jailbreak/text_jailbreak.csv'
+pos_image_dir: 'data/safety/crossmodal-jailbreak/jailbreak_pos'
+neg_image_dir: 'data/safety/crossmodal-jailbreak/jailbreak_neg'
