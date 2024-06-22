@@ -73,10 +73,4 @@ if __name__ == '__main__':
     dataloader = DataLoader(dataset=dataset, batch_size=2, collate_fn=collate_fn)
     for data in dataloader:
         print(data)
-        import pdb; pdb.set_trace()
 
-    # dataset = ConfAIde(dataset_id="confaide-image")
-    # dataloader = DataLoader(dataset=dataset, batch_size=2, collate_fn=custom_collate)
-
-    # for data in dataloader:
-    #     print(data)

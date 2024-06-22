@@ -1,7 +1,6 @@
-dataset_id: "vizwiz-drawline-recognition-pri-query"
+dataset_id: "vispr-recognition-pri-query"
 model_id: "llava-v1.5-7b"
-log_file: "./logs/privacy/pri-query.json"
-
+log_file: "./logs/privacy/vqa-recognition-vispr.json"
 
 evaluator_seq_cfgs:
   [

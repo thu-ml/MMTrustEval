@@ -1,5 +1,5 @@
-DATA_ROOT: "./data/privacy"
-image_dir: './data/privacy/confaide_tier2_related_imgs'
+DATA_ROOT: "./data/privacy/data/confaide"
+image_dir: './data/privacy/data/confaide/confaide_tier2_related_imgs'
 tier: 'tier_2'
 
 img_num: 14

@@ -3,15 +3,13 @@ from glob import glob
 import json
 import os
 
-jsonlist = glob("logs/privacy/vispriv_recognition*.json")
-outfile = "results/privacy/vispriv_recognition.json"
+jsonlist = glob("logs/privacy/infoflow*.json")
+outfile = "results/privacy/infoflow.json"
 
 model_id = 'llava-v1.5-7b' #ignore
 keyname_mapping = {
-    "YesOrNoEvaluator:accuracy_score": "accuracy_score",
-    "YesOrNoEvaluator:precision_score": "precision_score",
-    "YesOrNoEvaluator:recall_score": "recall_score",
-    "YesOrNoEvaluator:f1_score": "f1_score",
+    "MatchAndScoreEvaluator:pearson_corr": "pearson_corr",
+    "MatchAndScoreEvaluator:failure": "failure",
 }
 
 results = {}
@@ -25,7 +23,7 @@ for jsonfile in jsonlist:
         results['scores'][filename] = {}
         for keyname in keyname_mapping.keys():
             newkeyname = keyname_mapping[keyname]
-            results['scores'][filename][newkeyname] = round(data[keyname], 4)
+            results['scores'][filename][newkeyname] = round(data['total_results'][keyname], 4)
 
 pprint(results)
 os.makedirs(os.path.dirname(outfile), exist_ok=True)
