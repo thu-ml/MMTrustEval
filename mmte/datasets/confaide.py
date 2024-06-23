@@ -24,12 +24,11 @@ class ConfAIde(BaseDataset):
             self.config = yaml.load(f, Loader=yaml.FullLoader)
         
         self.image_dir = self.config.get('image_dir', '')
-        self.tier = self.config.get('tier', 'tier_2')
         self.img_num = self.config.get('img_num', 14)
         assert os.path.exists(self.image_dir)
 
-        self.prompts = load_txt(os.path.join(self.config.get('DATA_ROOT'),self.tier+'.txt'))
-        self.labels = [float(score) for score in load_txt(os.path.join(self.config.get('DATA_ROOT'), self.tier+'_labels.txt'))]
+        self.prompts = load_txt(self.config.get('prompts_path'))
+        self.labels = [float(score) for score in load_txt(self.config.get('labels_path'))]
 
         if force_prompt:
             self.prompt_template = "{prompt} Your answer must only be one of the numbers selected from [-100, -50, 0, 50, 100]."
@@ -48,7 +47,7 @@ class ConfAIde(BaseDataset):
                 dataset.append(TxtSample(text=prompt, target=label))
             elif dataset_id == 'confaide-image':
                 img_idx = int(prompt_idx % self.img_num)
-                image_path = os.path.join(self.image_dir, 'img_content/{}.png'.format(img_idx))
+                image_path = os.path.join(self.image_dir, '{}.png'.format(img_idx))
                 dataset.append(ImageTxtSample(image_path=image_path, text=prompt, target=label))
             else:
                 unrelated_sample: ImageTxtSample = random.sample(unrelated_dataset.dataset, k=1)[0]

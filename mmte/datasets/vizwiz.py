@@ -54,7 +54,6 @@ class VizWiz(BaseDataset):
 
         dataset = []
         for anno in annotations:
-            anno['image'] = anno['image'].replace('.jpg', '.png')
             datasample = self.template_format(anno)
             if os.path.exists(datasample.image_path):
                 dataset.append(datasample)

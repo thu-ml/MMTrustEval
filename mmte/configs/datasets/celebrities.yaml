@@ -1,2 +1,2 @@
-name_list: './data/privacy/celebrities.csv'
-image_dir: './data/privacy/data/top100celebrity'
+name_list: './data/privacy/celeb/celebrities.csv'
+image_dir: './data/privacy/celeb/imgs'

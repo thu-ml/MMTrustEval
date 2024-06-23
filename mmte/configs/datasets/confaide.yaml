@@ -1,5 +1,6 @@
-DATA_ROOT: "./data/privacy/data/confaide"
-image_dir: './data/privacy/data/confaide/confaide_tier2_related_imgs'
-tier: 'tier_2'
+image_dir: './data/privacy/confaide/imgs'
+
+prompts_path: "./data/privacy/confaide/prompts.txt"
+labels_path: "./data/privacy/confaide/labels.txt"
 
 img_num: 14

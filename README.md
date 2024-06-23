@@ -164,7 +164,7 @@ Running scripts under `scripts/run` can calculate the results of specific tasks,
 ### 📌 Get results 
 
 ```
-# bash scripts/run/**/*.sh
+# bash scripts/run/*/*.sh
 
 scripts/run
 ├── fairness_scripts
@@ -209,7 +209,7 @@ scripts/run
 
 ### 📌 Get scores
 ```
-# python scripts/score/**/*.py
+# python scripts/score/*/*.py
 
 scripts/score
 ├── fairness
