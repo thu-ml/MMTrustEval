@@ -3,9 +3,7 @@ from typing import Optional, Sequence, Dict
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, TxtSample, _OutputType
-from datasets import load_dataset
-from datetime import datetime
+from mmte import ImageTxtSample, _OutputType
 from pathlib import Path
 import yaml
 import os

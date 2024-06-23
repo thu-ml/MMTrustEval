@@ -75,7 +75,7 @@ class CrossModalJailbreakDataset(BaseDataset):
                     raise ValueError(f"Unknown dataset_id: {self.dataset_id}")
             
         print(f"{len(dataset)} data loaded")
-        self.dataset = dataset
+        self.dataset = dataset[:10]
 
     def __getitem__(self, index: int) -> _OutputType:
         if self.method_hook:

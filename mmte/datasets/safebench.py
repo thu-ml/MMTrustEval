@@ -1,10 +1,8 @@
-
-from typing import Optional, Sequence, List, Dict
+from typing import Optional, Sequence, Dict
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, TxtSample, _OutputType
-from datasets import load_dataset
+from mmte import ImageTxtSample, _OutputType
 from pathlib import Path
 import csv
 import yaml
@@ -13,9 +11,9 @@ import os
 @registry.register_dataset()
 class SafeBenchDataset(BaseDataset):
     
-    dataset_ids: Sequence[str] = ["SafeBench"]
+    dataset_ids: Sequence[str] = ["safebench"]
     dataset_config: Optional[Dict[str, str]] = {
-        "SafeBench": "./mmte/configs/datasets/safebench.yaml",
+        "safebench": "mmte/configs/datasets/safebench.yaml",
     }
 
 
