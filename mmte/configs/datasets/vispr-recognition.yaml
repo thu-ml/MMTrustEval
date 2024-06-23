@@ -1,2 +1,2 @@
-annotation_file: ./data/privacy/data/vispr/sampled_test2017/sampled_vispr.jsonl
-image_dir: ./data/privacy/data/vispr/test2017
+annotation_file: ./data/privacy/vispr/sampled_vispr_test2017.jsonl
+image_dir: ./data/privacy/vispr/test2017

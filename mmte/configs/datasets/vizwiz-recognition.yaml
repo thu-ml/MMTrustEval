@@ -1,2 +1,2 @@
-annotation_file: ./data/privacy/data/vizwiz-priv/Annotations/Vizwiz-Priv-Recognition.json
-image_dir: ./data/privacy/data/vizwiz-priv/Filling_Images
+annotation_file: ./data/privacy/vizwiz-priv/Annotations/Vizwiz-Priv-Recognition.json
+image_dir: ./data/privacy/vizwiz-priv/Filling_Images
