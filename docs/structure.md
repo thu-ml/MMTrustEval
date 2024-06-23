@@ -9,8 +9,8 @@
 │   ├── __init__.py
 │   ├── configs
 │   │   ├── datasets/*.yaml
-│   │   ├── models/**/*.yaml
-│   │   └── task/**/*.yaml
+│   │   ├── models/*/*.yaml
+│   │   └── task/*/*.yaml
 │   ├── datasets
 │   │   ├── __init__.py
 │   │   ├── base.py

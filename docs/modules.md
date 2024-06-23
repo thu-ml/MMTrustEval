@@ -10,7 +10,7 @@ In this section, we introduce each element in the [task flow](structure.md#flow)
 
 Datasets are defined to collect the samples to be tested for a specific task. It provides the prompt, image path, labels and possibly other information about the data point to the following process. Here are some technical notes about this class.
 
-1. The class is a subclass of the `torch.utils.data.Dataset` and users can iterate through the dataset by the default `torch.utils.data.Dataloader`. To customize a dataset, user need to define `__getitem__` and `__len__` as usual along with a `collate_fn` so that the dataloader can support the dataclass of `TxtSample` and `ImageTxtSample`. We provide a default one in `mmte.datasets.base.collate_fn` which should work for most cases. <span style="color:blue">(Yichi: Support customized collate_fn ?)</span>
+1. The class is a subclass of the `torch.utils.data.Dataset` and users can iterate through the dataset by the default `torch.utils.data.Dataloader`. To customize a dataset, user need to define `__getitem__` and `__len__` as usual along with a `collate_fn` so that the dataloader can support the dataclass of `TxtSample` and `ImageTxtSample`. We provide a default one in `mmte.datasets.base.collate_fn` which should work for most cases, one can customized your own collate_fn if necessary.
 2. A method to further process the data for a certain task, which can be independent from the original dataset, can be optionally specified via the argument `method_hook` when initialization. This could make additional augmentation, attack and other preprocessing to the existing datasets more convenient. This is illustrated in the [Method](#method) part.
 3. Some information about the dataset can be configured through a yaml config file, like the directory of images, the path to the annotation file. 
 4. `dataset_ids` is the list of supported `dataset_id` for this class, which specify the different splits and processors in sample preparing.
@@ -144,7 +144,7 @@ class BaseMethod(ABC):
 
 Models encapsulate the chat model of MLLMs into a unified interface for inference. This enables more convenient standardized evaluation of diverse models. Here are some technical notes about this class.
 
-1. `chat` unifies the interface for generation. `messages` is a list representing the conversation history, `generation_kwargs` is the generation configuration, indicating whether to `do_sample`, the setting of `temperature`, `max_new_tokens`, etc. The setting of generation configuration follows that in huggingface transformers. <span style="color:blue">(Yichi: Generation kwargs should be able to be customized in config file)</span>
+1. `chat` unifies the interface for generation. `messages` is a list representing the conversation history, `generation_kwargs` is the generation configuration, indicating whether to `do_sample`, the setting of `temperature`, `max_new_tokens`, etc. The setting of generation configuration follows that in huggingface transformers. 
 2. `model_id` is the unique identifier to get the chatmodel from `registry_getchatmodel_class` and `model_family` defines the list of available model identifiers.
 
 
