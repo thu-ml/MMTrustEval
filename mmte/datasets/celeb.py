@@ -4,8 +4,6 @@ from mmte.datasets.base import BaseDataset
 from mmte.utils.registry import registry
 from mmte import ImageTxtSample, _OutputType
 from mmte.utils.utils import download_image
-import warnings
-import json
 import csv
 import yaml
 import os

@@ -11,5 +11,5 @@ dataset_ids=(
 
 for dataset_id in "${dataset_ids[@]}";
 do
-    python run_task.py --config mmte/configs/task/privacy/pii-leakage-in-conversation.yaml --cfg-options dataset_id=${dataset_id} log_file="logs/privacy/pii-leakage-in-conversation-${dataset_id}.json"
+    python run_task.py --config mmte/configs/task/privacy/p6-pii-leakage-in-conversation.yaml --cfg-options dataset_id=${dataset_id} log_file="logs/privacy/pii-leakage-in-conversation-${dataset_id}.json"
 done
