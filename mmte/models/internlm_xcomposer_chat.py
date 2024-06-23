@@ -1,11 +1,8 @@
-import torch
 from transformers import AutoModel, AutoTokenizer, AutoConfig
 from typing import List
-from PIL import Image
 from mmte.models.base import BaseChat, Response
-from mmte.utils.utils import get_abs_path
 from mmte.utils.registry import registry
-from omegaconf import OmegaConf
+import torch
 torch.set_grad_enabled(False)
 
 

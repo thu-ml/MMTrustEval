@@ -2,8 +2,6 @@ from http import HTTPStatus
 from typing import List, Dict, Any
 import dashscope
 import yaml
-import os
-from PIL import Image
 from mmte.utils.registry import registry
 from mmte.models.base import BaseChat, Response
 from mmte.utils.utils import get_abs_path
@@ -11,22 +9,17 @@ from mmte.utils.utils import get_abs_path
 def transform_messages(messages):
     transformed_messages = []
     for message in messages:
-        # 提取当前消息的角色和内容
         role = message.get('role')
         if isinstance(message.get('content'), dict):
             content_dict = message.get('content')
-            # 初始化一个空列表来存放转换后的内容项
             transformed_content = []
-            # 检查是否有文本内容并添加到列表
             if 'text' in content_dict:
                 transformed_content.append({"text": content_dict['text']})
-            # 检查是否有图像路径并添加到列表
             if 'image_path' in content_dict:
                 transformed_content.append({"image": content_dict['image_path']})
         else:
             transformed_content = []
             transformed_content.append({"text": message.get('content')})
-            # 将转换后的内容列表与角色组合成新的消息格式
         transformed_messages.append({
             "role": role,
             "content": transformed_content

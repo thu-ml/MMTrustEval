@@ -1,5 +1,5 @@
-from typing import List
 import torch
+from typing import List
 from mmte.models.base import BaseChat, Response
 from mmte.utils.utils import get_abs_path
 from mmte.utils.registry import registry
@@ -9,7 +9,6 @@ from mmte.models.LRV_Instruction.MiniGPT_4.minigpt4.common.config import Config
 from mmte.models.LRV_Instruction.MiniGPT_4.minigpt4.common.registry import registry as registry_minigpt4
 from mmte.models.LRV_Instruction.MiniGPT_4.minigpt4.conversation.conversation import Chat, CONV_VISION, StoppingCriteriaSub
 
-# imports modules for registration
 from mmte.models.LRV_Instruction.MiniGPT_4.minigpt4.datasets.builders import *
 from mmte.models.LRV_Instruction.MiniGPT_4.minigpt4.models import *
 from mmte.models.LRV_Instruction.MiniGPT_4.minigpt4.processors import *

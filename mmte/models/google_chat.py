@@ -1,14 +1,14 @@
-from typing import List, Dict, Any, Literal
-import google.generativeai as genai
+from typing import List
 from google.generativeai.types import HarmBlockThreshold, HarmCategory, GenerationConfig
 from google.generativeai.types.answer_types import to_finish_reason
-import yaml
-from mmte.utils.registry import registry
+import google.generativeai as genai
 from mmte.models.base import BaseChat, Response
 from mmte.utils.utils import get_abs_path
-import os
+from mmte.utils.registry import registry
 from PIL import Image
 import time
+import yaml
+import os
 
 @registry.register_chatmodel()
 class GoogleChat(BaseChat):
