@@ -3,16 +3,10 @@ from typing import Optional, Sequence, List, Dict
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, TxtSample, _OutputType
-from datasets import load_dataset
-from datetime import datetime
+from mmte import ImageTxtSample, _OutputType
 from pathlib import Path
 import csv
-import random
-import warnings
-import string
 import yaml
-import json
 import os
 
 @registry.register_dataset()

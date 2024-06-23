@@ -1,7 +1,10 @@
 dataset_id: "crossmodal-jailbreak-pos"
 model_id: "llava-v1.5-7b"
-
 log_file: "./logs/safety/crossmodal-jailbreak-pos.json"
+generation_kwargs: {
+  'max_new_tokens': 512
+  }
+  
 
 evaluator_seq_cfgs:
   [
