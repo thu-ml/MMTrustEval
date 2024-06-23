@@ -9,8 +9,8 @@ ENV PATH=/root/miniconda3/bin:${PATH}
 
 WORKDIR /root/
 
-COPY ./sources.list /etc/apt/sources.list
-COPY ./requirements.txt /root/requirements.txt
+COPY ./env/sources.list /etc/apt/sources.list
+COPY ./env/requirements.txt /root/requirements.txt
 
 SHELL ["/bin/bash", "--login", "-c"]
 

@@ -10,12 +10,7 @@
 │   ├── configs
 │   │   ├── datasets/*.yaml
 │   │   ├── models/**/*.yaml
-│   │   └── task
-│   │       ├── privacy/*.yaml
-│   │       ├── safety/*.yaml
-│   │       ├── fairness/*.yaml
-│   │       ├── robustness/*.yaml
-│   │       └── trustfulness/*.yaml
+│   │   └── task/**/*.yaml
 │   ├── datasets
 │   │   ├── __init__.py
 │   │   ├── base.py
@@ -34,21 +29,18 @@
 │   │   ├── __init__.py
 │   │   ├── base.py
 │   │   └── *.py
-│   ├── tasks
-│   │   └── base.py
-│   └── utils
+│   ├── tasks/base.py
+│   └── utils/
+├── scripts/
+│   ├── run/
+│   └── score/
 ├── docs/
 ├── data/
-├── score/
-├── scripts/
+├── env/
 ├── LICENSE
-├── mkdocs.yml
 ├── README.md
-├── requirements.txt
 └── run_task.py
 ```
-
-
 
 ## <a name="flow"></a> Task Workflow
 

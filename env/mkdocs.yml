@@ -1,3 +1,4 @@
+docs_dir: ../docs
 site_name: MMTrustEval Docs
 nav:
   - Home: index.md
