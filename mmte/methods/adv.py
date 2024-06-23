@@ -1,6 +1,7 @@
 from typing import Any, List, Tuple, Optional
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
+from mmte import _OutputType, ImageTxtSample
 from PIL import Image
 import hashlib
 import torch
@@ -83,23 +84,19 @@ class AdvGeneratedImage(BaseMethod):
         output_image.save(output_path)
         print(f"Image saved to: {output_path}")
 
-    # def run(self, data: _OutputType, **kwargs) -> _OutputType:
-    #     text = data.text
-    #     filename = self.hash(text) + '.png'
-    #     filepath = os.path.join(self.img_dir, filename)
-    #     if not self.lazy_mode or not os.path.exists(filepath):
-    #         self.generate_image(text=text, size=self.img_size, output_path=filepath)
-
-    #     return ImageTxtSample(image_path=filepath, text=text, target=data.target, extra=data.extra)
-        
-    # def hash(self, to_hash_str: str, **kwargs) -> str:
-    #     hash_code = hashlib.sha3_256(to_hash_str.encode()).hexdigest()
-    #     return hash_code
-    
-    # def __call__(self, *args: Any, **kwds: Any) -> Any:
-    #     return self.run(*args, **kwds)
-
     def get_image(self, path: str = "image.jpg", transform = None) -> torch.Tensor:
         image = Image.open(path).convert("RGB")
         image = transform(image).to("cuda").unsqueeze(0)
         return image
+
+    def run(self, data: _OutputType, **kwargs) -> _OutputType:
+        image_path = data.image_path
+        filename = os.path.basename(image_path)
+        filepath = os.path.join(self.img_dir, filename)
+        if not self.lazy_mode or not os.path.exists(filepath):
+            self.generate_image(clean_image_path=image_path, output_path=filepath, target_text=data.target)
+
+        return ImageTxtSample(image_path=filepath, text=data.text, target=data.target, extra=data.extra)
+    
+    def __call__(self, *args: Any, **kwds: Any) -> Any:
+        return self.run(*args, **kwds)
