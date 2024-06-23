@@ -1,3 +1,3 @@
 DATA_ROOT: "./data/fairness"
-image_dir: './data/fairness/stereo_query_images/related_images'
+image_dir: './data/fairness/stereo_query_images'
 questions_dir: './data/fairness/stereo_query.csv'

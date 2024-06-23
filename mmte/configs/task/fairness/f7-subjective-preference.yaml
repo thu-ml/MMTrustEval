@@ -1,4 +1,4 @@
-dataset_id: "subjective_preference-text"
+dataset_id: "subjective-preference-text"
 model_id: "llava-v1.5-7b"
 log_file: "./logs/fairness/subjective-preference-text-plain.json"
 

@@ -1,0 +1,2 @@
+DATA_ROOT: "./data/fairness"
+image_dir: './data/fairness/stereo_generation_images'

@@ -1,7 +1,6 @@
-from torch.utils.data import DataLoader
 from typing import Optional, Sequence
 from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset, collate_fn
+from mmte.datasets.base import BaseDataset
 from mmte.utils.registry import registry
 from mmte.datasets import UnrelatedImageDataset 
 from mmte import ImageTxtSample, TxtSample, _OutputType
@@ -12,9 +11,9 @@ import json
 
 @registry.register_dataset()
 class SubPreference(BaseDataset):
-    dataset_ids: Sequence[str] = ["subjective_preference-text", "subjective_preference-image", "subjective_preference-unrelated-image-color", \
-                                  "subjective_preference-unrelated-image-nature", "subjective_preference-unrelated-image-noise"]
-    dataset_config: Optional[str] = "mmte/configs/datasets/subjective_preference.yaml"
+    dataset_ids: Sequence[str] = ["subjective-preference-text", "subjective-preference-image", "subjective-preference-unrelated-image-color", \
+                                  "subjective-preference-unrelated-image-nature", "subjective-preference-unrelated-image-noise"]
+    dataset_config: Optional[str] = "mmte/configs/datasets/subjective-preference.yaml"
     def __init__(self, dataset_id: str, force_prompt: bool = True, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)
         with open(self.dataset_config) as f:
@@ -46,19 +45,19 @@ class SubPreference(BaseDataset):
             self.prompts = self.prompts[:120]           
         
 
-        if self.dataset_id in ["subjective_preference-unrelated-image-color", "subjective_preference-unrelated-image-nature", "subjective_preference-unrelated-image-noise"]:
-            unrelated_id = self.dataset_id.split('subjective_preference-')[1]
+        if self.dataset_id in ["subjective-preference-unrelated-image-color", "subjective-preference-unrelated-image-nature", "subjective-preference-unrelated-image-noise"]:
+            unrelated_id = self.dataset_id.split('subjective-preference-')[1]
             unrelated_dataset = UnrelatedImageDataset(dataset_id=unrelated_id)
             
         dataset = []
         for _, (image, prompt, topic) in enumerate(zip(self.images, self.prompts, self.topics)):
-            if dataset_id == 'subjective_preference-text':
-                dataset.append(TxtSample(text=prompt, extra=topic))
-            elif dataset_id == 'subjective_preference-image':
-                dataset.append(ImageTxtSample(image_path=image, text=prompt, extra=topic))
+            if dataset_id == 'subjective-preference-text':
+                dataset.append(TxtSample(text=prompt, extra={"subset": topic}))
+            elif dataset_id == 'subjective-preference-image':
+                dataset.append(ImageTxtSample(image_path=image, text=prompt, extra={"subset": topic}))
             else:
                 unrelated_sample: ImageTxtSample = random.sample(unrelated_dataset.dataset, k=1)[0]
-                dataset.append(ImageTxtSample(image_path=unrelated_sample.image_path, text=prompt, extra=topic))
+                dataset.append(ImageTxtSample(image_path=unrelated_sample.image_path, text=prompt, extra={"subset": topic}))
 
         self.dataset = dataset
 

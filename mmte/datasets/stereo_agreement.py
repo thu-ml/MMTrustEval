@@ -14,7 +14,7 @@ import csv
 class StereoAgreement(BaseDataset):
     dataset_ids: Sequence[str] = ["stereo-agreement-text", "stereo-agreement-image", "stereo-agreement-unrelated-image-color", \
                                   "stereo-agreement-unrelated-image-nature", "stereo-agreement-unrelated-image-noise"]
-    dataset_config: Optional[str] = "mmte/configs/datasets/stereo_agreement.yaml"
+    dataset_config: Optional[str] = "mmte/configs/datasets/stereo-agreement.yaml"
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)
         with open(self.dataset_config) as f:
@@ -46,12 +46,12 @@ class StereoAgreement(BaseDataset):
         dataset = []
         for _, (image, prompt, type) in enumerate(zip(self.images, self.prompts, self.types)):
             if dataset_id == 'stereo-agreement-text':
-                dataset.append(TxtSample(text=prompt, extra=type))
+                dataset.append(TxtSample(text=prompt, extra={"subset": type}))
             elif dataset_id == 'stereo-agreement-image':
-                dataset.append(ImageTxtSample(image_path=image, text=prompt, extra=type))
+                dataset.append(ImageTxtSample(image_path=image, text=prompt, extra={"subset": type}))
             else:
                 unrelated_sample: ImageTxtSample = random.sample(unrelated_dataset.dataset, k=1)[0]
-                dataset.append(ImageTxtSample(image_path=unrelated_sample.image_path, text=prompt, extra=type))
+                dataset.append(ImageTxtSample(image_path=unrelated_sample.image_path, text=prompt, extra={"subset": type}))
 
         self.dataset = dataset
 
