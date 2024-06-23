@@ -1,2 +1,0 @@
-DATA_ROOT: "./data/fairness"
-image_dir: './data/fairness/vqa_images'

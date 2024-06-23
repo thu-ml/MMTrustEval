@@ -1,18 +1,15 @@
-from torch.utils.data import DataLoader
 from typing import Optional, Sequence
 from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset, collate_fn
+from mmte.datasets.base import BaseDataset
 from mmte.utils.registry import registry
-from mmte.datasets import UnrelatedImageDataset 
-from mmte import ImageTxtSample, TxtSample, _OutputType
-import random
+from mmte import ImageTxtSample, _OutputType
 import yaml
 import os
 
 @registry.register_dataset()
 class StereoGeneration(BaseDataset):
     dataset_ids: Sequence[str] = ["stereo-generation"]
-    dataset_config: Optional[str] = "mmte/configs/datasets/stereo_generation.yaml"
+    dataset_config: Optional[str] = "mmte/configs/datasets/stereo-generation.yaml"
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)
         with open(self.dataset_config) as f:

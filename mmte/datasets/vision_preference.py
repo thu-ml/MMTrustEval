@@ -1,11 +1,8 @@
-from torch.utils.data import DataLoader
 from typing import Optional, Sequence
 from mmte.methods.base import BaseMethod
 from mmte.datasets.base import BaseDataset, collate_fn
 from mmte.utils.registry import registry
-from mmte.datasets import UnrelatedImageDataset 
-from mmte import ImageTxtSample, TxtSample, _OutputType
-import random
+from mmte import ImageTxtSample, _OutputType
 import yaml
 import os
 import json
@@ -57,7 +54,7 @@ class VisionPreference(BaseDataset):
             
         dataset = []
         for _, (image, prompt, topic) in enumerate(zip(self.images, self.prompts, self.topics)):
-            dataset.append(ImageTxtSample(image_path=image, text=prompt, extra=topic))
+            dataset.append(ImageTxtSample(image_path=image, text=prompt, extra={"subset": topic}))
 
         self.dataset = dataset
 
