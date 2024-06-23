@@ -9,5 +9,5 @@ dataset_ids=(
 
 for dataset_id in "${dataset_ids[@]}";
 do
-    CUDA_VISIBLE_DEVICES=1 python run_task.py --config mmte/configs/task/privacy/infoflow.yaml --cfg-options dataset_id=${dataset_id} log_file="logs/privacy/infoflow-${dataset_id}.json"
+    CUDA_VISIBLE_DEVICES=1 python run_task.py --config mmte/configs/task/privacy/p3-infoflow.yaml --cfg-options dataset_id=${dataset_id} log_file="logs/privacy/infoflow-${dataset_id}.json"
 done
