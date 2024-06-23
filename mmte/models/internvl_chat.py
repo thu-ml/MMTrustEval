@@ -1,13 +1,11 @@
 
+import torch
 from typing import List
 from omegaconf import OmegaConf
-import torch
-
 from mmte.utils.registry import registry
 from mmte.utils.utils import get_abs_path
 from mmte.models.InternVL.internvl_chat_llava.llava.model.builder import load_pretrained_model
 from mmte.models.InternVL.internvl_chat_llava.llava.eval.run_llava import chat_model
-
 from mmte.models.base import BaseChat, Response
 
 

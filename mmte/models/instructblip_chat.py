@@ -1,12 +1,9 @@
 from typing import List
-import torch
 from mmte.models.base import BaseChat, Response
-from mmte.utils.utils import get_abs_path
 from mmte.utils.registry import registry
-from omegaconf import OmegaConf
-# 假设有BLIP-2模型和处理器的导入路径
 from PIL import Image
 from transformers import InstructBlipProcessor, InstructBlipForConditionalGeneration
+import torch
 
 @registry.register_chatmodel()
 class InstructBLIPChat(BaseChat):

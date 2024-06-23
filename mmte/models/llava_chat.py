@@ -6,7 +6,6 @@ import torch
 from mmte.utils.registry import registry
 from mmte.utils.utils import get_abs_path
 from mmte.models.llava.model.builder import load_pretrained_model
-from mmte.models.llava.mm_utils import get_model_name_from_path
 from mmte.models.llava.eval.run_llava import chat_model
 
 from mmte.models.base import BaseChat, Response
