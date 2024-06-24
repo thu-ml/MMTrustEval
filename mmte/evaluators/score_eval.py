@@ -1,11 +1,7 @@
-import os
-import json
 import time
-from tqdm import tqdm
 from typing import Any, Sequence, List, Tuple, Dict
 from mmte.evaluators.base import BaseEvaluator
 from mmte.utils.registry import registry
-
 
 @registry.register_evaluator()
 class PerspectiveAPIEvaluator(BaseEvaluator):

@@ -23,7 +23,6 @@ class ShareGPT4VChat(BaseChat):
     Chat class for ShareGPT4V models
     """
     
-    # TODO: update model config
     MODEL_CONFIG = {
         "ShareGPT4V-7B": 'configs/models/sharegpt4v/ShareGPT4V-7B.yaml',
         "ShareGPT4V-13B": 'configs/models/sharegpt4v/ShareGPT4V-13B.yaml',        

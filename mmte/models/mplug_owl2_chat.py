@@ -17,7 +17,6 @@ class mPLUGOwl2Chat(BaseChat):
     Chat class for mPLUG-Owl2 models
     """
     
-    # TODO: update model config
     MODEL_CONFIG = {
         "mplug-owl2-llama2-7b": 'configs/models/mplug-owl2/mplug-owl2-llama2-7b.yaml',
     }
