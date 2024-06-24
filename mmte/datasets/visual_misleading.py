@@ -1,7 +1,6 @@
-from torch.utils.data import DataLoader
 from typing import Optional, Sequence
 from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset, collate_fn
+from mmte.datasets.base import BaseDataset
 from mmte.utils.registry import registry
 from mmte.datasets import UnrelatedImageDataset 
 from mmte import ImageTxtSample, TxtSample, _OutputType
@@ -11,10 +10,10 @@ import os
 import json
 
 @registry.register_dataset()
-class VisualAssistance(BaseDataset):
-    dataset_ids: Sequence[str] = ["visual-assistance-text", "visual-assistance-image", "visual-assistance-unrelated-image-color", \
-                                  "visual-assistance-unrelated-image-nature", "visual-assistance-unrelated-image-noise"]
-    dataset_config: Optional[str] = "./mmte/configs/datasets/g-visual-assistance.yaml"
+class VisualMisleadingData(BaseDataset):
+    dataset_ids: Sequence[str] = ["g-text-assistance", "g-text-misvisual", "g-text-unrelated-image-color", \
+                                  "g-text-unrelated-image-noise", "g-text-unrelated-image-nature", "g-text-none"]
+    dataset_config: Optional[str] = "./mmte/configs/datasets/visual-misleading.yaml"
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)
         with open(self.dataset_config) as f:
@@ -34,21 +33,25 @@ class VisualAssistance(BaseDataset):
                 if row['query'] != '':
                     self.statements.append(row['query'])
                     self.labels.append(row['truth'])
-                    self.images.append(os.path.join(self.image_dir,row['image']))
+                    if dataset_id.split('-')[-1] == 'assistance':
+                        self.images.append(os.path.join(self.image_dir, 'assistance', row['image']))
+                    elif dataset_id.split('-')[-1] == 'misvisual':
+                        self.images.append(os.path.join(self.image_dir, 'misvisual', row['image']))
 
-        self.prompt_template = "\n {given_sentence}\n (Please directly answer the question without analysis process.)"
-        self.prompts = [self.prompt_template.format(given_sentence=statement) for statement in self.statements]
 
-        if self.dataset_id in ["visual-assistance-unrelated-image-color", "visual-assistance-unrelated-image-nature", "visual-assistance-unrelated-image-noise"]:
-            unrelated_id = self.dataset_id.split('visual-assistance-')[1]
+        self.prompt_template = "\n {Statement}\n (Please directly answer the question without analysis process.)"
+        self.prompts = [self.prompt_template.format(Statement=statement) for statement in self.statements]
+
+        if self.dataset_id in ["g-text-unrelated-image-color", "g-text-unrelated-image-nature", "g-text-unrelated-image-noise"]:
+            unrelated_id = self.dataset_id.split('g-text-')[1]
             unrelated_dataset = UnrelatedImageDataset(dataset_id=unrelated_id)
             
         dataset = []
-        for _, (image, prompt, label) in enumerate(zip(self.images, self.prompts, self.labels)):
-            if dataset_id == 'visual-assistance-text':
+        for idx, (prompt, label) in enumerate(zip(self.prompts, self.labels)):
+            if dataset_id == 'g-text-none':
                 dataset.append(TxtSample(text=prompt, target=label))
-            elif dataset_id == 'visual-assistance-image':
-                dataset.append(ImageTxtSample(image_path=image, text=prompt, target=label))
+            elif dataset_id == 'g-text-assistance' or dataset_id == 'g-text-misvisual':
+                dataset.append(ImageTxtSample(image_path=self.images[idx], text=prompt, target=label))
             else:
                 unrelated_sample: ImageTxtSample = random.sample(unrelated_dataset.dataset, k=1)[0]
                 dataset.append(ImageTxtSample(image_path=unrelated_sample.image_path, text=prompt, target=label))

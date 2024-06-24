@@ -2,37 +2,34 @@ from typing import Optional, Sequence, Dict
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, TxtSample, _OutputType
-from datasets import load_dataset
-from datetime import datetime
-import random
-import string
+from mmte import ImageTxtSample, _OutputType
 import yaml
 import json
 import os
-import sys
-from PIL import Image
+import warnings
 
 
 @registry.register_dataset()
-class GroundData(BaseDataset):
+class VisualConfusionData(BaseDataset):
     
-    dataset_ids: Sequence[str] = ["g-basic-grounding"]
-    dataset_config: Optional[str] = "./mmte/configs/datasets/g-basic-grounding.yaml"
+    dataset_ids: Sequence[str] = ["d-mis-visual-confusion"]
+    dataset_config: Optional[str] = "./mmte/configs/datasets/visual-confusion.yaml"
     
-    prompt_template = "\n {Statement}\n Please directly answer its content without other information."
-    
+    prompt_template = "\n {Statement}\n Please first answer with [Yes] or [No] according to the picture, and give a short explanation about your answer."
+   
     def template_format(self, anno: Dict) -> ImageTxtSample:
         image_path = os.path.join(self.image_dir, anno['image'])
         text = self.prompt_template.format(Statement=anno['query'])
-        if anno["truth"]:
-            target = anno["truth"]
+        extra = anno['kind']
+        if anno["truth"] == 'Yes':
+            target = int(1)
+        elif anno["truth"] == 'No':
+            target = int(0)
         else:
             print("no label")
             raise ValueError
-        with Image.open(image_path) as img:
-            extra = {"img_size":img.size}
-        return ImageTxtSample(image_path=image_path, text=text, target=target, extra=extra)
+
+        return ImageTxtSample(image_path=image_path, text=text, target=target, extra={"subset": extra})
 
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)
@@ -48,7 +45,6 @@ class GroundData(BaseDataset):
         dataset = []
         for anno in annotations:
             datasample = self.template_format(anno)
-            # print(datasample)
             if os.path.exists(datasample.image_path):
                 dataset.append(datasample)
             else:
@@ -64,4 +60,3 @@ class GroundData(BaseDataset):
     
     def __len__(self) -> int:
         return len(self.dataset)
-    

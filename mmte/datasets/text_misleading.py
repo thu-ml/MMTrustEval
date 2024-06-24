@@ -1,25 +1,20 @@
-# import sys
-# sys.path.append('.')
 from typing import Optional, Sequence, Dict
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, TxtSample, _OutputType
-from datasets import load_dataset
-from datetime import datetime
-import random
-import string
+from mmte import ImageTxtSample, _OutputType
 import yaml
 import json
 import os
-import sys
+import warnings
+
 
 
 @registry.register_dataset()
-class MistextData(BaseDataset):
+class TextMisleadingData(BaseDataset):
     
-    dataset_ids: Sequence[str] = ["g-mis-text"]
-    dataset_config: Optional[str] = "./mmte/configs/datasets/g-mis-text.yaml"
+    dataset_ids: Sequence[str] = ["g-text-misleading"]
+    dataset_config: Optional[str] = "./mmte/configs/datasets/text-misleading.yaml"
     
     prompt_template = "{Statement}\n Please directly tell me the answer without analysis process."
     
@@ -48,7 +43,6 @@ class MistextData(BaseDataset):
         dataset = []
         for anno in annotations:
             datasample = self.template_format(anno)
-            # print(datasample)
             if os.path.exists(datasample.image_path):
                 dataset.append(datasample)
             else:
