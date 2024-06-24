@@ -1,12 +1,12 @@
-import sys
-sys.path.append('/data/zhangyichi/MMTrustEval-dev/chang/')
-
+import yaml
+import argparse
+import warnings
+from pprint import pprint
+warnings.filterwarnings("ignore")
 from mmte.tasks.base import BaseTask
 from mmte.utils.registry import registry
 from mmte.evaluators.metrics import _supported_metrics
 from mmte.utils.utils import DictAction, merge_config
-import argparse
-import yaml
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -24,14 +24,17 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-print("models: ", registry.list_chatmodels())
-print("datasets: ", registry.list_datasets())
-print("methods: ", registry.list_methods())
-print("evaluators: ", registry.list_evaluators())
-print("metrics: ", list(_supported_metrics.keys()))
-
 
 if __name__ == '__main__':
+    '''
+    # List all available modules:
+    pprint("models: ", registry.list_chatmodels())
+    pprint("datasets: ", registry.list_datasets())
+    pprint("methods: ", registry.list_methods())
+    pprint("evaluators: ", registry.list_evaluators())
+    pprint("metrics: ", list(_supported_metrics.keys()))
+    '''
+
     args = parse_args()
     config = args.config
 
@@ -39,8 +42,7 @@ if __name__ == '__main__':
         cfg = yaml.load(f, Loader=yaml.FullLoader)
         if hasattr(args, "cfg_options") and args.cfg_options is not None:
             cfg = merge_config(cfg, args.cfg_options)
-        print(config)
-        print(cfg)
+        
         model_id = cfg.get('model_id')
         dataset_id = cfg.get('dataset_id')
         log_file = cfg.get('log_file')
@@ -48,11 +50,16 @@ if __name__ == '__main__':
         dataset_cfg = cfg.get('dataset_cfg', {})
         generation_kwargs = cfg.get('generation_kwargs', {})
         evaluator_seq_cfgs = cfg.get('evaluator_seq_cfgs', [])
-        
+
         if 'max_new_tokens' not in generation_kwargs.keys():
             generation_kwargs['max_new_tokens'] = 50
         if 'do_sample' not in generation_kwargs.keys(): 
             generation_kwargs['do_sample'] = False
-        
+
+        cfg['generation_kwargs'] = generation_kwargs
+        cfg['config_path'] = config
+
+        pprint(cfg, width=150)
+
         runner = BaseTask(dataset_id=dataset_id, model_id=model_id, method_cfg=method_cfg, dataset_cfg=dataset_cfg, generation_kwargs=generation_kwargs, log_file=log_file, evaluator_seq_cfgs=evaluator_seq_cfgs)
         runner.pipeline()

@@ -11,27 +11,18 @@ from transformers import (
     BitsAndBytesConfig,
 )
 from mmte.models.llava.constants import (
-    IMAGE_TOKEN_INDEX,
-    DEFAULT_IMAGE_TOKEN,
     DEFAULT_IM_START_TOKEN,
     DEFAULT_IM_END_TOKEN,
     DEFAULT_IMAGE_PATCH_TOKEN,
 )
-from mmte.models.llava.conversation import conv_templates, SeparatorStyle
-from mmte.models.llava.model.builder import load_pretrained_model
-from mmte.models.llava.utils import disable_torch_init
-from mmte.models.llava.mm_utils import (
-    tokenizer_image_token,
-    get_model_name_from_path,
-    KeywordsStoppingCriteria,
-)
 from mmte.models.llava.model import *
 from mmte.models.llava.eval.run_llava import chat_model
 
-from PIL import Image
-import math
 from peft import PeftModel
-import time
+from glob import glob
+from huggingface_hub.constants import HF_HUB_CACHE
+from huggingface_hub import snapshot_download
+
 @registry.register_chatmodel()
 class LLaVARLHFChat(BaseChat):
     """
@@ -53,8 +44,11 @@ class LLaVARLHFChat(BaseChat):
         print(self.config)
 
         self.model_name = self.config.model.model_name
-        model_path = self.config.model.model_path
-        lora_path = self.config.model.lora_path
+        download_path = self.config.model.model_path
+        snapshot_download(repo_id=download_path, force_download=False)
+        model_path = glob("{}/models--zhiqings--LLaVA-RLHF-13b-v1.5-336/snapshots/*/sft_model".format(HF_HUB_CACHE))[0]
+        lora_path = glob("{}/models--zhiqings--LLaVA-RLHF-13b-v1.5-336/snapshots/*/rlhf_lora_adapter_model".format(HF_HUB_CACHE))[0]
+        
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
         bits = 16
         self.dtype = torch.bfloat16

@@ -1,6 +1,7 @@
 model:
   model_name: 'llava-v1.5-13b'
-  model_path: './playground/model_weights/llava-v1.5-13b'
+  # model_path: './playground/model_weights/llava-v1.5-13b'
+  model_path: 'liuhaotian/llava-v1.5-13b'
 
 parameters:
   sep: ','
