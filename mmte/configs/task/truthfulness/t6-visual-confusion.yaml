@@ -1,6 +1,6 @@
-dataset_id: "d-mis-confusion"
+dataset_id: "d-mis-visual-confusion"
 model_id: "llava-v1.5-7b"
-log_file: "./logs/truthfulness/mis-confusion.json"
+log_file: "./logs/truthfulness/visual-confusion.json"
 
 evaluator_seq_cfgs:
   [

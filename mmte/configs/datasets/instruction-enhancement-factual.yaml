@@ -1,0 +1,2 @@
+annotation_file: 'data/truthfulness/query_instruction/query_g_factual.json'
+image_dir: 'data/truthfulness/instruction_images/factual'

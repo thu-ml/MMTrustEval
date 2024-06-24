@@ -1,0 +1,2 @@
+annotation_file: './data/truthfulness/query_advanced/query_d_{}.json'
+image_dir: './data/truthfulness/advanced_images/'

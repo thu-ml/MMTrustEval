@@ -1,61 +1,60 @@
-# import sys
-# sys.path.append('./mmte')
 from typing import Optional, Sequence, Dict
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, TxtSample, _OutputType
-from datasets import load_dataset
-from datetime import datetime
-import random
-import string
+from mmte import ImageTxtSample, _OutputType
+from PIL import Image
 import yaml
 import json
 import os
+import warnings
 
 
 @registry.register_dataset()
 class BasicData(BaseDataset):
     
-    dataset_ids: Sequence[str] = ["d-basic-object","d-basic-attribute","d-basic-scene"]
+    dataset_ids: Sequence[str] = [
+        "d-basic-object",
+        "d-basic-attribute",
+        "d-basic-scene",
+        "g-basic-grounding",
+        "g-basic-ocr",
+    ]
     dataset_config: Optional[Dict[str, str]] = {
-        "d-basic-object": "./mmte/configs/datasets/d-basic-obejct.yaml",
-        "d-basic-attribute": "./mmte/configs/datasets/d-basic-attribute.yaml",
-        "d-basic-scene": "./mmte/configs/datasets/d-basic-scene.yaml"
+        "d-basic-object": "./mmte/configs/datasets/basic-obejct.yaml",
+        "d-basic-attribute": "./mmte/configs/datasets/basic-attribute.yaml",
+        "d-basic-scene": "./mmte/configs/datasets/basic-scene.yaml",
+        "g-basic-grounding": "./mmte/configs/datasets/basic-grounding.yaml",
+        "g-basic-ocr": "./mmte/configs/datasets/basic-ocr.yaml",
     }
     
-    prompt_template = "{Statement}\n Please Directly answer [Yes] or [No]!"
-   
+    d_basic_prompt_template = "{Statement}\n Please Directly answer [Yes] or [No]!"
+
+    g_basic_prompt_template = "\n {Statement}\n Please directly answer its content without other information."
+    
     def template_format(self, anno: Dict) -> ImageTxtSample:
-        if self.dataset_id == "d-basic-object":
-            image_path = os.path.join(self.image_dir, anno['image'])
-            text = self.prompt_template.format(Statement=anno['query'])
+        image_path = os.path.join(self.image_dir, anno['image'])
+        text = self.prompt_template.format(Statement=anno['query'])
+        if self.dataset_id.startswith("d-basic"):
             if anno["truth"] == 'Yes':
                 target = int(1)
             elif anno["truth"] == 'No':
                 target = int(0)
             else:
                 print("no label")
-        elif self.dataset_id == "d-basic-attribute":
-            image_path = os.path.join(self.image_dir, anno['image'])
-            text = self.prompt_template.format(Statement=anno['query'])
-            if anno["truth"] == 'Yes':
-                target = int(1)
-            elif anno["truth"] == 'No':
-                target = int(0)
+        elif self.dataset_id.startswith("g-basic"):
+            if anno["truth"]:
+                target = anno["truth"]
             else:
                 print("no label")
-        elif self.dataset_id == "d-basic-scene":
-            image_path = os.path.join(self.image_dir, anno['image'])
-            text = self.prompt_template.format(Statement=anno['query'])
-            if anno["truth"] == 'Yes':
-                target = int(1)
-            elif anno["truth"] == 'No':
-                target = int(0)
-            else:
-                print("no label")
+                raise ValueError
         else:
             raise ValueError
+
+        if self.dataset_id == "g-basic-grounding":
+            with Image.open(image_path) as img:
+                extra = {"img_size":img.size}
+            return ImageTxtSample(image_path=image_path, text=text, target=target, extra=extra)
 
         return ImageTxtSample(image_path=image_path, text=text, target=target)
 
@@ -64,6 +63,13 @@ class BasicData(BaseDataset):
         with open(self.dataset_config[dataset_id]) as f:
             self.config = yaml.load(f, Loader=yaml.FullLoader)
         
+        if dataset_id.startswith('d-basic'):
+            self.prompt_template = self.d_basic_prompt_template
+        elif dataset_id.startswith('g-basic'):
+            self.prompt_template = self.g_basic_prompt_template
+        else:
+            raise ValueError
+
         self.image_dir = self.config.get('image_dir', '')
         self.annotation_file: str = self.config.get('annotation_file', '')
         assert os.path.exists(self.image_dir)
@@ -89,8 +95,3 @@ class BasicData(BaseDataset):
     def __len__(self) -> int:
         return len(self.dataset)
     
-# if __name__ == '__main__':
-#     dataset = BasicData(dataset_id="d-basic-object")
-#     dataloader = DataLoader(dataset=dataset, batch_size=2, collate_fn=collate_fn)
-#     for data in dataloader:
-#         print(data)
