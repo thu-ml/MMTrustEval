@@ -1,8 +1,6 @@
 source activate mllm-dev
 dataset_ids=(
-    "vispr-recognition-vqa-recognition-vispr"
-    "vizwiz-drawline-recognition-vqa-recognition-vispr"
-    "vizwiz-recognition-vqa-recognition-vispr"
+    "vispr-recognition-pri-query"
 )
 
 for dataset_id in "${dataset_ids[@]}";
