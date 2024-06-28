@@ -101,12 +101,6 @@ The codebase is licensed under the Creative Commons Attribution-ShareAlike 4.0 I
 
 Refer [here](data4multitrust/README.md) for detailed instructions.
 
-
-
-### 📍 Model Checkpoints
-
-Install related checkpoints into [playground] folder
-
 ## 📚 Docs
 Our document presents interface definitions for different modules and some tutorials on how to extend modules.
 Running online at: https://thu-ml.github.io/MMTrustEval/
