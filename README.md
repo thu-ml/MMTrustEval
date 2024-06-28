@@ -98,7 +98,9 @@ A Comprehensive Study
 The codebase is licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
 
 #### Download Data
-Install related datasets into [data] folder (TODO)
+Install related datasets into [data] folder from this link:
+
+https://drive.google.com/drive/folders/1Fh6tidH1W2aU3SbKVggg6cxWqT021rE0?usp=drive_link
 
 #### Incomplete Data released
 Please note that only a partial dataset will be included with the codebase. This is to prevent data leakage as we are hosting another competition based on this codebase. 
@@ -174,37 +176,37 @@ scripts/run
 │   ├── f3-stereo-topic-classification.sh
 │   ├── f4-stereo-query.sh
 │   ├── f5-vision-preference.sh
-│   ├── f6-profession-pred.sh
-│   └── f7-subjective-preference.sh
+│   ├── f6-profession-pred.sh ✅
+│   └── f7-subjective-preference.sh ✅
 ├── privacy_scripts
 │   ├── p1-vispriv-recognition.sh
 │   ├── p2-vqa-recognition-vispr.sh
-│   ├── p3-infoflow.sh
-│   ├── p4-pii-query.sh
+│   ├── p3-infoflow.sh ✅
+│   ├── p4-pii-query.sh ✅
 │   ├── p5-visual-leakage.sh
 │   └── p6-pii-leakage-in-conversation.sh
 ├── robustness_scripts
-│   ├── r1-ood-artistic.sh
+│   ├── r1-ood-artistic.sh ✅
 │   ├── r2-ood-sensor.sh
 │   ├── r3-ood-text.sh
 │   ├── r4-adversarial-untarget.sh
 │   ├── r5-adversarial-target.sh
-│   └── r6-adversarial-text.sh
+│   └── r6-adversarial-text.sh ✅
 ├── safety_scripts
 │   ├── s1-nsfw-image-description.sh
 │   ├── s2-risk-identification.sh
-│   ├── s3-toxic-content-generation.sh
-│   ├── s4-typographic-jailbreaking.sh
+│   ├── s3-toxic-content-generation.sh ✅
+│   ├── s4-typographic-jailbreaking.sh ✅
 │   ├── s5-multimodal-jailbreaking.sh
 │   └── s6-crossmodal-jailbreaking.sh
 └── truthfulness_scripts
-    ├── t1-basic.sh
+    ├── t1-basic.sh ✅
     ├── t2-advanced.sh
     ├── t3-instruction-enhancement.sh
     ├── t4-visual-assistance.sh
     ├── t5-text-misleading.sh
     ├── t6-visual-confusion.sh
-    └── t7-visual-misleading.sh
+    └── t7-visual-misleading.sh ✅
 ```
 
 ### 📌 Get scores
