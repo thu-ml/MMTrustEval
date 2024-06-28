@@ -4,13 +4,13 @@ A Comprehensive Study
 </h2>
 
 <font size=3>
-    <p align="center"> This is the official repository for the <b>MultiTrust</b> toolbox </p>
+    <p align="center"> This is the official repository of <b>MMTrustEval</b>, the toolbox for conducting benchmarks on trustworthiness of MLLMs (<b>MultiTrust</b>) </p>
 </font>
 
 <div align="center" style="font-size: 16px;">
     🍎 <a href="https://multi-trust.github.io/">Project Page</a> &nbsp&nbsp
     📖 <a href="https://arxiv.org/abs/2406.07057">arXiv Paper</a> &nbsp&nbsp
-    📊 <a href="https://github.com/thu-ml/MMTrustEval">Dataset</a> &nbsp&nbsp
+    📊 <a href="https://drive.google.com/drive/folders/1Fh6tidH1W2aU3SbKVggg6cxWqT021rE0?usp=drive_link">Dataset</a> &nbsp&nbsp
     🏆 <a href="https://multi-trust.github.io/#leaderboard">Leaderboard</a>
 </div>
 <br>
@@ -97,16 +97,9 @@ A Comprehensive Study
 #### License
 The codebase is licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
 
-#### Download Data
-Install related datasets into [data] folder from this link:
+#### Data Preparation
 
-https://drive.google.com/drive/folders/1Fh6tidH1W2aU3SbKVggg6cxWqT021rE0?usp=drive_link
-
-#### Incomplete Data released
-Please note that only a partial dataset will be included with the codebase. This is to prevent data leakage as we are hosting another competition based on this codebase. 
-
-#### Restrictions
-The partial dataset provided contains sensitive and potentially high-risk information. We urge all users to handle this data with utmost care and responsibility. Unauthorized use, sharing, or mishandling of this data can lead to serious privacy breaches and legal consequences. By accessing this dataset, you agree to comply with all applicable privacy laws and regulations, and to implement appropriate security measures to protect the data from unauthorized access or misuse.
+Refer [here](data4multitrust/README.md) for detailed instructions.
 
 
 
@@ -145,7 +138,7 @@ mkdocs serve -f env/mkdocs.yml -a 0.0.0.0:8000
 | R.3 | Sentiment Analysis for OOD texts  | Accuracy ($\uparrow$)                   | Dis.        |
 | R.4 | Image Captioning under Untarget attack | Accuracy ($\uparrow$)               | Gen.        |
 | R.5 | Image Captioning under Target attack | Attack Success Rate ($\downarrow$)    | Gen.        |
-| R.6 | Textual adversarial attack        | Accuracy ($\uparrow$)                   | Dis.        |
+| R.6 | Textual Adversarial Attack        | Accuracy ($\uparrow$)                   | Dis.        |
 | F.1 | Stereotype Content Detection      | Containing Rate ($\downarrow$)          | Gen.        |
 | F.2 | Agreement on Stereotypes          | Agreement Percentage ($\downarrow$)     | Dis.        |
 | F.3 | Classification of Stereotypes     | Accuracy ($\uparrow$)                   | Dis.        |
@@ -158,12 +151,12 @@ mkdocs serve -f env/mkdocs.yml -a 0.0.0.0:8000
 | P.3 | InfoFlow Expectation              | Pearson's Correlation ($\uparrow$)      | Gen.        |
 | P.4 | PII Query with Visual Cues        | RtA ($\uparrow$)                        | Gen.        |
 | P.5 | Privacy Leakage in Vision         | RtA ($\uparrow$), Accuracy ($\uparrow$) | Gen.        |
-| P.6 | PII Leakage in Conversations      | RtA ($\uparrow$), Accuracy ($\uparrow$) | Gen.        |
+| P.6 | PII Leakage in Conversations      | RtA ($\uparrow$) | Gen.        |
 
 
-Running scripts under `scripts/run` can calculate the results of specific tasks, while scripts under `scrpts/score` can be used to calculate evaluation scores based on the results.
+Running scripts under `scripts/run` can generate the model outputs of specific tasks and corresponding primary evaluation results in either global or smaple-wise manner. Afterw that, scripts under `scrpts/score` can be used to calculate the statistical results based on the outputs and show the results reported in the paper.
 
-### 📌 Get results 
+### 📌 To Make Inference 
 
 ```
 # bash scripts/run/*/*.sh
@@ -176,40 +169,40 @@ scripts/run
 │   ├── f3-stereo-topic-classification.sh
 │   ├── f4-stereo-query.sh
 │   ├── f5-vision-preference.sh
-│   ├── f6-profession-pred.sh ✅
-│   └── f7-subjective-preference.sh ✅
+│   ├── f6-profession-pred.sh
+│   └── f7-subjective-preference.sh
 ├── privacy_scripts
 │   ├── p1-vispriv-recognition.sh
 │   ├── p2-vqa-recognition-vispr.sh
-│   ├── p3-infoflow.sh ✅
-│   ├── p4-pii-query.sh ✅
+│   ├── p3-infoflow.sh
+│   ├── p4-pii-query.sh
 │   ├── p5-visual-leakage.sh
 │   └── p6-pii-leakage-in-conversation.sh
 ├── robustness_scripts
-│   ├── r1-ood-artistic.sh ✅
+│   ├── r1-ood-artistic.sh
 │   ├── r2-ood-sensor.sh
 │   ├── r3-ood-text.sh
 │   ├── r4-adversarial-untarget.sh
 │   ├── r5-adversarial-target.sh
-│   └── r6-adversarial-text.sh ✅
+│   └── r6-adversarial-text.sh
 ├── safety_scripts
 │   ├── s1-nsfw-image-description.sh
 │   ├── s2-risk-identification.sh
-│   ├── s3-toxic-content-generation.sh ✅
-│   ├── s4-typographic-jailbreaking.sh ✅
+│   ├── s3-toxic-content-generation.sh
+│   ├── s4-typographic-jailbreaking.sh
 │   ├── s5-multimodal-jailbreaking.sh
 │   └── s6-crossmodal-jailbreaking.sh
 └── truthfulness_scripts
-    ├── t1-basic.sh ✅
+    ├── t1-basic.sh
     ├── t2-advanced.sh
     ├── t3-instruction-enhancement.sh
     ├── t4-visual-assistance.sh
     ├── t5-text-misleading.sh
     ├── t6-visual-confusion.sh
-    └── t7-visual-misleading.sh ✅
+    └── t7-visual-misleading.sh
 ```
 
-### 📌 Get scores
+### 📌 To Evaluate Results
 ```
 # python scripts/score/*/*.py
 
@@ -254,7 +247,7 @@ scripts/score
     └── t7-visual-misleading.py
 ```
 
-### 📌 Results 
+### 📌 Overall Results 
 ![result](docs/structure/overall.png)
 
 
