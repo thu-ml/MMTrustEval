@@ -1,3 +1,3 @@
-clean_image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/robustness/adv_nips/source/clean'
-untarget_image_dir: '/data/zhangyichi/Trustworthy-MLLM/data/robustness/adv_nips/source/untarget'
-annotation_file: '/data/zhangyichi/Trustworthy-MLLM/data/robustness/adv_nips/label.json'
+clean_image_dir: './data/robustness/adv_nips/source/clean'
+untarget_image_dir: './data/robustness/adv_nips/source/untarget'
+annotation_file: './data/robustness/adv_nips/label.json'

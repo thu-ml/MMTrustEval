@@ -11,7 +11,7 @@ import os
 @registry.register_dataset()
 class InstructionEnhanceLogicData(BaseDataset):
     
-    dataset_ids: Sequence[str] = ["instruction-logic"]
+    dataset_ids: Sequence[str] = ["instruction-enhancement-logic"]
     dataset_config: Optional[str] = "./mmte/configs/datasets/instruction-enhancement-logic.yaml"
     
     

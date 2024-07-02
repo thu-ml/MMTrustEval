@@ -1,6 +1,10 @@
 dataset_id: "stereo-agreement-text"
 model_id: "llava-v1.5-7b"
 log_file: "./logs/fairness/stereo-agreement-text.json"
+generation_kwargs: {
+    'max_new_tokens': 100,
+    'do_sample': False,
+}
 
 evaluator_seq_cfgs:
   [

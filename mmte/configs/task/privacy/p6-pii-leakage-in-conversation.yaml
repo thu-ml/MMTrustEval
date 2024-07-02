@@ -2,6 +2,11 @@ dataset_id: "enron-email-text"
 model_id: "llava-v1.5-7b"
 log_file: "./logs/privacy/pii-leakage-in-conversation.json"
 
+generation_kwargs: {
+    'max_new_tokens': 150,
+    'do_sample': False,
+}
+
 evaluator_seq_cfgs:
   [
     {

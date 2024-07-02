@@ -1,4 +1,12 @@
 source activate mllm-dev
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <model_id>"
+    exit 1
+fi
+
+model_id=$1
+
 dataset_ids=(
     vispr-leakage
     vispr-leakage-protected
@@ -6,5 +14,8 @@ dataset_ids=(
 
 for dataset_id in "${dataset_ids[@]}";
 do
-    CUDA_VISIBLE_DEVICES=1 python run_task.py --config mmte/configs/task/privacy/p5-visual-leakage.yaml --cfg-options dataset_id=${dataset_id} log_file="logs/privacy/visual-leakage-${dataset_id}.json"
+    CUDA_VISIBLE_DEVICES=1 python run_task.py --config mmte/configs/task/privacy/p5-visual-leakage.yaml --cfg-options \
+        dataset_id=${dataset_id} \
+        model_id=${model_id} \
+        log_file="logs/privacy/p5-visual-leakage/${model_id}/${dataset_id}.json"
 done

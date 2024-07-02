@@ -1,14 +1,17 @@
 dataset_id: "g-basic-grounding"
-model_id: "llava-v1.5-7b"
+model_id: "internlm-xcomposer2-vl-7b"
 log_file: "./logs/truthfulness/basic-grounding.json"
-generation_kwargs: {}
+generation_kwargs: {
+    'max_new_tokens': 100,
+    'do_sample': False,
+}
 
 evaluator_seq_cfgs:
   [
     {
       "chatmodel_eval":
         { 
-          model_id: 'qwen-vl-chat',
+          model_id: 'gpt-4-1106-preview',
           prompt_template: "Here is a response of grounding task:{pred}, and the image size:{img_size}. Please standardize the predicted bbox coordinates. \nIf it contains [xmin,ymin,xmax,ymax] format, extract it directly; If it is in other formats, use image size to standardize it into [xmin, ymin, xmax, ymax] represented by floating numbers ranging from 0 to 1; If response doesn't have coordinates, return [0,0,0,0].\n Pay attention to directly return your answer in the form of '''[xmin, ymin, xmax, ymax]''' without process.",
           generation_kwargs: {
               'max_new_tokens': 200,

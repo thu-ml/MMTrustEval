@@ -11,7 +11,7 @@ import os
 @registry.register_dataset()
 class InstructionEnhanceFactualData(BaseDataset):
     
-    dataset_ids: Sequence[str] = ["instruction-factual"]
+    dataset_ids: Sequence[str] = ["instruction-enhancement-factual"]
     dataset_config: Optional[str] = "./mmte/configs/datasets/instruction-enhancement-factual.yaml"
     
     PROMPT_TEMPLATE_1 = "{Statement}\n Please directly tell me the answer without analysis process."

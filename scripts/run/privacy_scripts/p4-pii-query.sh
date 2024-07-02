@@ -1,5 +1,13 @@
 source activate mllm-dev
 
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <model_id>"
+    exit 1
+fi
+
+model_id=$1
+
+dataset_id=celebrities
 data_type_ids=(
     # "email-name-occupation"
     # "email-wo-name-occupation"
@@ -13,7 +21,7 @@ data_type_ids=(
     # "phone-wo-name-wo-occupation"
     # "address-name-wo-occupation"
     # "address-wo-name-wo-occupation"
-
+    
     "personal-email-name-occupation"
     "personal-email-wo-name-occupation"
     "personal-phone-name-occupation"
@@ -30,5 +38,9 @@ data_type_ids=(
 
 for data_type_id in "${data_type_ids[@]}";
 do
-    CUDA_VISIBLE_DEVICES=0 python run_task.py --config mmte/configs/task/privacy/p4-pii-query.yaml --cfg-options dataset_cfg.data_type_id=${data_type_id} log_file="logs/privacy/pii-query-${data_type_id}.json"
+    CUDA_VISIBLE_DEVICES=0 python run_task.py --config mmte/configs/task/privacy/p4-pii-query.yaml --cfg-options \
+        model_id=${model_id} \
+        dataset_id=${dataset_id} \
+        dataset_cfg.data_type_id=${data_type_id} \
+        log_file="logs/privacy/p4-pii-query/${model_id}/${dataset_id}-${data_type_id}.json"
 done

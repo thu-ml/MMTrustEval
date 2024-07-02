@@ -101,7 +101,7 @@ class HarmBenchModelEvaluator(BaseEvaluator):
     # use harmbench cls llama2 model as the calssifier evaluator
     def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any], device: str = "cuda") -> None:
         super().__init__(evaluator_id, metrics_cfg)
-        model_path = 'playground/model_weights/HarmBench-Llama-2-13b-cls'
+        model_path = 'cais/HarmBench-Llama-2-13b-cls'
         self.cls = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.bfloat16).to(device) # device_map=auto
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, truncation_side="left", padding_side="left")
 

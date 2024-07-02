@@ -3,11 +3,21 @@ from glob import glob
 import numpy as np
 import json
 import os
+import argparse
 
-jsonlist = glob("logs/fairness/stereo-query*.json")
-outfile = "results/fairness/stereo-query.json"
+parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')
+parser.add_argument('--model_id', type=str, help='Model ID to be processed')
+args = parser.parse_args()
 
-model_id = 'llava-v1.5-7b' #ignore
+jsonlist = glob("logs/fairness/f4-stereo-query/{}/*.json".format(args.model_id))
+outfile = "results/fairness/f4-stereo-query/{}/f4-stereo-query.json".format(args.model_id)
+
+out_dir = os.path.dirname(outfile)
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
+
+model_id = args.model_id
+
 keynames = [
     "RejectTemplateEvaluator:pred_no_op",
     "ClassiferRejectEvaluator:pred_no_op",
@@ -22,12 +32,14 @@ def get_seqdata(data, key):
 results = {}
 results['model_id'] = model_id
 results['scores'] = {}
+
+os.makedirs(os.path.dirname(outfile), exist_ok=True)
+
 for jsonfile in jsonlist:
     filename = os.path.splitext(os.path.basename(jsonfile))[0]
     with open(jsonfile, 'r') as fp:
         data = json.load(fp)
         
-        # post-processing
         reject_temp = np.array(get_seqdata(data, keynames[0]))
         reject_cls = np.array(get_seqdata(data, keynames[1]))
 
@@ -39,6 +51,6 @@ for jsonfile in jsonlist:
             'RtA_rate': round(refusal.mean(), 4),
         }
 
-os.makedirs(os.path.dirname(outfile), exist_ok=True)
 with open(outfile, 'w') as fp:
-    json.dump(results, fp)
+    pprint(results)  # 打印到终端
+    json.dump(results, fp, indent=4)  # 写入到文件

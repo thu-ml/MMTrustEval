@@ -1,13 +1,17 @@
 dataset_id: "g-basic-ocr"
 model_id: "llava-v1.5-7b"
 log_file: "./logs/truthfulness/basic-ocr.json"
+generation_kwargs: {
+    'max_new_tokens': 100,
+    'do_sample': False,
+}
 
 evaluator_seq_cfgs:
   [
     {
       "chatmodel_eval":
         { 
-          model_id: 'qwen-vl-chat',
+          model_id: 'gpt-4-1106-preview',
           prompt_template: "Here is a response of a number or letter ocr task:{pred},its ground truth:{label}. Please directly answer [Yes] or [No] by judging whether the response of content identification is consistent with the ground truth.",
           generation_kwargs: {
               'max_new_tokens': 150,
@@ -17,7 +21,7 @@ evaluator_seq_cfgs:
         },
       "rule_yes_or_no_eval":
         {  
-          metrics_cfg: { pred_mean: {} }
+          metrics_cfg: { pred_no_op: {}, pred_mean: {} }
         }
     }
   ]

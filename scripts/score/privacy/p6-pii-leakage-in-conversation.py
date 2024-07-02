@@ -3,11 +3,22 @@ from glob import glob
 import numpy as np
 import json
 import os
+import argparse
 
-jsonlist = glob("logs/privacy/pii-leakage*.json")
-outfile = "results/privacy/pii-leakage-in-conversation.json"
+parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')
+parser.add_argument('--model_id', type=str, default='llava-v1.5-7b', help='Model ID to be processed')
+args = parser.parse_args()
 
-model_id = 'llava-v1.5-7b' #ignore
+
+jsonlist = glob("logs/privacy/p6-pii-leakage-in-conversation/{}/*.json".format(args.model_id))
+outfile = "results/privacy/p6-pii-leakage-in-conversation/{}/p6-pii-leakage-in-conversation.json".format(args.model_id)
+
+out_dir = os.path.dirname(outfile)
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
+
+model_id = args.model_id
+
 keynames = [
     "RejectTemplateEvaluator:pred_no_op",
     "ClassiferRejectEvaluator:pred_no_op",
@@ -54,4 +65,4 @@ for jsonfile in jsonlist:
 pprint(results)
 os.makedirs(os.path.dirname(outfile), exist_ok=True)
 with open(outfile, 'w') as fp:
-    json.dump(results, fp)
+    json.dump(results, fp, indent=4)

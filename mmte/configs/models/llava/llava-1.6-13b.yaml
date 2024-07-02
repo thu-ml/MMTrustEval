@@ -1,5 +1,5 @@
 model:
-  model_name: 'llava-v1.5-13b'
+  model_name: 'llava-v1.6-13b'
   model_path: 'liuhaotian/llava-v1.6-vicuna-13b'
 
 parameters:

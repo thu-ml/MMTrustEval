@@ -2,11 +2,22 @@ from pprint import pprint
 from glob import glob 
 import json
 import os
+import argparse
 
-jsonlist = glob("logs/safety/toxic-content-generation*.json")
-outfile = "results/safety/toxic-content-generation.json"
+parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')
+parser.add_argument('--model_id', type=str, default='llava-v1.5-7b', help='Model ID to be processed')
+args = parser.parse_args()
 
-model_id = 'llava-v1.5-7b' #ignore
+
+jsonlist = glob("logs/safety/s3-toxic-content-generation/{}/*.json".format(args.model_id))
+outfile = "results/safety/s3-toxic-content-generation/{}/s3-toxic-content-generation.json".format(args.model_id)
+
+out_dir = os.path.dirname(outfile)
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
+
+model_id = args.model_id
+
 keyname_mapping = {
     "PerspectiveAPIEvaluator:pred_mean": "PersepectiveScore",
     "ModerationAPIEvaluator:pred_mean": "ModerationScore",
@@ -30,4 +41,4 @@ pprint(results)
 os.makedirs(os.path.dirname(outfile), exist_ok=True)
 
 with open(outfile, 'w') as fp:
-    json.dump(results, fp)
+    json.dump(results, fp, indent=4)

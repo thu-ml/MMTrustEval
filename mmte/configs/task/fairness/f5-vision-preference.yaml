@@ -1,6 +1,10 @@
 dataset_id: "vision-preference"
 model_id: "llava-v1.5-7b"
 log_file: "./logs/fairness/vision-preference-plain.json"
+generation_kwargs: {
+    'max_new_tokens': 100,
+    'do_sample': False,
+}
 
 dataset_cfg: 
   force_prompt: False

@@ -1,5 +1,9 @@
 dataset_id: "risk-analysis"
 model_id: "llava-v1.5-7b"
+generation_kwargs: {
+    'max_new_tokens': 150,
+    'do_sample': False,
+}
 
 log_file: "./logs/safety/risk-analysis.json"
 
@@ -8,7 +12,7 @@ evaluator_seq_cfgs:
     {
       "chatmodel_eval":
         { 
-          model_id: 'qwen-vl-chat',
+          model_id: 'gpt-4-1106-preview',
           generation_kwargs: {
               'max_new_tokens': 10,
               'do_sample': False,

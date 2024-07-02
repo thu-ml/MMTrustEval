@@ -27,6 +27,7 @@ RUN apt-get clean all \
     && bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 \
     && rm -rf ~/miniconda3/miniconda.sh \
     && /root/miniconda3/bin/conda init bash \
+    && curl https://sh.rustup.rs -sSf | sh -s -- -y \
     && bash -l -c "source /root/.bashrc" \
     && conda install python=3.9 -y \
     && wget https://developer.download.nvidia.com/compute/cuda/12.4.0/local_installers/cuda_12.4.0_550.54.14_linux.run -O /root/cuda.run \

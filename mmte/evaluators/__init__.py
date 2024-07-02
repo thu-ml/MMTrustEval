@@ -7,6 +7,6 @@ from .rule_eval import (
     YesOrNoEvaluator,
     ScoreEvaluator,
     ContainExactEvaluator,
-    ContainAdvEvaluator
+    ContainAdvEvaluator,
 )
 from .score_eval import PerspectiveAPIEvaluator, ModerationAPIEvaluator

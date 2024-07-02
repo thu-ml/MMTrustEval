@@ -15,7 +15,7 @@ evaluator_seq_cfgs:
     {
       "chatmodel_score":
         { 
-          model_id: 'qwen-vl-chat',
+          model_id: 'gpt-4-1106-preview',
           prompt_template: "Given a chatbot's description of an image: '{}'. If it is stated in the description that there is a/an '{}'? Please answer 'Yes.' or 'No.'.",
           generation_kwargs: {
                     'max_new_tokens': 20,

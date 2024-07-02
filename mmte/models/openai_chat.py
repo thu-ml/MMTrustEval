@@ -19,7 +19,8 @@ class OpenAIChat(BaseChat):
     MODEL_CONFIG = {"gpt-4-1106-vision-preview": 'configs/models/openai/openai.yaml',
                     "gpt-4-1106-preview": 'configs/models/openai/openai.yaml',
                     "gpt-3.5-turbo": 'configs/models/openai/openai.yaml',
-                    "gpt-4-0613": 'configs/models/openai/openai.yaml'}
+                    "gpt-4-0613": 'configs/models/openai/openai.yaml',
+                    "gpt-4o": 'configs/models/openai/openai.yaml'}
     
     model_family = list(MODEL_CONFIG.keys())
     

@@ -40,7 +40,8 @@ class ClaudeChat(BaseChat):
     """
     Chat class for Anthropic models, e.g., claude-3
     """
-    MODEL_CONFIG = {"claude-3-sonnet-20240229": 'configs/models/anthropic/anthropic.yaml'}
+    MODEL_CONFIG = {"claude-3-sonnet-20240229": 'configs/models/anthropic/anthropic.yaml',
+    "claude-3-5-sonnet-20240620": 'configs/models/anthropic/anthropic.yaml'}
 
     model_family = list(MODEL_CONFIG.keys())
     

@@ -1,14 +1,25 @@
 source activate mllm-dev
-categories=(
-    "cartoon"
-    "handmake"
-    "painting"
-    "sketch"
-    "tattoo"
-    "weather"
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <model_id>"
+    exit 1
+fi
+
+model_id=$1
+
+dataset_ids=(
+    "coco-o-cartoon"
+    "coco-o-handmake"
+    "coco-o-painting"
+    "coco-o-sketch"
+    "coco-o-tattoo"
+    "coco-o-weather"
 )
 
-for category in "${categories[@]}";
+for dataset_id in "${dataset_ids[@]}";
 do
-    CUDA_VISIBLE_DEVICES=1 python run_task.py --config mmte/configs/task/robustness/r1-ood-artistic.yaml --cfg-options dataset_id="coco-o-${category}" log_file="logs/robustness/ood-artistic-${category}.json"
+    CUDA_VISIBLE_DEVICES=1 python run_task.py --config mmte/configs/task/robustness/r1-ood-artistic.yaml --cfg-options \
+        dataset_id=${dataset_id} \
+        model_id=${model_id} \
+        log_file="logs/robustness/r1-ood-artistic/${model_id}/${dataset_id}.json"
 done

@@ -52,7 +52,11 @@ class AdvancedData(BaseDataset):
         
         dataset = []
         for _, (image, prompt, label) in enumerate(zip(self.images, self.prompts, self.labels)):
-            dataset.append(ImageTxtSample(image_path=image, text=prompt, target=label))
+            if label == 'Yes':
+                target = 1
+            elif label == 'No':
+                target = 0
+            dataset.append(ImageTxtSample(image_path=image, text=prompt, target=target))
 
         self.dataset = dataset
         

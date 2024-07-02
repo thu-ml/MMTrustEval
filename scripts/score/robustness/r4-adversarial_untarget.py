@@ -2,11 +2,22 @@ from pprint import pprint
 from glob import glob 
 import json
 import os
+import argparse
 
-jsonlist = ["logs/robustness/adversarial-image-clean.json", "logs/robustness/adversarial-image-untarget.json"]
-outfile = "results/robustness/adversarial-untarget.json"
+parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')
+parser.add_argument('--model_id', type=str, default='llava-v1.5-7b', help='Model ID to be processed')
+args = parser.parse_args()
 
-model_id = 'cogvlm-chat-hf' #ignore
+
+jsonlist = glob("logs/robustness/r4-adversarial-untarget/{}/*.json".format(args.model_id))
+outfile = "results/robustness/r4-adversarial-untarget/{}/r4-adversarial-untarget.json".format(args.model_id)
+
+out_dir = os.path.dirname(outfile)
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
+
+model_id = args.model_id
+
 keyname_mapping = {
     "ChatModelScorer->YesOrNoEvaluator:pred_mean": "accuracy",
 }
@@ -28,4 +39,4 @@ pprint(results)
 os.makedirs(os.path.dirname(outfile), exist_ok=True)
 
 with open(outfile, 'w') as fp:
-    json.dump(results, fp)
+    json.dump(results, fp, indent=4)

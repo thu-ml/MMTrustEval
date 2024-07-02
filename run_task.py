@@ -10,7 +10,7 @@ from mmte.utils.utils import DictAction, merge_config
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', default='mmte/configs/task/adversarial-target.yaml', help='config file path')
+    parser.add_argument('--config', default='mmte/configs/task/robustness/r4-adversarial-untarget.yaml', help='config file path')
     parser.add_argument(
         '--cfg-options',
         nargs='+',
@@ -28,11 +28,11 @@ def parse_args():
 if __name__ == '__main__':
     '''
     # List all available modules:
-    pprint("models: ", registry.list_chatmodels())
-    pprint("datasets: ", registry.list_datasets())
-    pprint("methods: ", registry.list_methods())
-    pprint("evaluators: ", registry.list_evaluators())
-    pprint("metrics: ", list(_supported_metrics.keys()))
+    pprint("models: {}".format(registry.list_chatmodels()))
+    pprint("datasets: {}".format(registry.list_datasets()))
+    pprint("methods: {}".format(registry.list_methods()))
+    pprint("evaluators: {}".format(registry.list_evaluators()))
+    pprint("metrics: {}".format(list(_supported_metrics.keys())))
     '''
 
     args = parse_args()

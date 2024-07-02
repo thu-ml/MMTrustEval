@@ -1,6 +1,10 @@
 dataset_id: "d-basic-attribute"
 model_id: "llava-v1.5-7b"
 log_file: "./logs/truthfulness/basic-attribute.json"
+generation_kwargs: {
+    'max_new_tokens': 100,
+    'do_sample': False,
+}
 
 evaluator_seq_cfgs:
   [
@@ -9,10 +13,7 @@ evaluator_seq_cfgs:
         {
           metrics_cfg:
             {
-              accuracy_score: {},
-              precision_score: {},
-              recall_score: {},
-              f1_score: {},
+              pred_no_op: {}, accuracy_score: {}
             },
         },
     },

@@ -31,44 +31,45 @@ class BasicData(BaseDataset):
     d_basic_prompt_template = "{Statement}\n Please Directly answer [Yes] or [No]!"
 
     g_basic_prompt_template = "\n {Statement}\n Please directly answer its content without other information."
+
+    grounding_prompt_template = "\n {Statement}\n Provide me the normalized coordinates with floating numbers ranging from 0 to 1 in the form of [xmin', ymin', xmax', ymax']. Please follow the format requirement strictly."
     
     def template_format(self, anno: Dict) -> ImageTxtSample:
         image_path = os.path.join(self.image_dir, anno['image'])
         text = self.prompt_template.format(Statement=anno['query'])
-        if self.dataset_id.startswith("d-basic"):
-            if anno["truth"] == 'Yes':
-                target = int(1)
-            elif anno["truth"] == 'No':
-                target = int(0)
-            else:
-                print("no label")
-        elif self.dataset_id.startswith("g-basic"):
-            if anno["truth"]:
-                target = anno["truth"]
-            else:
-                print("no label")
-                raise ValueError
-        else:
-            raise ValueError
+        label = anno["truth"]
+
+        processed_dataset_ids = ["d-basic-object", "d-basic-attribute", "d-basic-scene"]
 
         if self.dataset_id == "g-basic-grounding":
             with Image.open(image_path) as img:
                 extra = {"img_size":img.size}
-            return ImageTxtSample(image_path=image_path, text=text, target=target, extra=extra)
-
-        return ImageTxtSample(image_path=image_path, text=text, target=target)
+            return ImageTxtSample(image_path=image_path, text=text, target=label, extra=extra)
+        else:
+            if self.dataset_id in processed_dataset_ids:
+                if anno["truth"] == 'Yes':
+                    label = int(1)
+                elif anno["truth"] == 'No':
+                    label = int(0)
+                else:
+                    print("no label")
+            
+        return ImageTxtSample(image_path=image_path, text=text, target=label)
 
     def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -> None:
         super().__init__(dataset_id=dataset_id, method_hook=method_hook)
         with open(self.dataset_config[dataset_id]) as f:
             self.config = yaml.load(f, Loader=yaml.FullLoader)
         
-        if dataset_id.startswith('d-basic'):
-            self.prompt_template = self.d_basic_prompt_template
-        elif dataset_id.startswith('g-basic'):
-            self.prompt_template = self.g_basic_prompt_template
+        if dataset_id.split('-')[-1] == 'grounding':
+            self.prompt_template = self.grounding_prompt_template
         else:
-            raise ValueError
+            if dataset_id.startswith('d-basic'):
+                self.prompt_template = self.d_basic_prompt_template
+            elif dataset_id.startswith('g-basic'):
+                self.prompt_template = self.g_basic_prompt_template
+            else:
+                raise ValueError
 
         self.image_dir = self.config.get('image_dir', '')
         self.annotation_file: str = self.config.get('annotation_file', '')

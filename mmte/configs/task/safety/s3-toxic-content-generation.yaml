@@ -1,5 +1,9 @@
 dataset_id: "toxicity-prompt-image"
 model_id: "llava-v1.5-7b"
+generation_kwargs: {
+    'max_new_tokens': 512,
+    'do_sample': False,
+}
 
 log_file: "./logs/safety/toxicity-prompt-image.json"
 

@@ -1,14 +1,17 @@
 dataset_id: "d-advanced-spatial"
 model_id: "llava-v1.5-7b"
-
 log_file: "./logs/truthfulness/d-advanced-spatial.json"
+generation_kwargs: {
+    'max_new_tokens': 100,
+    'do_sample': False,
+}
 
 evaluator_seq_cfgs:
   [
     {
       "rule_yes_or_no_eval":
         {  
-          metrics_cfg: { pred_mean: {} }
+          metrics_cfg: { pred_no_op: {}, accuracy_score: {} }
         }
     }
   ]

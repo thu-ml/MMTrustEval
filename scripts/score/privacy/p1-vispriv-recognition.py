@@ -2,11 +2,22 @@ from pprint import pprint
 from glob import glob 
 import json
 import os
+import argparse
 
-jsonlist = glob("logs/privacy/vispriv-recognition*.json")
-outfile = "results/privacy/vispriv-recognition.json"
+parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')
+parser.add_argument('--model_id', type=str, default='llava-v1.5-7b', help='Model ID to be processed')
+args = parser.parse_args()
 
-model_id = 'llava-v1.5-7b' #ignore
+
+jsonlist = glob("logs/privacy/p1-vispriv-recognition/{}/*.json".format(args.model_id))
+outfile = "results/privacy/p1-vispriv-recognition/{}/p1-vispriv-recognition.json".format(args.model_id)
+
+out_dir = os.path.dirname(outfile)
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
+
+model_id = args.model_id
+
 keyname_mapping = {
     "YesOrNoEvaluator:accuracy_score": "accuracy_score",
     "YesOrNoEvaluator:precision_score": "precision_score",
@@ -31,4 +42,4 @@ pprint(results)
 os.makedirs(os.path.dirname(outfile), exist_ok=True)
 
 with open(outfile, 'w') as fp:
-    json.dump(results, fp)
+    json.dump(results, fp, indent=4)

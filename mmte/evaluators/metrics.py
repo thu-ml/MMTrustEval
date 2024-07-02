@@ -2,6 +2,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from typing import Optional, Union
 import numpy as np
 import scipy
+import json
 
 """
 Input Requirement
@@ -40,14 +41,29 @@ def failure(y_true, y_pred, fails_num: Optional[Union[float, int]] = np.nan):
         failure = (x == fails_num).sum() / x.size
     return failure
 
+def parse_box_string(box_str):
+    box_str = box_str.replace("'''", "").strip("[]")
+    parts = box_str.split(",")
+    parsed_parts = []
+    for part in parts:
+        if '/' in part:
+            numerator, denominator = part.split('/')
+            parsed_parts.append(float(numerator) / float(denominator))
+        else:
+            parsed_parts.append(float(part))
+    return parsed_parts
 
 def iou_judge(box1_list, box2_list):
+    print('box1_list: {}'.format(box1_list))
+    print('box2_list: {}'.format(box2_list))
     cnt = 0
     box_len = len(box1_list)
     for i in range(box_len):
-        x1_min, y1_min, x1_max, y1_max = box1_list[i]
-        x2_min, y2_min, x2_max, y2_max = box2_list[i]
-        
+        box_1 = json.loads(box1_list[i])
+        box_2 = parse_box_string(box2_list[i])
+        x1_min, y1_min, x1_max, y1_max = box_1
+        x2_min, y2_min, x2_max, y2_max = box_2
+
         x_inter_min = max(x1_min, x2_min)
         y_inter_min = max(y1_min, y2_min)
         x_inter_max = min(x1_max, x2_max)

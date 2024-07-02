@@ -82,4 +82,4 @@ pprint(results)
 os.makedirs(os.path.dirname(outfile), exist_ok=True)
 
 with open(outfile, 'w') as fp:
-    json.dump(results, fp)
+    json.dump(results, fp, indent=4)

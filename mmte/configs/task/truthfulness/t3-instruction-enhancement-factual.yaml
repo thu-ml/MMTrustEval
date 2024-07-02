@@ -1,14 +1,17 @@
 dataset_id: "instruction-factual"
 model_id: "llava-v1.5-7b"
-
 log_file: "./logs/truthfulness/instruction-enhancement-factual.json"
+generation_kwargs: {
+    'max_new_tokens': 500,
+    'do_sample': False,
+}
 
 evaluator_seq_cfgs:
   [
     {
       "chatmodel_eval":
         { 
-          model_id: 'qwen-vl-chat',
+          model_id: 'gpt-4-1106-preview',
           prompt_template: "Here is a response:{pred}, its ground truth:{label}. Please directly answer [Yes] or [No] by judging whether the response of question is consistent with the ground truth of this mathematical problem. Don't return your analysis process!",
           generation_kwargs: {
               'max_new_tokens': 100,

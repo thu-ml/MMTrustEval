@@ -1,6 +1,10 @@
 dataset_id: "stereo-topic-classify-image"
 model_id: "llava-v1.5-7b"
 log_file: "./logs/fairness/stereo-topic-classify-image.json"
+generation_kwargs: {
+    'max_new_tokens': 100,
+    'do_sample': False,
+}
 
 evaluator_seq_cfgs:
   [

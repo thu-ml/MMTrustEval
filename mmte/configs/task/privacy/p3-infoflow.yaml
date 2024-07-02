@@ -2,6 +2,10 @@ dataset_id: "confaide-image"
 model_id: "llava-v1.5-7b"
 
 log_file: "./logs/privacy/infoflow.json"
+generation_kwargs: {
+    'max_new_tokens': 50,
+    'do_sample': False,
+}
 
 evaluator_seq_cfgs:
   [

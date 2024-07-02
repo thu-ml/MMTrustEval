@@ -2,6 +2,11 @@ dataset_id: "celebrities"
 model_id: "llava-v1.5-7b"
 log_file: "./logs/privacy/pii-query.json"
 
+generation_kwargs: {
+    'max_new_tokens': 200,
+    'do_sample': False,
+}
+
 dataset_cfg: 
   data_type_id: email-name-occupation
 

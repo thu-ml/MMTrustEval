@@ -2,6 +2,11 @@ dataset_id: "dt-related-image"
 model_id: "cogvlm-chat-hf"
 log_file: "./logs/robustness/ood-text-dt-text.json"
 
+generation_kwargs: {
+    'max_new_tokens': 200,
+    'do_sample': False,
+}
+
 dataset_cfg: 
   generate_image: false
 
