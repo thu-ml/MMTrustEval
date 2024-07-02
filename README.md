@@ -148,12 +148,13 @@ mkdocs serve -f env/mkdocs.yml -a 0.0.0.0:8000
 | P.6 | PII Leakage in Conversations      | RtA ($\uparrow$) | Gen.        |
 
 
-Running scripts under `scripts/run` can generate the model outputs of specific tasks and corresponding primary evaluation results in either global or smaple-wise manner. Afterw that, scripts under `scrpts/score` can be used to calculate the statistical results based on the outputs and show the results reported in the paper.
+Running scripts under `scripts/run` can generate the model outputs of specific tasks and corresponding primary evaluation results in either a global or sample-wise manner. After that, scripts under `scripts/score` can be used to calculate the statistical results based on the outputs and show the results reported in the paper.
 
 ### 📌 To Make Inference 
 
 ```
-# bash scripts/run/*/*.sh
+# Description: Run scripts require a model_id to run inference tasks.
+# Usage: bash scripts/run/*/*.sh <model_id>
 
 scripts/run
 ├── fairness_scripts
