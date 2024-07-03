@@ -250,6 +250,7 @@ scripts/score
 ```
 
 ### 📌 Overall Results 
+- Proprietary models like GPT-4V and Claude3 demonstrate consistently top performance due to enhancements in alignment and safety filters compared with open-source models.
 - A global analysis reveals a correlation coefficient of 0.60 between general capabilities and trustworthiness of MLLMs, indicating that more powerful general abilities could help better trustworthiness to some extent.
 - Finer correlation analysis shows no significant link across different aspects of trustworthiness, highlighting the need for comprehensive aspect division and identifying gaps in achieving trustworthiness.
 
