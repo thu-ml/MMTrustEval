@@ -250,7 +250,7 @@ scripts/score
 ```
 
 ### 📌 Overall Results 
-- A global analysis reveals a correlation coefficient of 0.60 between the general capabilities and trustworthiness of various MLLMs, indicating that more powerful general abilities could help better trustworthiness to some extent.
+- A global analysis reveals a correlation coefficient of 0.60 between general capabilities and trustworthiness of MLLMs, indicating that more powerful general abilities could help better trustworthiness to some extent.
 - Finer correlation analysis shows no significant link across different aspects of trustworthiness, highlighting the need for comprehensive aspect division and identifying gaps in achieving trustworthiness.
 
 ![result](docs/structure/overall.png)
