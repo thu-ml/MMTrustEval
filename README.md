@@ -2,14 +2,10 @@
 <h2 align="center">Benchmarking Trustworthiness of Multimodal Large Language Models:<br>
 A Comprehensive Study
 </h2>
-
-<font size=3>
-    <p align="center"> This is the official repository of <b>MMTrustEval</b>, the toolbox for conducting benchmarks on trustworthiness of MLLMs (<b>MultiTrust</b>) </p>
-</font>
-
 <div align="center" style="font-size: 16px;">
-    🍎 <a href="https://multi-trust.github.io/">Project Page</a> &nbsp&nbsp
+    🌐 <a href="https://multi-trust.github.io/">Project Page</a> &nbsp&nbsp
     📖 <a href="https://arxiv.org/abs/2406.07057">arXiv Paper</a> &nbsp&nbsp
+    📜 <a href="https://thu-ml.github.io/MMTrustEval/">Documentation </a> &nbsp&nbsp
     📊 <a href="https://drive.google.com/drive/folders/1Fh6tidH1W2aU3SbKVggg6cxWqT021rE0?usp=drive_link">Dataset</a> &nbsp&nbsp
     🏆 <a href="https://multi-trust.github.io/#leaderboard">Leaderboard</a>
 </div>
@@ -26,6 +22,8 @@ A Comprehensive Study
 
 ![framework](docs/structure/framework.jpg)
 
+## 🚀 News
+* **`2024.06.07`** 🌟 We released [MultiTrust](https://multi-trust.github.io/), the first comprehensive and unified benchmark on the trustworthiness of MLLMs!
 
 ## Getting Started
 
