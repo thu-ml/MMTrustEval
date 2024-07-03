@@ -22,6 +22,11 @@ A Comprehensive Study
 
 ![framework](docs/structure/framework.jpg)
 
+
+**MultiTrust** is a comprehensive benchmark designed to assess and enhance the trustworthiness of MLLMs across five key dimensions: truthfulness, safety, robustness, fairness, and privacy. It integrates a rigorous evaluation strategy involving 32 diverse tasks and self-curated datasets to expose new trustworthiness challenges. 
+
+---
+
 ## 🚀 News
 * **`2024.06.07`** 🌟 We released [MultiTrust](https://multi-trust.github.io/), the first comprehensive and unified benchmark on the trustworthiness of MLLMs!
 
@@ -245,6 +250,9 @@ scripts/score
 ```
 
 ### 📌 Overall Results 
+- A global analysis reveals a correlation coefficient of 0.60 between the general capabilities and trustworthiness of various MLLMs, indicating that more powerful general abilities could help better trustworthiness to some extent.
+- Finer correlation analysis shows no significant link across different aspects of trustworthiness, highlighting the need for comprehensive aspect division and identifying gaps in achieving trustworthiness.
+
 ![result](docs/structure/overall.png)
 
 
