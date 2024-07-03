@@ -28,11 +28,9 @@ A Comprehensive Study
 ---
 
 ## 🚀 News
-* **`2024.06.07`** 🌟 We released [MultiTrust](https://multi-trust.github.io/), the first comprehensive and unified benchmark on the trustworthiness of MLLMs!
+* **`2024.06.07`** 🌟 We released [MultiTrust](https://multi-trust.github.io/), the first comprehensive and unified benchmark on the trustworthiness of MLLMs !
 
-## Getting Started
-
-### 💡 Environment
+## 🛠️ Installation
 
 - Option A: Pip install
     ```shell
@@ -109,7 +107,7 @@ A Comprehensive Study
 Refer [here](data4multitrust/README.md) for detailed instructions.
 
 ## 📚 Docs
-Our document presents interface definitions for different modules and some tutorials on how to extend modules.
+Our document presents interface definitions for different modules and some tutorials on **how to extend modules**.
 Running online at: https://thu-ml.github.io/MMTrustEval/
 
 Run following command to see the docs(locally).
@@ -118,47 +116,8 @@ mkdocs serve -f env/mkdocs.yml -a 0.0.0.0:8000
 ```
 
 ## 📈 Reproduce results in Our paper
-○: rule-based evaluation (e.g., keywords matching); ●: automatic evaluation
-by GPT-4 or other classifiers; ◐: mixture evaluation.
 
-| ID  | Task Name                         | Metrics                                 | Task Type        | Eval       |
-|-----|-----------------------------------|-----------------------------------------|-------------|--|
-| T.1 | Basic World Understanding         | Accuracy ($\uparrow$)                   | Dis.\&Gen.  | ◐|
-| T.2 | Advanced Cognitive Inference      | Accuracy ($\uparrow$)                   | Dis.        | ○|
-| T.3 | VQA under Instruction Enhancement | Accuracy ($\uparrow$)                   | Gen.        | ●|
-| T.4 | QA under Visual Assistance        | Accuracy ($\uparrow$)                   | Gen.        | ●|
-| T.5 | Text Misleading VQA               | Accuracy ($\uparrow$)                   | Gen.        | ●|
-| T.6 | Visual Confusion VQA              | Accuracy ($\uparrow$)                   | Gen.        | ○|
-| T.7 | Visual Misleading QA              | Accuracy ($\uparrow$)                   | Dis.        | ●|
-| S.1 | Risk Identification               | Accuracy ($\uparrow$)                   | Dis.\&Gen.  | ◐|
-| S.2 | Image Description                 | Toxicity Score ($\downarrow$), RtA ($\uparrow$)  | Gen.        | ●|
-| S.3 | Toxicity Content Generation       | Toxicity Score ($\downarrow$), RtA ($\uparrow$)  | Gen.        | ◐|
-| S.4 | Plain Typographic Jailbreaking    | ASR ($\downarrow$), RtA ($\uparrow$)             | Gen.        | ◐|
-| S.5 | Optimized Multimodal Jailbreaking | ASR ($\downarrow$), RtA ($\uparrow$)             | Gen.        | ◐|
-| S.6 | Cross-modal Influence on Jailbreaking | ASR ($\downarrow$), RtA ($\uparrow$)          | Gen.        | ◐|
-| R.1 | VQA for Artistic Style images     | Score ($\uparrow$)                      | Gen.        | ◐|
-| R.2 | VQA for Sensor Style images       | Score ($\uparrow$)                      | Gen.        | ●|
-| R.3 | Sentiment Analysis for OOD texts  | Accuracy ($\uparrow$)                   | Dis.        | ○|
-| R.4 | Image Captioning under Untarget attack | Accuracy ($\uparrow$)               | Gen.        | ◐|
-| R.5 | Image Captioning under Target attack | Attack Success Rate ($\downarrow$)    | Gen.        | ◐|
-| R.6 | Textual Adversarial Attack        | Accuracy ($\uparrow$)                   | Dis.        | ○|
-| F.1 | Stereotype Content Detection      | Containing Rate ($\downarrow$)          | Gen.        | ●|
-| F.2 | Agreement on Stereotypes          | Agreement Percentage ($\downarrow$)     | Dis.        | ◐|
-| F.3 | Classification of Stereotypes     | Accuracy ($\uparrow$)                   | Dis.        | ○|
-| F.4 | Stereotype Query Test             | RtA ($\uparrow$)                        | Gen.        | ◐|
-| F.5 | Preference Selection in VQA       | RtA ($\uparrow$)                        | Gen.        | ●|
-| F.6 | Profession Prediction             | Pearson’s correlation ($\uparrow$)      | Gen.        | ◐|
-| F.7 | Preference Selection in QA        | RtA ($\uparrow$)                        | Gen.        | ●|
-| P.1 | Visual Privacy Recognition        | Accuracy, F1 ($\uparrow$)               | Dis.        | ○|
-| P.2 | Privacy-sensitive QA Recognition  | Accuracy, F1 ($\uparrow$)               | Dis.        | ○|
-| P.3 | InfoFlow Expectation              | Pearson's Correlation ($\uparrow$)      | Gen.        | ○|
-| P.4 | PII Query with Visual Cues        | RtA ($\uparrow$)                        | Gen.        | ◐|
-| P.5 | Privacy Leakage in Vision         | RtA ($\uparrow$), Accuracy ($\uparrow$) | Gen.        | ◐|
-| P.6 | PII Leakage in Conversations      | RtA ($\uparrow$) | Gen.        | ◐|
-
-
-Running scripts under `scripts/run` can generate the model outputs of specific tasks and corresponding primary evaluation results in either a global or sample-wise manner. After that, scripts under `scripts/score` can be used to calculate the statistical results based on the outputs and show the results reported in the paper.
-
+Running scripts under `scripts/run` can generate the model outputs of specific tasks and corresponding primary evaluation results in either a global or sample-wise manner. 
 ### 📌 To Make Inference 
 
 ```
@@ -207,8 +166,10 @@ scripts/run
 ```
 
 ### 📌 To Evaluate Results
+After that, scripts under `scripts/score` can be used to calculate the statistical results based on the outputs and show the results reported in the paper.
 ```
-# python scripts/score/*/*.py
+# Description: Run scripts require a model_id to calculate statistical results.
+# Usage: python scripts/score/*/*.py --model_id <model_id>
 
 scripts/score
 ├── fairness
@@ -250,8 +211,46 @@ scripts/score
     ├── t6-visual-confusion.py
     └── t7-visual-misleading.py
 ```
+### 📌 Task List
+The total 32 tasks are listed here and ○: rule-based evaluation (e.g., keywords matching); ●: automatic evaluation
+by GPT-4 or other classifiers; ◐: mixture evaluation.
 
-### 📌 Overall Results 
+| ID  | Task Name                         | Metrics                                 | Task Type        | Eval       |
+|-----|-----------------------------------|-----------------------------------------|-------------|--|
+| T.1 | Basic World Understanding         | Accuracy ($\uparrow$)                   | Dis.\&Gen.  | ◐|
+| T.2 | Advanced Cognitive Inference      | Accuracy ($\uparrow$)                   | Dis.        | ○|
+| T.3 | VQA under Instruction Enhancement | Accuracy ($\uparrow$)                   | Gen.        | ●|
+| T.4 | QA under Visual Assistance        | Accuracy ($\uparrow$)                   | Gen.        | ●|
+| T.5 | Text Misleading VQA               | Accuracy ($\uparrow$)                   | Gen.        | ●|
+| T.6 | Visual Confusion VQA              | Accuracy ($\uparrow$)                   | Gen.        | ○|
+| T.7 | Visual Misleading QA              | Accuracy ($\uparrow$)                   | Dis.        | ●|
+| S.1 | Risk Identification               | Accuracy ($\uparrow$)                   | Dis.\&Gen.  | ◐|
+| S.2 | Image Description                 | Toxicity Score ($\downarrow$), RtA ($\uparrow$)  | Gen.        | ●|
+| S.3 | Toxicity Content Generation       | Toxicity Score ($\downarrow$), RtA ($\uparrow$)  | Gen.        | ◐|
+| S.4 | Plain Typographic Jailbreaking    | ASR ($\downarrow$), RtA ($\uparrow$)             | Gen.        | ◐|
+| S.5 | Optimized Multimodal Jailbreaking | ASR ($\downarrow$), RtA ($\uparrow$)             | Gen.        | ◐|
+| S.6 | Cross-modal Influence on Jailbreaking | ASR ($\downarrow$), RtA ($\uparrow$)          | Gen.        | ◐|
+| R.1 | VQA for Artistic Style images     | Score ($\uparrow$)                      | Gen.        | ◐|
+| R.2 | VQA for Sensor Style images       | Score ($\uparrow$)                      | Gen.        | ●|
+| R.3 | Sentiment Analysis for OOD texts  | Accuracy ($\uparrow$)                   | Dis.        | ○|
+| R.4 | Image Captioning under Untarget attack | Accuracy ($\uparrow$)               | Gen.        | ◐|
+| R.5 | Image Captioning under Target attack | Attack Success Rate ($\downarrow$)    | Gen.        | ◐|
+| R.6 | Textual Adversarial Attack        | Accuracy ($\uparrow$)                   | Dis.        | ○|
+| F.1 | Stereotype Content Detection      | Containing Rate ($\downarrow$)          | Gen.        | ●|
+| F.2 | Agreement on Stereotypes          | Agreement Percentage ($\downarrow$)     | Dis.        | ◐|
+| F.3 | Classification of Stereotypes     | Accuracy ($\uparrow$)                   | Dis.        | ○|
+| F.4 | Stereotype Query Test             | RtA ($\uparrow$)                        | Gen.        | ◐|
+| F.5 | Preference Selection in VQA       | RtA ($\uparrow$)                        | Gen.        | ●|
+| F.6 | Profession Prediction             | Pearson’s correlation ($\uparrow$)      | Gen.        | ◐|
+| F.7 | Preference Selection in QA        | RtA ($\uparrow$)                        | Gen.        | ●|
+| P.1 | Visual Privacy Recognition        | Accuracy, F1 ($\uparrow$)               | Dis.        | ○|
+| P.2 | Privacy-sensitive QA Recognition  | Accuracy, F1 ($\uparrow$)               | Dis.        | ○|
+| P.3 | InfoFlow Expectation              | Pearson's Correlation ($\uparrow$)      | Gen.        | ○|
+| P.4 | PII Query with Visual Cues        | RtA ($\uparrow$)                        | Gen.        | ◐|
+| P.5 | Privacy Leakage in Vision         | RtA ($\uparrow$), Accuracy ($\uparrow$) | Gen.        | ◐|
+| P.6 | PII Leakage in Conversations      | RtA ($\uparrow$) | Gen.        | ◐|
+
+### ⚛️ Overall Results 
 - Proprietary models like GPT-4V and Claude3 demonstrate consistently top performance due to enhancements in alignment and safety filters compared with open-source models.
 - A global analysis reveals a correlation coefficient of 0.60 between general capabilities and trustworthiness of MLLMs, indicating that more powerful general abilities could help better trustworthiness to some extent.
 - Finer correlation analysis shows no significant link across different aspects of trustworthiness, highlighting the need for comprehensive aspect division and identifying gaps in achieving trustworthiness.
