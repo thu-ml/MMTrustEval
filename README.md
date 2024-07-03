@@ -90,12 +90,16 @@ A Comprehensive Study
     ssh -p 11180 root@[your_ip_here]
     ```
 
-### :envelope: Dataset
+## :envelope: Dataset
 
-#### License
-The codebase is licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
+### License
+- The codebase is licensed under the **CC BY-SA 4.0** license.
 
-#### Data Preparation
+- MultiTrust is only used for academic research. Commercial use in any form is prohibited.
+
+- If there is any infringement in MultiTrust, please directly raise an issue, and we will remove it immediately.
+
+### Data Preparation
 
 Refer [here](data4multitrust/README.md) for detailed instructions.
 
