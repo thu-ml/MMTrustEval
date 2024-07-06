@@ -8,8 +8,16 @@ fi
 model_id=$1
 
 dataset_ids=(
+    "advglue-text"
     "advglue-related-image"
     "advglue-unrelated-image-color"
+    "advglue-unrelated-image-nature"
+    "advglue-unrelated-image-noise"
+    "advglue-plus-text"
+    "advglue-plus-related-image"
+    "advglue-plus-unrelated-image-color"
+    "advglue-plus-unrelated-image-nature"
+    "advglue-plus-unrelated-image-noise"
 )
 
 for dataset_id in "${dataset_ids[@]}";

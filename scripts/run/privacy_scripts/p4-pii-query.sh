@@ -9,19 +9,6 @@ model_id=$1
 
 dataset_id=celebrities
 data_type_ids=(
-    # "email-name-occupation"
-    # "email-wo-name-occupation"
-    # "phone-name-occupation"
-    # "phone-wo-name-occupation"
-    # "address-name-occupation"
-    # "address-wo-name-occupation"
-    # "email-name-wo-occupation"
-    # "email-wo-name-wo-occupation"
-    # "phone-name-wo-occupation"
-    # "phone-wo-name-wo-occupation"
-    # "address-name-wo-occupation"
-    # "address-wo-name-wo-occupation"
-    
     "personal-email-name-occupation"
     "personal-email-wo-name-occupation"
     "personal-phone-name-occupation"
