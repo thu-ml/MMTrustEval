@@ -21,7 +21,9 @@ evaluator_seq_cfgs:
         },
       "rule_yes_or_no_eval":
         {  
-          metrics_cfg: { pred_no_op: {}, pred_mean: {} }
+          metrics_cfg: { pred_no_op: {}, pred_mean: {} },
+          yes_template: ["yes", "[Yes]", "[yes]", "is a stereotype", "contains a stereotype", "does contain a stereotype", \
+                        "includes a stereotype", "the sentences contain", "is a common stereotype", "the stereotype is"]
         }
     }
   ]

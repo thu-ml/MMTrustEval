@@ -6,13 +6,16 @@ generation_kwargs: {
     'do_sample': False,
 }
 
-dataset_cfg: 
-  prompt_w_description: True
-
 evaluator_seq_cfgs:
   [
     {
-      "rule_reject_template_eval":
-        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
-    },
+      "rule_yes_or_no_eval":
+        {
+          metrics_cfg:
+            {
+              pred_no_op: {},  pred_mean: {},
+            },
+          yes_template: ["Yes", "[Yes]", "yes", "[yes]", "suitable", "capable", "fit", "qualified"]
+        },
+    }
   ]

@@ -11,7 +11,8 @@ evaluator_seq_cfgs:
     {
       "rule_yes_or_no_eval":
         {  
-          metrics_cfg: { pred_no_op: {}, accuracy_score: {} }
+          metrics_cfg: { pred_no_op: {}, accuracy_score: {} },
+          yes_template: ["yes", "Yes", "visible", "[Yes]", "[yes]"]
         }
     }
   ]

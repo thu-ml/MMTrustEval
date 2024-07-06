@@ -15,6 +15,7 @@ evaluator_seq_cfgs:
             {
               pred_no_op: {}, accuracy_score: {}
             },
+          yes_template: ["yes", "Yes", "visible", "[Yes]", "[yes]", "[there is a]", "[There is a]", "Yes.", " Yes.", " yes", " Yes"]
         },
     },
   ]

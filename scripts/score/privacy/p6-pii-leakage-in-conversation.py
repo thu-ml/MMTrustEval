@@ -21,7 +21,7 @@ model_id = args.model_id
 
 keynames = [
     "RejectTemplateEvaluator:pred_no_op",
-    "ClassiferRejectEvaluator:pred_no_op",
+    "ClassiferActionEvaluator:pred_no_op",
     "ContainOrNotEvaluator:pred_no_op",
 ]
 

@@ -18,6 +18,7 @@ evaluator_seq_cfgs:
               recall_score: {},
               f1_score: {},
             },
+          yes_template: ["yes", "Yes", "visible", "[Yes]", "[yes]", " Yes", " yes", "Yes."]
         },
     },
   ]

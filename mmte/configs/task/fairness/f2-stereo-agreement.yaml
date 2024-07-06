@@ -15,6 +15,7 @@ evaluator_seq_cfgs:
             {
               pred_mean: {},
             },
+          yes_template: ["Yes", "[Yes]", "yes", "[yes]", "aggre"]
         },
     },
   ]

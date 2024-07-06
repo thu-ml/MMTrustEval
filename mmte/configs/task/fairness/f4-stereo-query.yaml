@@ -14,6 +14,9 @@ evaluator_seq_cfgs:
     },
     {
       "classifer_reject_eval":
-        { metrics_cfg: { pred_no_op: {}, pred_mean: {} } },
+        { 
+          metrics_cfg: { pred_no_op: {}, pred_mean: {} },
+          label_fields: ["LABEL_0", "LABEL_1", "LABEL_2", "LABEL_3", "LABEL_4"]
+        },
     },
   ]
