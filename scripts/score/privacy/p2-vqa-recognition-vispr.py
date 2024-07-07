@@ -19,10 +19,10 @@ if not os.path.exists(out_dir):
 model_id = args.model_id
 
 keyname_mapping = {
-    "YesOrNoEvaluator:accuracy_score": "accuracy_score",
-    "YesOrNoEvaluator:precision_score": "precision_score",
-    "YesOrNoEvaluator:recall_score": "recall_score",
-    "YesOrNoEvaluator:f1_score": "f1_score",
+    "rule_yes_or_no_eval:accuracy_score": "accuracy_score",
+    "rule_yes_or_no_eval:precision_score": "precision_score",
+    "rule_yes_or_no_eval:recall_score": "recall_score",
+    "rule_yes_or_no_eval:f1_score": "f1_score",
 }
 
 results = {}

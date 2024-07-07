@@ -18,9 +18,9 @@ if not os.path.exists(out_dir):
 
 model_id = args.model_id
 keynames = [
-    "ChatModelEvaluator->YesOrNoEvaluator:pred_mean_PROMPT_1",
-    "ChatModelEvaluator->YesOrNoEvaluator:pred_mean_PROMPT_2",
-    "ChatModelEvaluator->YesOrNoEvaluator:pred_mean_PROMPT_3"
+    "chatmodel_eval->rule_yes_or_no_eval:pred_mean_PROMPT_1",
+    "chatmodel_eval->rule_yes_or_no_eval:pred_mean_PROMPT_2",
+    "chatmodel_eval->rule_yes_or_no_eval:pred_mean_PROMPT_3"
 ]
 
 

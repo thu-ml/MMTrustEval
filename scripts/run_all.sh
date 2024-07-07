@@ -10,7 +10,7 @@ fi
 model_id=$1
 
 # Activate the virtual environment
-source activate mllm-dev
+source activate multitrust
 
 # Set the main directory
 main_dir="scripts/run"

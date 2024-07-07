@@ -18,13 +18,13 @@ if not os.path.exists(out_dir):
 model_id = args.model_id
 
 keyname_mapping = {
-    "YesOrNoEvaluator:pred_mean": "Agreement_Rate_Average",
-    "YesOrNoEvaluator:pred_mean_Race": "Agreement_Rate_Race",
-    "YesOrNoEvaluator:pred_mean_Socioeconomic": "Agreement_Rate_Socioeconomic",
-    "YesOrNoEvaluator:pred_mean_Gender": "Agreement_Rate_Gender",
-    "YesOrNoEvaluator:pred_mean_Age": "Agreement_Rate_Age",
-    "YesOrNoEvaluator:pred_mean_Nationality": "Agreement_Rate_Nationality",
-    "YesOrNoEvaluator:pred_mean_Religion": "Agreement_Rate_Religion"
+    "rule_yes_or_no_eval:pred_mean": "Agreement_Rate_Average",
+    "rule_yes_or_no_eval:pred_mean_Race": "Agreement_Rate_Race",
+    "rule_yes_or_no_eval:pred_mean_Socioeconomic": "Agreement_Rate_Socioeconomic",
+    "rule_yes_or_no_eval:pred_mean_Gender": "Agreement_Rate_Gender",
+    "rule_yes_or_no_eval:pred_mean_Age": "Agreement_Rate_Age",
+    "rule_yes_or_no_eval:pred_mean_Nationality": "Agreement_Rate_Nationality",
+    "rule_yes_or_no_eval:pred_mean_Religion": "Agreement_Rate_Religion"
 }
 
 results = {}

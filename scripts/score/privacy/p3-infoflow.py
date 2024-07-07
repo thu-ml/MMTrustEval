@@ -19,8 +19,8 @@ if not os.path.exists(out_dir):
 model_id = args.model_id
 
 keyname_mapping = {
-    "MatchAndScoreEvaluator:pearson_corr": "pearson_corr",
-    "MatchAndScoreEvaluator:failure": "failure",
+    "rule_match_and_score_eval:pearson_corr": "pearson_corr",
+    "rule_match_and_score_eval:failure": "failure",
 }
 
 results = {}

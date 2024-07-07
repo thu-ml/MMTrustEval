@@ -18,9 +18,9 @@ if not os.path.exists(out_dir):
 
 model_id = args.model_id
 keynames = [
-    "YesOrNoEvaluator:accuracy_score",
-    "ChatModelEvaluator:iou_judge",
-    "ChatModelEvaluator->YesOrNoEvaluator:pred_mean"
+    "rule_yes_or_no_eval:accuracy_score",
+    "chatmodel_eval:iou_judge",
+    "chatmodel_eval->rule_yes_or_no_eval:pred_mean"
 ]
 
 results = {}

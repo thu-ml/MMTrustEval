@@ -18,7 +18,7 @@ if not os.path.exists(out_dir):
 
 model_id = args.model_id
 keyname_mapping = {
-    "YesOrNoEvaluator:accuracy_score": "Accuracy",
+    "rule_yes_or_no_eval:accuracy_score": "Accuracy",
 }
 
 

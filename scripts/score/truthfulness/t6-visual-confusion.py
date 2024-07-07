@@ -18,11 +18,11 @@ if not os.path.exists(out_dir):
 
 model_id = args.model_id
 keyname_mapping = {
-    "YesOrNoEvaluator:accuracy_score_semantic": 'Accuracy_Semantic',
-    "YesOrNoEvaluator:accuracy_score_contrast": 'Accuracy_Contrast',
-    "YesOrNoEvaluator:accuracy_score_painting": 'Accuracy_Painting',
-    "YesOrNoEvaluator:accuracy_score_mirror": 'Accuracy_Mirror',
-    "YesOrNoEvaluator:accuracy_score_dislocation": 'Accuracy_Dislocation',
+    "rule_yes_or_no_eval:accuracy_score_semantic": 'Accuracy_Semantic',
+    "rule_yes_or_no_eval:accuracy_score_contrast": 'Accuracy_Contrast',
+    "rule_yes_or_no_eval:accuracy_score_painting": 'Accuracy_Painting',
+    "rule_yes_or_no_eval:accuracy_score_mirror": 'Accuracy_Mirror',
+    "rule_yes_or_no_eval:accuracy_score_dislocation": 'Accuracy_Dislocation',
 }
 
 results = {}

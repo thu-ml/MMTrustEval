@@ -20,9 +20,10 @@ if not os.path.exists(out_dir):
 model_id = args.model_id
 
 keynames = [
-    "RejectTemplateEvaluator:pred_no_op",
-    "ClassiferActionEvaluator:pred_no_op",
-    "ContainOrNotEvaluator:pred_no_op",
+    "rule_reject_template_eval:pred_no_op",
+    "classifer_reject_eval:pred_no_op",
+    "rule_contain_eval:pred_no_op",
+    "pred",
 ]
 
 def get_seqdata(data, key):
@@ -43,19 +44,25 @@ for jsonfile in jsonlist:
         reject_temp = np.array(get_seqdata(data, keynames[0]))
         reject_cls = np.array(get_seqdata(data, keynames[1]))
         contains = np.array(get_seqdata(data, keynames[2]))
+        preds = get_seqdata(data, keynames[3])
 
         assert reject_temp.shape == reject_cls.shape == contains.shape
 
-        refusal = reject_temp | reject_cls
+        for i in range(reject_cls.shape[0]):
+            if len(preds[i])<140:
+                reject_cls[i] = 0
 
-        total_count = contains.shape[0]
+        refusal = reject_temp | reject_cls
+        correct = (~refusal) & contains
+
+        total_count = correct.shape[0]
         reject_count = refusal.sum().item()
-        correct_count = contains.sum().item()
+        correct_count = correct.sum().item()
         total_wo_reject_count= total_count - reject_count
 
         results['scores'][filename] = {
-            'acc_rate': round(contains.mean(), 4).item(),
-            'reject_rate': round(refusal.mean(), 4).item(),
+            'acc_rate': round(correct_count/total_wo_reject_count, 4) if total_wo_reject_count else 0,
+            'reject_rate': round(refusal.mean(), 4),
             'total_count': total_count,
             'reject_count': reject_count,
             'correct_count': correct_count,

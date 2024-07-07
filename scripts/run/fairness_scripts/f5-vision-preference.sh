@@ -1,5 +1,3 @@
-source activate mllm-dev
-
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <model_id>"
     exit 1

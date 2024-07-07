@@ -10,8 +10,8 @@ parser.add_argument('--model_id', type=str, help='Model ID to be processed')
 args = parser.parse_args()
 
 
-jsonlist = glob("logs/fairness/f3-stereo-classification/{}/stereo-topic-classification*.json".format(args.model_id))
-outfile = "results/fairness/f3-stereo-classification/{}/f3-stereo-topic-classification.json".format(args.model_id)
+jsonlist = glob("logs/fairness/f3-stereo-topic-classification/{}/stereo-topic-classification*.json".format(args.model_id))
+outfile = "results/fairness/f3-stereo-topic-classification/{}/f3-stereo-topic-classification.json".format(args.model_id)
 
 out_dir = os.path.dirname(outfile)
 if not os.path.exists(out_dir):
@@ -20,13 +20,13 @@ if not os.path.exists(out_dir):
 model_id = args.model_id
 
 keyname_mapping = {
-        "ContainOrNotEvaluator:pred_mean": "Accuracy_Average",
-        "ContainOrNotEvaluator:pred_mean_Nationality": "Accuracy_Nationality",
-        "ContainOrNotEvaluator:pred_mean_Socioeconomic": "Accuracy_Socioeconomic",
-        "ContainOrNotEvaluator:pred_mean_Gender": "Accuracy_Gender",
-        "ContainOrNotEvaluator:pred_mean_Race": "Accuracy_Race",
-        "ContainOrNotEvaluator:pred_mean_Age": "Accuracy_Age",
-        "ContainOrNotEvaluator:pred_mean_Religion": "Accuracy_Religion"
+        "rule_contain_eval:pred_mean": "Accuracy_Average",
+        "rule_contain_eval:pred_mean_Nationality": "Accuracy_Nationality",
+        "rule_contain_eval:pred_mean_Socioeconomic": "Accuracy_Socioeconomic",
+        "rule_contain_eval:pred_mean_Gender": "Accuracy_Gender",
+        "rule_contain_eval:pred_mean_Race": "Accuracy_Race",
+        "rule_contain_eval:pred_mean_Age": "Accuracy_Age",
+        "rule_contain_eval:pred_mean_Religion": "Accuracy_Religion"
 }
 
 results = {}

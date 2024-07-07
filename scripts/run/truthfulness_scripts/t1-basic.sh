@@ -1,3 +1,4 @@
+export APIKEY_FILE='env/apikey_local.yml' 
 source activate mllm-dev
 
 if [ $# -eq 0 ]; then
@@ -13,7 +14,6 @@ dataset_ids=(
     "d-basic-scene"
     "g-basic-grounding"
     "g-basic-ocr"
-
 )
 
 for dataset_id in "${dataset_ids[@]}";

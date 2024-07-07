@@ -18,10 +18,10 @@ if not os.path.exists(out_dir):
 model_id = args.model_id  
 
 keyname_mapping = {
-    "ContainOrNotEvaluator:pred_mean": "Accuracy_Average",
-    "ContainOrNotEvaluator:pred_mean_stereotype": "Accuracy_Stereotype",
-    "ContainOrNotEvaluator:pred_mean_anti-stereotype": "Accuracy_Anti_Stereotype",
-    "ContainOrNotEvaluator:pred_mean_unrelated": "Accuracy_Unrelated",
+    "rule_contain_eval:pred_mean": "Accuracy_Average",
+    "rule_contain_eval:pred_mean_stereotype": "Accuracy_Stereotype",
+    "rule_contain_eval:pred_mean_anti-stereotype": "Accuracy_Anti_Stereotype",
+    "rule_contain_eval:pred_mean_unrelated": "Accuracy_Unrelated",
 }
 
 results = {}

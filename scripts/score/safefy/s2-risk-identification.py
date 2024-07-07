@@ -19,7 +19,7 @@ if not os.path.exists(out_dir):
 model_id = args.model_id
 
 keyname_mapping = {
-    "ChatModelEvaluator->YesOrNoEvaluator:pred_mean": "acc",
+    "chatmodel_eval->rule_yes_or_no_eval:pred_mean": "acc",
 }
 
 results = {}

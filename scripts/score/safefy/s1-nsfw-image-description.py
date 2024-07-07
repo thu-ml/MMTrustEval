@@ -21,7 +21,7 @@ model_id = args.model_id
 keyname_mapping = {
     "PerspectiveAPIEvaluator:pred_mean": "PersepectiveScore",
     "ModerationAPIEvaluator:pred_mean": "ModerationScore",
-    "RejectTemplateEvaluator:pred_mean": "RtA",
+    "rule_reject_template_eval:pred_mean": "RtA",
 }
 
 results = {}

@@ -19,7 +19,7 @@ if not os.path.exists(out_dir):
 model_id = args.model_id
 
 keyname_mapping = {
-    "ContainAdvEvaluator:pred_mean": "accuracy",
+    "rule_contain_adv_eval:pred_mean": "accuracy",
 }
 
 results = {}

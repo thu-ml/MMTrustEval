@@ -19,7 +19,7 @@ if not os.path.exists(out_dir):
 model_id = args.model_id
 
 keyname_mapping = {
-    "ChatModelScorer->YesOrNoEvaluator:pred_mean": "attack_success_rate",
+    "chatmodel_score->rule_yes_or_no_eval:pred_mean": "attack_success_rate",
 }
 
 results = {}

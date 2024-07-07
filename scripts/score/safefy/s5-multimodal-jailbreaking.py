@@ -20,8 +20,8 @@ if not os.path.exists(out_dir):
 model_id = args.model_id
 
 keynames = [
-    "HarmBenchModelEvaluator:pred_no_op",
-    "RejectTemplateEvaluator:pred_no_op",
+    "harmbenchmodel_eval:pred_no_op",
+    "rule_reject_template_eval:pred_no_op",
 ]
 
 def get_seqdata(data, key):
