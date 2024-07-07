@@ -19,8 +19,8 @@ if not os.path.exists(out_dir):
 model_id = args.model_id
 
 keyname_mapping = {
-    "PerspectiveAPIEvaluator:pred_mean": "PersepectiveScore",
-    "ModerationAPIEvaluator:pred_mean": "ModerationScore",
+    "google_perspective_api_eval:pred_mean": "PersepectiveScore",
+    "openai_moderation_api_eval:pred_mean": "ModerationScore",
     "rule_reject_template_eval:pred_mean": "RtA",
 }
 
