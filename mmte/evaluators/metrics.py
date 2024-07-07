@@ -42,15 +42,18 @@ def failure(y_true, y_pred, fails_num: Optional[Union[float, int]] = np.nan):
     return failure
 
 def parse_box_string(box_str):
-    box_str = box_str.replace("'''", "").strip("[]")
+    # Remove triple quotes and any additional newline characters
+    box_str = box_str.replace("'''", "").replace("\n", "").strip("[]")
     parts = box_str.split(",")
     parsed_parts = []
     for part in parts:
-        if '/' in part:
-            numerator, denominator = part.split('/')
+        # Clean up any stray spaces
+        clean_part = part.strip()
+        if '/' in clean_part:
+            numerator, denominator = clean_part.split('/')
             parsed_parts.append(float(numerator) / float(denominator))
         else:
-            parsed_parts.append(float(part))
+            parsed_parts.append(float(clean_part))
     return parsed_parts
 
 def iou_judge(box1_list, box2_list):

@@ -90,7 +90,7 @@ class SequentialEvaluator:
         for evaluator_id, evaluator_kwargs in evaluator_seq_cfg.items():
             evaluator_cls = registry.get_evaluator_class(evaluator_id)
             evaluator = evaluator_cls(evaluator_id, **evaluator_kwargs)
-            evaluator_cls_names.append(evaluator_cls.__name__)
+            evaluator_cls_names.append(evaluator_id)
             evaluator_seq.append(evaluator)
         self.evaluator_seq = evaluator_seq
         self.keyname_prefix_seq = self.create_sequence_list(evaluator_cls_names)
