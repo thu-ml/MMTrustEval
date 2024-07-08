@@ -1,7 +1,8 @@
+import os
+import yaml
+import dashscope
 from http import HTTPStatus
 from typing import List, Dict, Any
-import dashscope
-import yaml
 from mmte.utils.registry import registry
 from mmte.models.base import BaseChat, Response
 from mmte.utils.utils import get_abs_path
@@ -44,7 +45,9 @@ class QwenPlusChat(BaseChat):
         config = self.MODEL_CONFIG[self.model_id]
         with open(get_abs_path(config)) as f:
             self.model_config = yaml.load(f, Loader=yaml.FullLoader)
-        self.api_key = self.model_config.get('api_key')
+        api_key = os.getenv('qwen_apikey', '')
+        assert api_key, "qwen_apikey is empty"
+        self.api_key = api_key
 
 
     def chat(self, messages: List[Dict[str, Any]], **generation_kwargs):

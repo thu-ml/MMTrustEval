@@ -52,7 +52,10 @@ class ClaudeChat(BaseChat):
         config = self.MODEL_CONFIG[self.model_id]
         with open(get_abs_path(config)) as f:
             self.model_config = yaml.load(f, Loader=yaml.FullLoader)
-        self.api_key = self.model_config.get('api_key')
+        
+        api_key = os.getenv('anthropic_apikey', '')
+        assert api_key, "anthropic_apikey is empty"
+        self.api_key = api_key
         self.client = anthropic.Anthropic(api_key=self.api_key)
         self.max_retries = self.model_config.get('max_retries', 10)
         self.timeout = self.model_config.get('timeout', 1)
