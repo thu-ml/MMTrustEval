@@ -21,8 +21,6 @@ class Phi3Chat(BaseChat):
     
     def __init__(self, model_id: str, device: str="cuda:0", bf16: bool=True):
         super().__init__(model_id)
-        if  str(transformers.__version__) < '4.40.2':
-            raise ImportError("Transformers version not compatible. '4.40.2' is expected.")
         self.model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-vision-128k-instruct" , device_map=device, trust_remote_code=True, torch_dtype="auto", _attn_implementation='eager') # use _attn_implementation='eager' to disable flash attention
         self.processor = AutoProcessor.from_pretrained("microsoft/Phi-3-vision-128k-instruct" , trust_remote_code=True) 
         

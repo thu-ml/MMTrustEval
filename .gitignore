@@ -187,3 +187,5 @@ log_reload.py
 
 *competition*
 apikey_local.yml
+mmte/models/llava/serve/
+test_env/
