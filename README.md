@@ -33,6 +33,8 @@ A Comprehensive Study
 
 ## 🛠️ Installation
 
+The envionment of this version has been updated to accommodate more latest models. If you want to ensure more precise replication of experimental results presented in the paper, you could switch to the version branch [v0.1.0](https://github.com/thu-ml/MMTrustEval/tree/v0.1.0).
+
 - Option A: Pip install
     ```shell
     conda create -n multitrust python=3.9
