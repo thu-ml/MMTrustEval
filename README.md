@@ -33,7 +33,7 @@ A Comprehensive Study
 
 ## 🛠️ Installation
 
-The envionment of this version has been updated to accommodate more latest models. If you want to ensure more precise replication of experimental results presented in the paper, you could switch to the version branch [v0.1.0](https://github.com/thu-ml/MMTrustEval/tree/v0.1.0).
+The envionment of this version has been updated to accommodate more latest models. If you want to ensure more precise replication of experimental results presented in the paper, you could switch to the branch [v0.1.0](https://github.com/thu-ml/MMTrustEval/tree/v0.1.0).
 
 - Option A: Pip install
     ```shell
@@ -95,6 +95,8 @@ The envionment of this version has been updated to accommodate more latest model
     # or entering by ssh
     ssh -p 11180 root@[your_ip_here]
     ```
+  
+- Several tasks require the use of commercial APIs for auxiliary testing. Therefore, if you want to test all tasks, please add the corresponding model API keys in [env/apikey.yml](https://github.com/thu-ml/MMTrustEval/blob/v0.1.0/env/apikey.yml).
 
 ## :envelope: Dataset
 
