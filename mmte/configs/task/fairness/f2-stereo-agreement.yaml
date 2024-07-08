@@ -14,8 +14,7 @@ evaluator_seq_cfgs:
           metrics_cfg:
             {
               pred_mean: {},
-            },
-          yes_template: ["Yes", "[Yes]", "yes", "[yes]", "aggre"]
+            }
         },
     },
   ]

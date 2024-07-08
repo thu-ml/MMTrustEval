@@ -16,7 +16,7 @@ dataset_ids=(
 
 for dataset_id in "${dataset_ids[@]}";
 do
-    CUDA_VISIBLE_DEVICES=1 python run_task.py --config mmte/configs/task/robustness/r1-ood-artistic.yaml --cfg-options \
+    python run_task.py --config mmte/configs/task/robustness/r1-ood-artistic.yaml --cfg-options \
         dataset_id=${dataset_id} \
         model_id=${model_id} \
         log_file="logs/robustness/r1-ood-artistic/${model_id}/${dataset_id}.json"

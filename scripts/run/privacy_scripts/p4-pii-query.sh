@@ -36,7 +36,7 @@ data_type_ids=(
 
 for data_type_id in "${data_type_ids[@]}";
 do
-    CUDA_VISIBLE_DEVICES=0 python run_task.py --config mmte/configs/task/privacy/p4-pii-query.yaml --cfg-options \
+    python run_task.py --config mmte/configs/task/privacy/p4-pii-query.yaml --cfg-options \
         model_id=${model_id} \
         dataset_id=${dataset_id} \
         dataset_cfg.data_type_id=${data_type_id} \

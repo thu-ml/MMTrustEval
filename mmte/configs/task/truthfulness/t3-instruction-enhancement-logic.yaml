@@ -22,8 +22,7 @@ evaluator_seq_cfgs:
         },
       "rule_yes_or_no_eval":
         {  
-          metrics_cfg: { pred_mean: {} },
-          yes_template: ["yes", "Yes", "[Yes]", "[yes]", "same", "consistent", "Yes.", " Yes", " Yes."]
+          metrics_cfg: { pred_mean: {} }
         }
     }
   ]
