@@ -23,7 +23,7 @@ A Comprehensive Study
 ![framework](docs/structure/framework.jpg)
 
 
-- **MultiTrust** is a comprehensive benchmark designed to assess and enhance the trustworthiness of MLLMs across five key dimensions: truthfulness, safety, robustness, fairness, and privacy. It integrates a rigorous evaluation strategy involving 32 diverse tasks to expose new trustworthiness challenges. 
+> **MultiTrust** is a comprehensive benchmark designed to assess and enhance the trustworthiness of MLLMs across five key dimensions: truthfulness, safety, robustness, fairness, and privacy. It integrates a rigorous evaluation strategy involving 32 diverse tasks to expose new trustworthiness challenges. 
 
 
 ## 🚀 News
