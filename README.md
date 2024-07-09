@@ -93,6 +93,8 @@ A Comprehensive Study
     # or entering by ssh
     ssh -p 11180 root@[your_ip_here]
     ```
+  
+- Several tasks require the use of commercial APIs for auxiliary testing. Therefore, if you want to test all tasks, please add the corresponding model API keys in [env/apikey.yml](https://github.com/thu-ml/MMTrustEval/blob/v0.1.0/env/apikey.yml).
 
 ## :envelope: Dataset
 

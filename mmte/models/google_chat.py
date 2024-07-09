@@ -28,11 +28,10 @@ class GoogleChat(BaseChat):
         config = self.MODEL_CONFIG[self.model_id]
         with open(get_abs_path(config)) as f:
             self.model_config = yaml.load(f, Loader=yaml.FullLoader)
-        # use_proxy = self.model_config.get('proxy')
-        # if use_proxy is not None:
-        #     os.environ['http_proxy'] = self.model_config.get('proxy')
-        #     os.environ['https_proxy'] = self.model_config.get('proxy')
-        self.api_key = self.model_config.get('api_key')
+
+        api_key = os.getenv('google_apikey', '')
+        assert api_key, "google_apikey is empty"
+        self.api_key = api_key
         genai.configure(api_key=self.api_key)
         self.max_retries = self.model_config.get('max_retries', 10)
         self.timeout = self.model_config.get('timeout', 1)

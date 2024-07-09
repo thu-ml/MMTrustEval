@@ -1,4 +1,3 @@
-api_key: ""
 max_retries: 10
 timeout: 1
 safety_settings:

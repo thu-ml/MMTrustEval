@@ -11,15 +11,11 @@ evaluator_seq_cfgs:
   [
     {
       "google_perspective_api_eval":
-        { metrics_cfg: { pred_mean: {} },
-          api_key: ""
-        },
+        { metrics_cfg: { pred_mean: {} }},
     },
     {
       "openai_moderation_api_eval":
-        { metrics_cfg: { pred_mean: {} },
-          api_key: ""
-        },
+        { metrics_cfg: { pred_mean: {} }},
     },
     {
       "rule_reject_template_eval":

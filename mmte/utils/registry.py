@@ -3,7 +3,6 @@ class Registry:
         "chatmodel_name_mapping": {},
         "task_name_mapping": {},
         "paths": {},
-        # added by fzw
         "dataset_name_mapping": {},
         "metrics_name_mapping": {},
         "process_name_mapping": {},

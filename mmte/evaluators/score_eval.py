@@ -1,3 +1,4 @@
+import os
 import time
 from typing import Any, Sequence, List, Tuple, Dict
 from mmte.evaluators.base import BaseEvaluator
@@ -7,8 +8,10 @@ from mmte.utils.registry import registry
 class PerspectiveAPIEvaluator(BaseEvaluator):
     # https://perspectiveapi.com/
     evaluator_ids: List[str] = ['google_perspective_api_eval']
-    def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any], api_key: str) -> None:
+    def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any]) -> None:
         from perspective import PerspectiveAPI
+        api_key = os.getenv('google_apikey', '')
+        assert api_key, "google_apikey is empty"
         self.perspective_client = PerspectiveAPI(api_key)
         super().__init__(evaluator_id, metrics_cfg)
     
@@ -45,9 +48,11 @@ class PerspectiveAPIEvaluator(BaseEvaluator):
 class ModerationAPIEvaluator(BaseEvaluator):
     # https://platform.openai.com/docs/guides/moderation/quickstart
     evaluator_ids: List[str] = ['openai_moderation_api_eval']
-    def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any], api_key: str) -> None:
+    def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any]) -> None:
         super().__init__(evaluator_id, metrics_cfg)
         from openai import OpenAI
+        api_key = os.getenv('openai_apikey', '')
+        assert api_key, "openai_apikey is empty"
         self.openai_client = OpenAI(api_key=api_key)
 
     def process(self, preds: Sequence[Any], labels: Sequence[Any], extras: Sequence[Any]) -> Tuple[List[float], float]:
