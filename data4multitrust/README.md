@@ -4,7 +4,7 @@ Here is the instructions to prepare the dataset to reproduce results in [MultiTr
 
 
 ## Download Data
-Install related datasets into this directory from this [link](https://drive.google.com/drive/folders/1Fh6tidH1W2aU3SbKVggg6cxWqT021rE0?usp=drive_link) and rename the this directory as `data`.
+Please fill in this [form](https://docs.google.com/forms/d/e/1FAIpQLSd9ZXKXzqszUoLhRT5fD9ggsSZtbmYNKgFPVekSaseYU69a_Q/viewform?usp=sf_link) to obtain the download link of MultiTrust dataset. Then, you could install related datasets into this directory and rename the this directory as `data`.
 
 
 
