@@ -38,6 +38,7 @@ class mPLUGOwl2Chat(BaseChat):
                 
     @torch.no_grad()
     def chat(self, messages: List, **generation_kwargs):
+        assert len(messages) == 1, 'Only support one-turn conversation currently'
         for message in messages:
             if message["role"] in ["system", "user", "assistant"]:
                 if message["role"] == "user":

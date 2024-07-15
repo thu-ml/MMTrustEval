@@ -46,6 +46,7 @@ class MiniGPT4Chat(BaseChat):
         conversation = self.CONV_DICT[self.model_id].copy()
         img_list = []
         # TODO: if system message provided.
+        assert len(messages) == 1, 'Only support one-turn conversation currently'
         for message in messages:
             if message["role"] in ["system", "user", "assistant"]:
                 if message["role"] == "user":

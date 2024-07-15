@@ -37,7 +37,6 @@ class ShareGPT4VChat(BaseChat):
         config = self.MODEL_CONFIG[self.model_id]
         self.config = OmegaConf.load(get_abs_path(config))
         self.device = device  
-        # print(self.config.model.model_path)
         self.tokenizer, self.model, self.image_processor, self.context_len = load_pretrained_model(
             model_path=self.config.model.model_path,
             model_base=None,
@@ -47,6 +46,7 @@ class ShareGPT4VChat(BaseChat):
                 
     @torch.no_grad()
     def chat(self, messages: List, **generation_kwargs):
+        assert len(messages) == 1, 'Only support one-turn conversation currently'
         for message in messages:
             if message["role"] in ["system", "user", "assistant"]:
                 if message["role"] == "user":
@@ -76,12 +76,7 @@ class ShareGPT4VChat(BaseChat):
                         image_tensor = None
                         user_message = message["content"]
                         qs = user_message
-                        if self.model.config.mm_use_im_start_end:
-                            qs = DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + \
-                                DEFAULT_IM_END_TOKEN + '\n' + qs
-                        else:
-                            qs = DEFAULT_IMAGE_TOKEN + '\n' + qs
-
+                
                         conv_mode = "share4v_v0"
                         conv = conv_templates[conv_mode].copy()
                         conv.append_message(conv.roles[0], qs)
@@ -101,23 +96,14 @@ class ShareGPT4VChat(BaseChat):
             keywords, self.tokenizer, input_ids)
         
         with torch.inference_mode():
-            if isinstance(message["content"], dict):
-                output_ids = self.model.generate(
-                    input_ids,
-                    images=image_tensor,
-                    do_sample=generation_kwargs.get("do_sample"),
-                    temperature=0.2,
-                    max_new_tokens=generation_kwargs.get("max_new_tokens"),
-                    use_cache=True,
-                    stopping_criteria=[stopping_criteria])
-            else:
-                output_ids = self.model.generate(
-                    input_ids,
-                    do_sample=generation_kwargs.get("do_sample"),
-                    temperature=0.2,
-                    max_new_tokens=generation_kwargs.get("max_new_tokens"),
-                    use_cache=True,
-                    stopping_criteria=[stopping_criteria])
+            output_ids = self.model.generate(
+                input_ids,
+                images=image_tensor,
+                do_sample=generation_kwargs.get("do_sample"),
+                temperature=0.2,
+                max_new_tokens=generation_kwargs.get("max_new_tokens"),
+                use_cache=True,
+                stopping_criteria=[stopping_criteria])
 
         input_token_len = input_ids.shape[1]
         n_diff_input_output = (
