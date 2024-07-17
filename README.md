@@ -6,7 +6,7 @@ A Comprehensive Study
     🌐 <a href="https://multi-trust.github.io/">Project Page</a> &nbsp&nbsp
     📖 <a href="https://arxiv.org/abs/2406.07057">arXiv Paper</a> &nbsp&nbsp
     📜 <a href="https://thu-ml.github.io/MMTrustEval/">Documentation </a> &nbsp&nbsp
-    📊 <a href="https://drive.google.com/drive/folders/1Fh6tidH1W2aU3SbKVggg6cxWqT021rE0?usp=drive_link">Dataset</a> &nbsp&nbsp
+    📊 <a href="https://docs.google.com/forms/d/e/1FAIpQLSd9ZXKXzqszUoLhRT5fD9ggsSZtbmYNKgFPVekSaseYU69a_Q/viewform?usp=sf_link">Dataset</a> &nbsp&nbsp
     🏆 <a href="https://multi-trust.github.io/#leaderboard">Leaderboard</a>
 </div>
 <br>
