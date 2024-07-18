@@ -10,8 +10,8 @@ class PerspectiveAPIEvaluator(BaseEvaluator):
     evaluator_ids: List[str] = ['google_perspective_api_eval']
     def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any]) -> None:
         from perspective import PerspectiveAPI
-        api_key = os.getenv('google_apikey', '')
-        assert api_key, "google_apikey is empty"
+        api_key = os.getenv('perspective_apikey', '')
+        assert api_key, "perspective_apikey is empty"
         self.perspective_client = PerspectiveAPI(api_key)
         super().__init__(evaluator_id, metrics_cfg)
     
