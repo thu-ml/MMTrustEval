@@ -35,7 +35,7 @@ ninja==1.11.1.1
 torch==2.3.0+cu121
 torchvision==0.18.0+cu121
 tqdm==4.66.1
-transformers==4.33.2
+transformers==4.37.2
 webdataset==0.2.86
 datasets==2.18.0
 openai==1.9.0

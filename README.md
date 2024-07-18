@@ -6,7 +6,7 @@ A Comprehensive Study
     🌐 <a href="https://multi-trust.github.io/">Project Page</a> &nbsp&nbsp
     📖 <a href="https://arxiv.org/abs/2406.07057">arXiv Paper</a> &nbsp&nbsp
     📜 <a href="https://thu-ml.github.io/MMTrustEval/">Documentation </a> &nbsp&nbsp
-    📊 <a href="https://drive.google.com/drive/folders/1Fh6tidH1W2aU3SbKVggg6cxWqT021rE0?usp=drive_link">Dataset</a> &nbsp&nbsp
+    📊 <a href="https://docs.google.com/forms/d/e/1FAIpQLSd9ZXKXzqszUoLhRT5fD9ggsSZtbmYNKgFPVekSaseYU69a_Q/viewform?usp=sf_link">Dataset</a> &nbsp&nbsp
     🏆 <a href="https://multi-trust.github.io/#leaderboard">Leaderboard</a>
 </div>
 <br>
@@ -27,6 +27,7 @@ A Comprehensive Study
 
 
 ## 🚀 News
+* **`2024.07.17`** 🌟 We released all [data](data4multitrust/README.md) of MultiTrust ！You could use them for running all 32 tasks !
 * **`2024.07.07`** 🌟 We released the latest results for [GPT-4o](https://openai.com/index/hello-gpt-4o/), [Claude-3.5](https://www.anthropic.com/news/claude-3-5-sonnet), and [Phi-3](https://ollama.com/library/phi3) on our [project website](https://multi-trust.github.io/) ！
 * **`2024.06.07`** 🌟 We released [MultiTrust](https://multi-trust.github.io/), the first comprehensive and unified benchmark on the trustworthiness of MLLMs !
 
