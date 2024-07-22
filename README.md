@@ -1,18 +1,7 @@
 
 <div align="center">
-    <img src="docs/structure/background.png" alt="background" style="width: 100%;"> 
+    <img src="docs/structure/background.png" alt="background" style="width: 90%;"> 
 </div>
-<h2 align="center">Benchmarking Trustworthiness of Multimodal Large Language Models:<br>
-A Comprehensive Study
-</h2>
-<div align="center" style="font-size: 16px;">
-    🌐 <a href="https://multi-trust.github.io/">Project Page</a> &nbsp&nbsp
-    📖 <a href="https://arxiv.org/abs/2406.07057">arXiv Paper</a> &nbsp&nbsp
-    📜 <a href="https://thu-ml.github.io/MMTrustEval/">Documentation </a> &nbsp&nbsp
-    📊 <a href="https://docs.google.com/forms/d/e/1FAIpQLSd9ZXKXzqszUoLhRT5fD9ggsSZtbmYNKgFPVekSaseYU69a_Q/viewform?usp=sf_link">Dataset</a> &nbsp&nbsp
-    🏆 <a href="https://multi-trust.github.io/#leaderboard">Leaderboard</a>
-</div>
-<br>
 
 <div align="center">
     <img src="https://img.shields.io/badge/Benchmark-Truthfulness-yellow" alt="Truthfulness" />
@@ -22,6 +11,17 @@ A Comprehensive Study
     <img src="https://img.shields.io/badge/Benchmark-Privacy-green" alt="Privacy" />
 </div>
 <br>
+
+<div align="center" style="font-size: 16px;">
+    🌐 <a href="https://multi-trust.github.io/">Project Page</a> &nbsp&nbsp
+    📖 <a href="https://arxiv.org/abs/2406.07057">arXiv Paper</a> &nbsp&nbsp
+    📜 <a href="https://thu-ml.github.io/MMTrustEval/">Documentation </a> &nbsp&nbsp
+    📊 <a href="https://docs.google.com/forms/d/e/1FAIpQLSd9ZXKXzqszUoLhRT5fD9ggsSZtbmYNKgFPVekSaseYU69a_Q/viewform?usp=sf_link">Dataset</a> &nbsp&nbsp
+    🏆 <a href="https://multi-trust.github.io/#leaderboard">Leaderboard</a>
+</div>
+<br>
+
+
 
 <div align="center">
     <img src="docs/structure/framework.jpg" alt="framework" style="width: 90%;"> 
