@@ -1,6 +1,6 @@
 
 <div align="center">
-    <img src="docs/structure/background.png" alt="Descriptive Alt Text" style="width: 85%;"> 
+    <img src="docs/structure/background.png" alt="background" style="width: 100%;"> 
 </div>
 <h2 align="center">Benchmarking Trustworthiness of Multimodal Large Language Models:<br>
 A Comprehensive Study
@@ -23,7 +23,10 @@ A Comprehensive Study
 </div>
 <br>
 
-![framework](docs/structure/framework.jpg)
+<div align="center">
+    <img src="docs/structure/framework.jpg" alt="framework" style="width: 90%;"> 
+</div>
+
 
 
 > **MultiTrust** is a comprehensive benchmark designed to assess and enhance the trustworthiness of MLLMs across five key dimensions: truthfulness, safety, robustness, fairness, and privacy. It integrates a rigorous evaluation strategy involving 32 diverse tasks to expose new trustworthiness challenges. 
@@ -263,7 +266,10 @@ by GPT-4 or other classifiers; ◐: mixture evaluation.
 - A global analysis reveals a correlation coefficient of 0.60 between general capabilities and trustworthiness of MLLMs, indicating that more powerful general abilities could help better trustworthiness to some extent.
 - Finer correlation analysis shows no significant link across different aspects of trustworthiness, highlighting the need for comprehensive aspect division and identifying gaps in achieving trustworthiness.
 
-![result](docs/structure/overall.png)
+
+<div align="center">
+    <img src="docs/structure/overall.png" alt="result" style="width: 90%;"> 
+</div>
 
 
 ## :black_nib: Citation
