@@ -1,4 +1,7 @@
 
+<div align="center">
+    <img src="docs/structure/background.png" alt="Descriptive Alt Text" style="width: 90%;"> 
+</div>
 <h2 align="center">Benchmarking Trustworthiness of Multimodal Large Language Models:<br>
 A Comprehensive Study
 </h2>
