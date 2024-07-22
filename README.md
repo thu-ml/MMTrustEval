@@ -1,6 +1,6 @@
 
 <div align="center">
-    <img src="docs/structure/background.png" alt="background" style="width: 90%;"> 
+    <img src="docs/structure/background.png" alt="background" style="width: 95%;"> 
 </div>
 
 <div align="center" style="font-size: 16px;">
