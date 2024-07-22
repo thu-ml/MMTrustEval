@@ -2,15 +2,10 @@
 <div align="center">
     <img src="docs/structure/background.png" alt="background" style="width: 90%;"> 
 </div>
+<h2 align="center">Benchmarking Trustworthiness of Multimodal Large Language Models:<br>
+A Comprehensive Study
+</h2>
 
-<div align="center">
-    <img src="https://img.shields.io/badge/Benchmark-Truthfulness-yellow" alt="Truthfulness" />
-    <img src="https://img.shields.io/badge/Benchmark-Safety-red" alt="Safety" />
-    <img src="https://img.shields.io/badge/Benchmark-Robustness-blue" alt="Robustness" />
-    <img src="https://img.shields.io/badge/Benchmark-Fairness-orange" alt="Fairness" />
-    <img src="https://img.shields.io/badge/Benchmark-Privacy-green" alt="Privacy" />
-</div>
-<br>
 
 <div align="center" style="font-size: 16px;">
     🌐 <a href="https://multi-trust.github.io/">Project Page</a> &nbsp&nbsp
@@ -21,6 +16,14 @@
 </div>
 <br>
 
+<div align="center">
+    <img src="https://img.shields.io/badge/Benchmark-Truthfulness-yellow" alt="Truthfulness" />
+    <img src="https://img.shields.io/badge/Benchmark-Safety-red" alt="Safety" />
+    <img src="https://img.shields.io/badge/Benchmark-Robustness-blue" alt="Robustness" />
+    <img src="https://img.shields.io/badge/Benchmark-Fairness-orange" alt="Fairness" />
+    <img src="https://img.shields.io/badge/Benchmark-Privacy-green" alt="Privacy" />
+</div>
+<br>
 
 
 <div align="center">
