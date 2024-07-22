@@ -3,13 +3,6 @@
     <img src="docs/structure/background.png" alt="background" style="width: 90%;"> 
 </div>
 
----
-
-<h2 align="center">Benchmarking Trustworthiness of Multimodal Large Language Models:<br>
-A Comprehensive Study
-</h2>
-
-
 <div align="center" style="font-size: 16px;">
     🌐 <a href="https://multi-trust.github.io/">Project Page</a> &nbsp&nbsp
     📖 <a href="https://arxiv.org/abs/2406.07057">arXiv Paper</a> &nbsp&nbsp
@@ -29,13 +22,19 @@ A Comprehensive Study
 <br>
 
 
+---
+
+> **MultiTrust** is a comprehensive benchmark designed to assess and enhance the trustworthiness of MLLMs across five key dimensions: truthfulness, safety, robustness, fairness, and privacy. It integrates a rigorous evaluation strategy involving 32 diverse tasks to expose new trustworthiness challenges. 
+
+
+
 <div align="center">
     <img src="docs/structure/framework.jpg" alt="framework" style="width: 90%;"> 
 </div>
 
 
 
-> **MultiTrust** is a comprehensive benchmark designed to assess and enhance the trustworthiness of MLLMs across five key dimensions: truthfulness, safety, robustness, fairness, and privacy. It integrates a rigorous evaluation strategy involving 32 diverse tasks to expose new trustworthiness challenges. 
+
 
 
 ## 🚀 News
