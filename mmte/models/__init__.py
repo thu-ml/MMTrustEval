@@ -18,6 +18,7 @@ from mmte.models.internlm_xcomposer_chat import InternLMXComposerChat
 from mmte.models.sharegpt4v_chat import ShareGPT4VChat
 from mmte.models.cogvlm_chat import CogVLMChat
 from mmte.models.phi3_chat import Phi3Chat
+from mmte.models.deepseek_chat import DeepSeekVL
 from typing import List
 
 
