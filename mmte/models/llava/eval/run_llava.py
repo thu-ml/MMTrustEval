@@ -177,7 +177,7 @@ def chat_model(tokenizer, model, image_processor, args):
             images,
             image_processor,
             model.config
-        ).to(model.device, dtype=torch.float16)
+        ).to(model.device, dtype=args.dtype)
     else:
         images_tensor = None
         image_sizes = None
