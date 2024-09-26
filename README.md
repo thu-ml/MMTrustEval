@@ -38,7 +38,7 @@
 
 
 ## 🚀 News
-* **`2024.09.26`** 🎉 Our paper has been accepted by NeurIPS 2024 Track Datasets and Benchmarks ！
+* **`2024.09.26`** 🎉 Our [paper](https://arxiv.org/abs/2406.07057) has been accepted by NeurIPS 2024 Track Datasets and Benchmarks ！
 * **`2024.08.12`** 🌟 We released the latest results for [DeepSeek-VL](https://github.com/deepseek-ai/DeepSeek-VL), and [hunyuan-vision](https://hunyuan.tencent.com/) on our [project website](https://multi-trust.github.io/) ！
 * **`2024.07.17`** 🌟 We released all [data](data4multitrust/README.md) of MultiTrust ！You could use them for running all 32 tasks !
 * **`2024.07.07`** 🌟 We released the latest results for [GPT-4o](https://openai.com/index/hello-gpt-4o/), [Claude-3.5](https://www.anthropic.com/news/claude-3-5-sonnet), and [Phi-3](https://ollama.com/library/phi3) on our [project website](https://multi-trust.github.io/) ！
