@@ -4,7 +4,11 @@ Here is the instructions to prepare the dataset to reproduce results in [MultiTr
 
 
 ## Download Data
-Please fill in this [form](https://docs.google.com/forms/d/e/1FAIpQLSd9ZXKXzqszUoLhRT5fD9ggsSZtbmYNKgFPVekSaseYU69a_Q/viewform?usp=sf_link) to obtain the download link of MultiTrust dataset. Then, you could install related datasets into this directory and rename the this directory as `data`.
+You can choose one of the following two ways:
+
+- Fill in this [form](https://docs.google.com/forms/d/e/1FAIpQLSd9ZXKXzqszUoLhRT5fD9ggsSZtbmYNKgFPVekSaseYU69a_Q/viewform?usp=sf_link) to obtain the download link of MultiTrust dataset. Then, you could install related datasets into this directory and rename the this directory as `data`.
+
+- Use 🤗 [Hugging Face](https://huggingface.co/datasets/thu-ml/MultiTrust) and follow instructions on it.
 
 
 ## User Policy
