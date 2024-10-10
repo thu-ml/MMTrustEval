@@ -189,3 +189,6 @@ log_reload.py
 apikey_local.yml
 mmte/models/llava/serve/
 test_env/
+cache/
+slurm-*
+log_*txt
