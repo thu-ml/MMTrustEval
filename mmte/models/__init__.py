@@ -12,6 +12,7 @@ from mmte.models.qwen_plus_chat import QwenPlusChat
 from mmte.models.minigpt4_chat import MiniGPT4Chat
 from mmte.models.instructblip_chat import InstructBLIPChat
 from mmte.models.qwen_chat import QwenChat
+from mmte.models.qwen2_chat import Qwen2Chat
 from mmte.models.otter_chat import OtterChat
 from mmte.models.mplug_owl_chat import mPLUGOwlChat
 from mmte.models.internlm_xcomposer_chat import InternLMXComposerChat
@@ -23,10 +24,9 @@ from mmte.models.hunyuan_chat import HunyuanChat
 from typing import List
 
 
-def load_chatmodel(model_id:str, device:str="cuda:0") -> 'BaseChat':
+def load_chatmodel(model_id: str, device: str = "cuda:0") -> "BaseChat":
     return registry.get_chatmodel_class(model_id)(model_id=model_id, device=device)
 
 
-def model_zoo() -> List['BaseChat']:
+def model_zoo() -> List["BaseChat"]:
     return registry.list_chatmodels()
-
