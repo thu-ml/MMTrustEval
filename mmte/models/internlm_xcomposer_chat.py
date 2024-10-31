@@ -47,15 +47,15 @@ class InternLMXComposerChat(BaseChat):
                         user_message = message["content"]["text"]
                         if self.model_id == 'internlm-xcomposer2-vl-7b':
                             user_message = '<ImageHere>' + user_message
-                            response, _ = self.model.chat(self.tokenizer, query=user_message, image=image_path, max_new_tokens=generation_kwargs.get("max_new_tokens"), do_sample=generation_kwargs.get("do_sample"))
+                            response, _ = self.model.chat(self.tokenizer, query=user_message, image=image_path, max_new_tokens=generation_kwargs.get("max_new_tokens", 128), do_sample=generation_kwargs.get("do_sample", False))
                         else:
-                            response = self.model.generate(user_message, image_path, max_new_tokens=generation_kwargs.get("max_new_tokens"), do_sample=generation_kwargs.get("do_sample"))
+                            response = self.model.generate(user_message, image_path, max_new_tokens=generation_kwargs.get("max_new_tokens", 128), do_sample=generation_kwargs.get("do_sample", False))
                     else: 
                         user_message = message["content"]
                         if self.model_id == 'internlm-xcomposer2-vl-7b':
-                            response, _ = self.model.chat(self.tokenizer, query=user_message, max_new_tokens=generation_kwargs.get("max_new_tokens"), do_sample=generation_kwargs.get("do_sample"))
+                            response, _ = self.model.chat(self.tokenizer, query=user_message, max_new_tokens=generation_kwargs.get("max_new_tokens", 128), do_sample=generation_kwargs.get("do_sample", False))
                         else:
-                            response = self.model.generate(user_message, max_new_tokens=generation_kwargs.get("max_new_tokens"), do_sample=generation_kwargs.get("do_sample"))
+                            response = self.model.generate(user_message, max_new_tokens=generation_kwargs.get("max_new_tokens", 128), do_sample=generation_kwargs.get("do_sample", False))
                 elif message["role"] == "assistant":
                     # TODO: add assistant answer into the conversation
                     pass
