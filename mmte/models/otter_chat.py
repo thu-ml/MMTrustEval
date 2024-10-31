@@ -66,13 +66,20 @@ class OtterChat(BaseChat):
                     pass
             else:
                 raise ValueError("Unsupported role. Only system, user and assistant are supported.")
-            
+        
+        default_generation_config = {
+            "max_new_tokens": 512,
+            "temperature": 0.2,
+            "do_sample": True,
+        }
+        default_generation_config.update(generation_kwargs)
+
         generated_text = self.model.generate(
             vision_x=vision_x,
             lang_x=lang_x["input_ids"].to(self.model.device),
             attention_mask=lang_x["attention_mask"].to(self.model.device),
             pad_token_id=self.tokenizer.pad_token_id,
-            **generation_kwargs
+            **default_generation_config
         )
         response = self.tokenizer.decode(generated_text[0]).split("<answer>")[-1].strip().replace("<|endofchunk|>", "")
 
