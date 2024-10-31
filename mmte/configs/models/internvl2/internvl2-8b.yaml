@@ -1,0 +1,7 @@
+model:
+  model_name: 'internvl2-8b'
+  model_path: 'OpenGVLab/InternVL2-8B'
+
+parameters:
+  do_sample: True
+  max_new_tokens: 1024
