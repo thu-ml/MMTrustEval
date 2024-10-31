@@ -1,0 +1,7 @@
+model:
+  model_name: 'mplug-owl3-7b-240728'
+  model_path: 'mPLUG/mPLUG-Owl3-7B-240728'
+
+parameters:
+  temperature: 0.7
+  max_new_tokens: 512
