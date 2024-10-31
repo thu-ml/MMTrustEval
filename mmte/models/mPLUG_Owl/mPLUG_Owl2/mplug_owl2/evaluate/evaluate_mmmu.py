@@ -214,7 +214,7 @@ def parse_open_response(response):
         if len(key_responses) == 0: # did not found any
             return [response]
         return key_responses
-    # pdb.set_trace()
+
     key_responses = get_key_subresponses(response)
 
     pred_list = key_responses.copy() # keep the original string response
