@@ -82,29 +82,21 @@ class mPLUGOwl2Chat(BaseChat):
         stop_str = conv.sep2
         keywords = [stop_str]
         stopping_criteria = KeywordsStoppingCriteria(keywords, self.tokenizer, input_ids)
-        streamer = TextStreamer(self.tokenizer, skip_prompt=True, skip_special_tokens=True)
+        # streamer = TextStreamer(self.tokenizer, skip_prompt=True, skip_special_tokens=True)
+        streamer = None
 
         with torch.inference_mode():
-            if isinstance(message["content"], dict):
-                output_ids = self.model.generate(
-                    input_ids,
-                    images=image_tensor,
-                    do_sample=generation_kwargs.get("do_sample"),
-                    temperature=self.config.parameters.temperature,
-                    max_new_tokens=generation_kwargs.get("max_new_tokens"),
-                    streamer=streamer,
-                    use_cache=True,
-                    stopping_criteria=[stopping_criteria])
-            else:
-                output_ids = self.model.generate(
-                    input_ids,
-                    do_sample=generation_kwargs.get("do_sample"),
-                    temperature=self.config.parameters.temperature,
-                    max_new_tokens=generation_kwargs.get("max_new_tokens"),
-                    streamer=streamer,
-                    use_cache=True,
-                    stopping_criteria=[stopping_criteria])
-
+            output_ids = self.model.generate(
+                input_ids,
+                images=image_tensor,
+                do_sample=generation_kwargs.get("do_sample"),
+                temperature=self.config.parameters.temperature,
+                max_new_tokens=generation_kwargs.get("max_new_tokens"),
+                streamer=streamer,
+                # use_cache=True,
+                use_cache=False,
+                stopping_criteria=[stopping_criteria])
+            
         outputs = self.tokenizer.decode(output_ids[0, input_ids.shape[1]:]).strip()
 
         scores = None
