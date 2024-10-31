@@ -1,4 +1,4 @@
-from transformers import AutoProcessor, LlavaForConditionalGeneration
+from transformers import LlavaNextProcessor, LlavaNextForConditionalGeneration
 from typing import List
 from PIL import Image
 import torch
@@ -7,12 +7,14 @@ from mmte.utils.registry import registry
 
 
 @registry.register_chatmodel()
-class LLaVAHFChat(BaseChat):
+class LLaVANEXTChat(BaseChat):
 
     # TODO: update model config
     MODEL_CONFIG = {
-        "llava-1.5-7b-hf": "llava-hf/llava-1.5-7b-hf",
-        "llava-1.5-13b-hf": "llava-hf/llava-1.5-13b-hf",
+        "llava-v1.6-mistral-7b-hf": "llava-hf/llava-v1.6-mistral-7b-hf",
+        "llava-v1.6-vicuna-7b-hf": "llava-hf/llava-v1.6-vicuna-7b-hf",
+        "llava-v1.6-vicuna-13b-hf": "llava-hf/llava-v1.6-vicuna-13b-hf",
+        "llama3-llava-next-8b-hf": "llava-hf/llama3-llava-next-8b-hf",
     }
     model_family = list(MODEL_CONFIG.keys())
 
@@ -21,13 +23,11 @@ class LLaVAHFChat(BaseChat):
         self.device = device
         model_id = self.MODEL_CONFIG[self.model_id]
 
-        self.model = LlavaForConditionalGeneration.from_pretrained(
-            model_id,
-            torch_dtype=torch.float16,
-            low_cpu_mem_usage=True,
-        ).to(0)
-
-        self.processor = AutoProcessor.from_pretrained(model_id)
+        self.processor = LlavaNextProcessor.from_pretrained(model_id)
+        self.model = LlavaNextForConditionalGeneration.from_pretrained(
+            model_id, torch_dtype=torch.float16, low_cpu_mem_usage=True
+        )
+        self.model.to(device)
 
     @torch.no_grad()
     def chat(self, messages: List, **generation_kwargs):
@@ -70,7 +70,7 @@ class LLaVAHFChat(BaseChat):
                 )
 
         default_generation_config = {
-            "max_new_tokens": 200,
+            "max_new_tokens": 100,
             "do_sample": False,
         }
         default_generation_config.update(generation_kwargs)

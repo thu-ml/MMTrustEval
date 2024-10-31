@@ -3,6 +3,7 @@ from mmte.models.base import BaseChat, Response
 from mmte.models.llava_chat import LLaVAChat
 from mmte.models.llava_rlhf_chat import LLaVARLHFChat
 from mmte.models.llava_hf_chat import LLaVAHFChat
+from mmte.models.llava_hf_next_chat import LLaVANEXTChat
 from mmte.models.mplug_owl_chat import mPLUGOwlChat
 from mmte.models.mplug_owl2_chat import mPLUGOwl2Chat
 from mmte.models.mplug_owl3_chat import mPLUGOwl3Chat
