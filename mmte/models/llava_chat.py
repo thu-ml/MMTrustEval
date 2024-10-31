@@ -23,7 +23,6 @@ class LLaVAChat(BaseChat):
         "llava-v1.5-7b": 'configs/models/llava/llava-1.5-7b.yaml',
         "llava-v1.5-13b": 'configs/models/llava/llava-1.5-13b.yaml',
         "llava-v1.6-13b": 'configs/models/llava/llava-1.6-13b.yaml',
-        "LVIS-Instruct4V": 'configs/models/llava/LVIS-Instruct4V-Nodetail-mix619k-7b.yaml',
     }
     model_family = list(MODEL_CONFIG.keys())
 
