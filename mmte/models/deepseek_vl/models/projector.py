@@ -21,7 +21,7 @@ from typing import Tuple, Union
 
 import torch
 import torch.nn as nn
-from attrdict import AttrDict
+from addict import Dict
 
 
 class MlpProjector(nn.Module):
@@ -87,7 +87,7 @@ class MlpProjector(nn.Module):
 
 
 if __name__ == "__main__":
-    cfg = AttrDict(
+    cfg = Dict(
         input_dim=1024,
         n_embed=2048,
         depth=2,

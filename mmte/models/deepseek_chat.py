@@ -3,8 +3,8 @@ from typing import List
 from transformers import AutoModelForCausalLM
 from mmte.utils.registry import registry
 from mmte.models.base import BaseChat, Response
-from .deepseek_vl.models import VLChatProcessor, MultiModalityCausalLM
-from .deepseek_vl.utils.io import load_pil_images
+from mmte.models.deepseek_vl.models import VLChatProcessor, MultiModalityCausalLM
+from mmte.models.deepseek_vl.utils.io import load_pil_images
 
 
 @registry.register_chatmodel()
