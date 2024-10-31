@@ -1,7 +1,5 @@
 from mmte.utils.registry import registry
 from mmte.models.base import BaseChat, Response
-from mmte.models.llava_chat import LLaVAChat
-from mmte.models.llava_rlhf_chat import LLaVARLHFChat
 from mmte.models.llava_hf_chat import LLaVAHFChat
 from mmte.models.llava_hf_next_chat import LLaVANEXTChat
 from mmte.models.mplug_owl_chat import mPLUGOwlChat
@@ -12,7 +10,6 @@ from mmte.models.openai_chat import OpenAIChat
 from mmte.models.google_chat import GoogleChat
 from mmte.models.claude3_chat import ClaudeChat
 from mmte.models.qwen_plus_chat import QwenPlusChat
-from mmte.models.minigpt4_chat import MiniGPT4Chat
 from mmte.models.instructblip_chat import InstructBLIPChat
 from mmte.models.qwen_chat import QwenChat
 from mmte.models.qwen2_chat import Qwen2Chat
