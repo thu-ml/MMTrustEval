@@ -3,7 +3,7 @@ from mmte.models.base import BaseChat, Response
 from mmte.models.llava_chat import LLaVAChat
 from mmte.models.llava_rlhf_chat import LLaVARLHFChat
 from mmte.models.mplug_owl2_chat import mPLUGOwl2Chat
-from mmte.models.internvl_chat import InternVLChat
+from mmte.models.mplug_owl3_chat import mPLUGOwl3Chat
 from mmte.models.internvl2_chat import InternVL2Chat
 from mmte.models.lrv_instruction_chat import LRVInstructionChat
 from mmte.models.openai_chat import OpenAIChat
