@@ -16,20 +16,25 @@ from mmte.models.base import BaseChat, Response
 @registry.register_chatmodel()
 class Phi3Chat(BaseChat):
 
-    model_family = ["phi-3"]
-    model_arch = "phi-3"
+    MODEL_CONFIG = {
+        "phi-3": "microsoft/Phi-3-vision-128k-instruct",
+        "phi-3.5": "microsoft/Phi-3.5-vision-instruct",
+    }
+    model_family = list(MODEL_CONFIG.keys())
+    model_arch = "phi"
 
     def __init__(self, model_id: str, device: str = "cuda:0", bf16: bool = True):
         super().__init__(model_id)
+        model_path = self.MODEL_CONFIG[self.model_id]
         self.model = AutoModelForCausalLM.from_pretrained(
-            "microsoft/Phi-3-vision-128k-instruct",
+            model_path,
             device_map=device,
             trust_remote_code=True,
             torch_dtype="auto",
             _attn_implementation="eager",
         )  # use _attn_implementation='eager' to disable flash attention
         self.processor = AutoProcessor.from_pretrained(
-            "microsoft/Phi-3-vision-128k-instruct", trust_remote_code=True
+            model_path, trust_remote_code=True
         )
 
     @torch.no_grad()
