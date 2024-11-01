@@ -3,7 +3,5 @@ model:
   model_path: 'MAGAer13/mplug-owl-llama-7b'
 
 parameters:
-  do_sample: True
-  top_k: 5
-  max_length: 512
+  do_sample: False
 

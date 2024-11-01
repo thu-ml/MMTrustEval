@@ -82,9 +82,12 @@ class LlamaChat(BaseChat):
             else:
                 raise ValueError("Unsupported role. Only system, user and assistant are supported.")
         
-        if generation_kwargs.get('max_new_tokens', None) is None:
-            generation_kwargs['max_new_tokens'] = 512
-        output = self.model.generate(**inputs, **generation_kwargs)
+        generation_config = dict(max_new_tokens=512, do_sample=False)
+        generation_config.update(generation_kwargs)
+        from pprint import pp
+
+        pp(generation_config)
+        output = self.model.generate(**inputs, **generation_config)
         prompt_len = inputs.input_ids.shape[-1]
         generated_ids = output[:, prompt_len:]
         response = self.processor.batch_decode(generated_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)

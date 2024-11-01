@@ -70,11 +70,15 @@ class mPLUGOwlChat(BaseChat):
                 raise ValueError("Unsupported role. Only system, user and assistant are supported.")
             
         generate_kwargs = {
-            'do_sample': generation_kwargs.get("do_sample"),
-            'top_k': self.config.parameters.top_k,
-            'max_length': self.config.parameters.max_length,
-            'max_new_tokens': generation_kwargs.get("max_new_tokens"),
+            'do_sample': generation_kwargs.get("do_sample", False),
+            # 'top_k': self.config.parameters.top_k,
+            # 'max_length': self.config.parameters.max_length,
+            'max_new_tokens': generation_kwargs.get("max_new_tokens", 512),
         }
+
+        from pprint import pp
+
+        pp(generate_kwargs)
 
         with torch.no_grad():
             res = self.model.generate(**inputs, **generate_kwargs)

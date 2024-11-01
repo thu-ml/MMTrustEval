@@ -86,6 +86,14 @@ class DeepSeekVL(BaseChat):
         # run image encoder to get the image embeddings
         inputs_embeds = self.model.prepare_inputs_embeds(**prepare_inputs)
 
+        generation_config = {
+            "max_new_tokens": 512,
+            "do_sample": False,
+            "use_cache": True,
+        }
+        generation_config.update(generation_kwargs)
+        from pprint import pp
+        pp(generation_config)
         # run the model to get the response
         outputs = self.model.language_model.generate(
             inputs_embeds=inputs_embeds,
@@ -93,9 +101,7 @@ class DeepSeekVL(BaseChat):
             pad_token_id=self.tokenizer.eos_token_id,
             bos_token_id=self.tokenizer.bos_token_id,
             eos_token_id=self.tokenizer.eos_token_id,
-            max_new_tokens=generation_kwargs.get("max_new_tokens", 512),
-            do_sample=generation_kwargs.get("do_sample"),
-            use_cache=True
+            **generation_config,
         )
 
         output_text = self.tokenizer.decode(outputs[0].cpu().tolist(), skip_special_tokens=True)

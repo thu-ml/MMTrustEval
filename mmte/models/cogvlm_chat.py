@@ -201,11 +201,16 @@ class CogVLMChat(BaseChat):
 
         # add any transformers params here.
         gen_kwargs = {
-            "max_length": 2048,
+            # "max_length": 2048,
+            "max_new_tokens": 512,
             "do_sample": False,
             "return_dict_in_generate": True,
         }  # "temperature": 0.9
         gen_kwargs.update(generation_kwargs)
+
+        from pprint import pp
+        pp(gen_kwargs)
+        
         outputs = self.model.generate(**inputs, **gen_kwargs)
         output_text = outputs.sequences
         output_text = output_text[:, inputs["input_ids"].shape[1] :]

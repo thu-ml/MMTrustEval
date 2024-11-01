@@ -64,15 +64,20 @@ class MolmoChat(BaseChat):
                 )
         inputs = {k: v.to(self.model.device).unsqueeze(0) for k, v in inputs.items()}
 
-        default_generation_config = {
+        generation_config = {
             "max_new_tokens": 200,
+            "do_sample": False,
             "stop_strings": "<|endoftext|>",
         }
-        default_generation_config.update(generation_kwargs)
+        generation_config.update(generation_kwargs)
+
+        from pprint import pp
+
+        pp(generation_config)
 
         output = self.model.generate_from_batch(
             inputs,
-            GenerationConfig(**default_generation_config),
+            GenerationConfig(**generation_config),
             tokenizer=self.processor.tokenizer,
         )
 

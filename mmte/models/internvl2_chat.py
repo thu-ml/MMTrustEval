@@ -165,8 +165,12 @@ class InternVL2Chat(BaseChat):
                     "Unsupported role. Only system, user and assistant are supported."
                 )
 
-        generation_config = dict(max_new_tokens=1024, do_sample=True)
+        generation_config = dict(max_new_tokens=512, do_sample=True)
         generation_config.update(generation_kwargs)
+
+        from pprint import pp
+
+        pp(generation_config)
 
         response = self.model.chat(
             self.tokenizer,

@@ -69,11 +69,11 @@ class LLaVAHFChat(BaseChat):
                     "Unsupported role. Only system, user and assistant are supported."
                 )
 
-        default_generation_config = {
+        generation_config = {
             "max_new_tokens": 200,
             "do_sample": False,
         }
-        default_generation_config.update(generation_kwargs)
+        generation_config.update(generation_kwargs)
 
         prompt = self.processor.apply_chat_template(
             conversation, add_generation_prompt=True
@@ -81,8 +81,10 @@ class LLaVAHFChat(BaseChat):
         inputs = self.processor(images=raw_image, text=prompt, return_tensors="pt").to(
             0, torch.float16
         )
+        from pprint import pp
 
-        output = self.model.generate(**inputs, **default_generation_config)
+        pp(generation_config)
+        output = self.model.generate(**inputs, **generation_config)
         output = self.processor.decode(
             output[0][inputs["input_ids"].shape[1] :], skip_special_tokens=True
         ).strip()

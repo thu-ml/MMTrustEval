@@ -84,13 +84,19 @@ class mPLUGOwl3Chat(BaseChat):
 
         inputs = self.processor(messages, images=images, videos=None)
 
-        max_new_tokens = generation_kwargs.get(
-            "max_new_tokens", self.config.parameters.max_new_tokens
-        )
-        temperature = generation_kwargs.get(
-            "temperature", self.config.parameters.temperature
-        )
-        do_sample = generation_kwargs.get("do_sample", False)
+        generation_config = {
+            "do_sample": False,
+            "max_new_tokens": self.config.parameters.max_new_tokens,
+            "temperature": self.config.parameters.temperature,
+        }
+        generation_config.update(generation_kwargs)
+
+        from pprint import pp
+
+        pp(generation_config)
+        max_new_tokens = generation_config["max_new_tokens"]
+        temperature = generation_config["temperature"]
+        do_sample = generation_kwargs["do_sample"]
 
         inputs.to("cuda")
         inputs.update(

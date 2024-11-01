@@ -24,7 +24,10 @@ class Qwen2Chat(BaseChat):
         self.device = device
         self.processor = AutoProcessor.from_pretrained(config)
         self.model = Qwen2VLForConditionalGeneration.from_pretrained(
-            config, torch_dtype="auto", device_map="auto"
+            config,
+            torch_dtype="auto",
+            # device_map="auto",
+            device_map=device,
         )
 
     @torch.no_grad()
@@ -59,7 +62,7 @@ class Qwen2Chat(BaseChat):
                             padding=True,
                             return_tensors="pt",
                         )
-                        inputs = inputs.to("cuda")
+                        inputs = inputs.to(self.device)
                     else:
                         # text only conversation
                         text = message["content"]
@@ -79,7 +82,7 @@ class Qwen2Chat(BaseChat):
                             padding=True,
                             return_tensors="pt",
                         )
-                        inputs = inputs.to("cuda")
+                        inputs = inputs.to(self.device)
                 elif message["role"] == "assistant":
                     # TODO: add assistant answer into the conversation
                     pass
@@ -87,10 +90,15 @@ class Qwen2Chat(BaseChat):
                 raise ValueError(
                     "Unsupported role. Only system, user and assistant are supported."
                 )
-        
-        if generation_kwargs.get('max_new_tokens', None) is None:
-            generation_kwargs['max_new_tokens'] = 128 
-        generated_ids = self.model.generate(**inputs, **generation_kwargs)
+        generation_config = {
+            "max_new_tokens": 128,
+            "do_sample": False,
+        }
+        generation_config.update(generation_kwargs)
+        from pprint import pp
+
+        pp(generation_config)
+        generated_ids = self.model.generate(**inputs, **generation_config)
         generated_ids_trimmed = [
             out_ids[len(in_ids) :]
             for in_ids, out_ids in zip(inputs.input_ids, generated_ids)

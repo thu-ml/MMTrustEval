@@ -131,6 +131,8 @@ class CambrianChat(BaseChat):
         if default_generation_config["temperature"] > 0:
             default_generation_config["do_sample"] = True
 
+        from pprint import pp
+        pp(default_generation_config)
         with torch.inference_mode():
             output_ids = self.model.generate(
                 input_ids,

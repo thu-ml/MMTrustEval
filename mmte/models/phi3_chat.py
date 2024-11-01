@@ -49,17 +49,21 @@ class Phi3Chat(BaseChat):
         inputs = self.processor(prompt, image, return_tensors="pt").to("cuda:0")
 
         generation_kwargs["return_dict_in_generate"] = True
-        default_generation_config = {
+        generation_config = {
             "max_new_tokens": 500,
             "temperature": 0.0,
             "do_sample": False,
         }
-        default_generation_config.update(generation_kwargs)
+        generation_config.update(generation_kwargs)
+
+        from pprint import pp
+
+        pp(generation_config)
 
         outputs = self.model.generate(
             **inputs,
             eos_token_id=self.processor.tokenizer.eos_token_id,
-            **default_generation_config
+            **generation_config
         )
         generate_ids = outputs.sequences
         # remove input tokens
