@@ -7,7 +7,7 @@ if [ -z "$1" ]; then
 fi
 
 MODEL_ID=$1
-BASE_DIR="/data/zhangyichi/MMTrustEval-dev/local/scripts/score"
+BASE_DIR="scripts/score"
 
 # Iterate over each subdirectory in BASE_DIR
 for DIR in "$BASE_DIR"/*; do
