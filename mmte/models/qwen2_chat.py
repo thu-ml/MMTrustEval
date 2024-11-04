@@ -4,7 +4,9 @@ from mmte.models.base import BaseChat, Response
 from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
 from mmte.utils.registry import registry
 from mmte.models.qwen2_vl.utils.src.qwen_vl_utils import process_vision_info
-
+import base64
+import io
+from PIL import Image
 
 @registry.register_chatmodel()
 class Qwen2Chat(BaseChat):
@@ -18,7 +20,7 @@ class Qwen2Chat(BaseChat):
 
     model_arch = "qwen2"
 
-    def __init__(self, model_id: str, device: str = "cuda:0"):
+    def __init__(self, model_id: str, device: str = "cuda"):
         super().__init__(model_id)
         config = self.MODEL_CONFIG[self.model_id]
         self.device = device
@@ -26,12 +28,12 @@ class Qwen2Chat(BaseChat):
         self.model = Qwen2VLForConditionalGeneration.from_pretrained(
             config,
             torch_dtype="auto",
-            # device_map="auto",
-            device_map=device,
+            device_map="auto",
         )
 
     @torch.no_grad()
     def chat(self, messages: List, **generation_kwargs):
+        print("self.device: ", self.device)
         for message in messages:
             if message["role"] in ["system", "user", "assistant"]:
                 if message["role"] == "user":
@@ -45,7 +47,7 @@ class Qwen2Chat(BaseChat):
                                 "content": [
                                     {
                                         "type": "image",
-                                        "image": image_path,
+                                        "image": "data:image;base64,{}".format(self.encode_image(image_path)),
                                     },
                                     {"type": "text", "text": text},
                                 ],
@@ -83,6 +85,7 @@ class Qwen2Chat(BaseChat):
                             return_tensors="pt",
                         )
                         inputs = inputs.to(self.device)
+
                 elif message["role"] == "assistant":
                     # TODO: add assistant answer into the conversation
                     pass
@@ -110,3 +113,27 @@ class Qwen2Chat(BaseChat):
         )
 
         return Response(self.model_id, response[0], None, None)
+
+    # Function to encode the image
+    @classmethod
+    def encode_image(cls, image_path: str):
+        buffer = io.BytesIO()
+        with open(image_path, "rb") as image_file:
+            img_data = base64.b64encode(image_file.read())
+
+            img = Image.open(io.BytesIO(base64.b64decode(img_data))).convert("RGB")
+            print(img.size)
+            if img.width > 400 or img.height > 400:
+                if img.width > img.height:
+                    new_width = 400
+                    concat = float(new_width / float(img.width))
+                    size = int((float(img.height) * float(concat)))
+                    img = img.resize((new_width, size), Image.LANCZOS)
+                else:
+                    new_height = 400
+                    concat = float(new_height / float(img.height))
+                    size = int((float(img.width) * float(concat)))
+                    img = img.resize((size, new_height), Image.LANCZOS)
+                img.save(buffer, format="JPEG")
+                img_data = base64.b64encode(buffer.getvalue())
+            return img_data.decode("utf-8")
