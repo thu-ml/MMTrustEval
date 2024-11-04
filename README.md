@@ -56,8 +56,6 @@ The envionment of this version has been updated to accommodate more latest model
 
     # Note: Tsinghua Source can be discarded.
     pip install -r env/requirements.txt
-    pip install xformers==0.0.26.post1 --no-deps --index-url https://pypi.tuna.tsinghua.edu.cn/simple/
-    pip install flash_attn==2.5.9.post1 --index-url https://pypi.tuna.tsinghua.edu.cn/simple/
     ```
 
 - Option B: Docker

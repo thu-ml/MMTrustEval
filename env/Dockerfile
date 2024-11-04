@@ -33,9 +33,7 @@ RUN apt-get clean all \
     && wget https://developer.download.nvidia.com/compute/cuda/12.4.0/local_installers/cuda_12.4.0_550.54.14_linux.run -O /root/cuda.run \
     && bash /root/cuda.run --silent --toolkit --override \
     && rm -f /root/cuda.run \
-    && pip install -r /root/requirements.txt \
-    && pip install xformers==0.0.26.post1 --no-deps --index-url  https://pypi.tuna.tsinghua.edu.cn/simple/ \
-    && pip install flash_attn==2.5.9.post1 --index-url  https://pypi.tuna.tsinghua.edu.cn/simple/
+    && pip install -r /root/requirements.txt
 
 # for ssh login
 EXPOSE 22
