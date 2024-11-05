@@ -39,11 +39,12 @@
 
 
 ## 🚀 News
-* **`2024.09.26`** 🎉 [Our paper](https://arxiv.org/abs/2406.07057) has been accepted by NeurIPS 2024 Track Datasets and Benchmarks ！
-* **`2024.08.12`** 🌟 We released the latest results for [DeepSeek-VL](https://github.com/deepseek-ai/DeepSeek-VL), and [hunyuan-vision](https://hunyuan.tencent.com/) on our [project website](https://multi-trust.github.io/) ！
-* **`2024.07.17`** 🌟 We released all [data](data4multitrust/README.md) of MultiTrust ！You could use them for running all 32 tasks !
-* **`2024.07.07`** 🌟 We released the latest results for [GPT-4o](https://openai.com/index/hello-gpt-4o/), [Claude-3.5](https://www.anthropic.com/news/claude-3-5-sonnet), and [Phi-3](https://ollama.com/library/phi3) on our [project website](https://multi-trust.github.io/) ！
-* **`2024.06.07`** 🌟 We released [MultiTrust](https://multi-trust.github.io/), the first comprehensive and unified benchmark on the trustworthiness of MLLMs !
+* **`2024.11.05`** 🌟 We have released the dataset of MultiTrust on 🤗[Huggingface](https://huggingface.co/datasets/thu-ml/MultiTrust). Feel free to download and test your own model !
+* **`2024.11.05`** 🌟 We have updated the toolbox to support several latest models, e.g., [Phi-3.5](https://huggingface.co/microsoft/Phi-3.5-vision-instruct), [Cambrian-13B](https://huggingface.co/nyu-visionx/cambrian-13b), [Qwen2-VL-Instruct](https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct), [Llama-3.2-11B-Vision](https://huggingface.co/meta-llama/Llama-3.2-11B-Vision-Instruct), and their results have been uploaded to the [leaderboard](https://multi-trust.github.io/) !
+* **`2024.09.26`** 🎉 [Our paper](https://arxiv.org/abs/2406.07057) has been accepted by the Datasets and Benchmarks track in NeurIPS 2024 ！See you in Vancouver ~
+* **`2024.08.12`** 🌟 We have released the latest results for [DeepSeek-VL](https://github.com/deepseek-ai/DeepSeek-VL), and [hunyuan-vision](https://hunyuan.tencent.com/) on our [project website](https://multi-trust.github.io/) ！
+* **`2024.07.07`** 🌟 We have released the latest results for [GPT-4o](https://openai.com/index/hello-gpt-4o/), [Claude-3.5](https://www.anthropic.com/news/claude-3-5-sonnet), and [Phi-3](https://ollama.com/library/phi3) on our [project website](https://multi-trust.github.io/) ！
+* **`2024.06.07`** 🌟 We have released [MultiTrust](https://multi-trust.github.io/), the first comprehensive and unified benchmark on the trustworthiness of MLLMs !
 
 ## 🛠️ Installation
 
