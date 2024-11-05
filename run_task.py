@@ -1,3 +1,4 @@
+import os
 import yaml
 import argparse
 import warnings
@@ -61,5 +62,8 @@ if __name__ == '__main__':
 
         pprint(cfg, width=150)
 
+        if os.path.exists(log_file):
+            print("{} is already exists.".format(log_file))
+            exit()
         runner = BaseTask(dataset_id=dataset_id, model_id=model_id, method_cfg=method_cfg, dataset_cfg=dataset_cfg, generation_kwargs=generation_kwargs, log_file=log_file, evaluator_seq_cfgs=evaluator_seq_cfgs)
         runner.pipeline()
