@@ -50,6 +50,7 @@ class QwenPlusChat(BaseChat):
 
     def chat(self, messages: List[Dict[str, Any]], **generation_kwargs):
         """Simple single round multimodal conversation call."""
+        assert len(messages) == 1, "Only support one-turn conversation currently"
         generation_config = {
             "max_length": generation_kwargs.get("max_new_tokens", 512),
             "top_k": None if generation_kwargs.get("do_sample", False) else 1,

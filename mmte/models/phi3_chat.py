@@ -41,7 +41,7 @@ class Phi3Chat(BaseChat):
     def chat(self, messages: List, **generation_kwargs):
 
         image = None
-
+        assert len(messages) == 1, "Only support one-turn conversation currently"
         for m in messages:
             if isinstance(m["content"], dict):
                 image = [Image.open(m["content"]["image_path"])]

@@ -48,8 +48,8 @@ class OpenAIChat(BaseChat):
         openai.api_key = self.api_key
 
     def chat(self, messages: List, **generation_kwargs):
-
         conversation = []
+        assert len(messages) == 1, "Only support one-turn conversation currently"
         for message in messages:
             if message["role"] in ["system", "user", "assistant"]:
                 if isinstance(message["content"], dict):

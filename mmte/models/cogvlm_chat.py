@@ -152,6 +152,7 @@ class CogVLMChat(BaseChat):
 
     @torch.no_grad()
     def chat(self, messages: List, **generation_kwargs):
+        assert len(messages) == 1, "Only support one-turn conversation currently"
         text_only_template = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions."
         image = None
         for m in messages:
