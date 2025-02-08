@@ -1,0 +1,4 @@
+model:
+  model_name: 'cogvlm2-llama3-chat-19b'
+  model_path: "THUDM/cogvlm2-llama3-chat-19B"
+

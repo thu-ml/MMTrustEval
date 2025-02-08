@@ -23,6 +23,7 @@ from mmte.models.llama3_2 import LlamaChat
 from mmte.models.molmo_chat import MolmoChat
 from mmte.models.cambrian_chat import CambrianChat
 from mmte.models.glm_chat import GLMChat
+from mmte.models.cogvlm2_chat import CogVLM2Chat
 from typing import List
 
 
