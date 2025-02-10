@@ -17,13 +17,14 @@ from mmte.models.otter_chat import OtterChat
 from mmte.models.internlm_xcomposer_chat import InternLMXComposerChat
 from mmte.models.cogvlm_chat import CogVLMChat
 from mmte.models.phi3_chat import Phi3Chat
-from mmte.models.deepseek_chat import DeepSeekVL
+from mmte.models.deepseek_chat import DeepSeekVLChat
 from mmte.models.hunyuan_chat import HunyuanChat
 from mmte.models.llama3_2 import LlamaChat
 from mmte.models.molmo_chat import MolmoChat
 from mmte.models.cambrian_chat import CambrianChat
 from mmte.models.glm_chat import GLMChat
 from mmte.models.cogvlm2_chat import CogVLM2Chat
+from mmte.models.deepseek_janus_chat import DeepSeekJanusChat
 from typing import List
 
 

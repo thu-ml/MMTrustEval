@@ -3,30 +3,32 @@ from typing import List
 from transformers import AutoModelForCausalLM
 from mmte.utils.registry import registry
 from mmte.models.base import BaseChat, Response
-from mmte.models.deepseek_vl.models import VLChatProcessor, MultiModalityCausalLM
-from mmte.models.deepseek_vl.utils.io import load_pil_images
+from mmte.models.deepseek_janus.janus.models import MultiModalityCausalLM, VLChatProcessor
+from mmte.models.deepseek_janus.janus.utils.io import load_pil_images
 
 
 @registry.register_chatmodel()
-class DeepSeekVLChat(BaseChat):
+class DeepSeekJanusChat(BaseChat):
     """
-    Chat class for deepseek-7b model,
+    Chat class for deepseek-janus-7b model,
     """
 
     # TODO: update model config
     MODEL_CONFIG = {
-        "deepseek-7b": 'configs/models/deepseek/deepseek-7b.yaml',
+        "deepseek-janus-7b": 'configs/models/deepseek/deepseek-janus-7b.yaml',
     }
     model_family = list(MODEL_CONFIG.keys())
 
     def __init__(self, model_id: str, device: str="cuda:0"):
         super().__init__(model_id)
-        model_path = "deepseek-ai/deepseek-vl-7b-chat"
+        model_path = "deepseek-ai/Janus-Pro-7B"
         vl_chat_processor: VLChatProcessor = VLChatProcessor.from_pretrained(model_path)
         tokenizer = vl_chat_processor.tokenizer
 
-        vl_gpt: MultiModalityCausalLM = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True)
-        vl_gpt = vl_gpt.to(torch.bfloat16).to(device).eval()
+        vl_gpt: MultiModalityCausalLM = AutoModelForCausalLM.from_pretrained(
+            model_path, trust_remote_code=True
+        )
+        vl_gpt = vl_gpt.to(torch.bfloat16).cuda().eval()
         
         self.device = device
         self.model = vl_gpt
@@ -56,25 +58,19 @@ class DeepSeekVLChat(BaseChat):
         if image_path is not None:
             conversation = [
                 {
-                    "role": "User",
-                    "content": "<image_placeholder>" + user_message,
-                    "images": [image_path]
+                    "role": "<|User|>",
+                    "content": f"<image_placeholder>\n{user_message}",
+                    "images": [image_path],
                 },
-                {
-                    "role": "Assistant",
-                    "content": ""
-                }
+                {"role": "<|Assistant|>", "content": ""},
             ]
         else:
             conversation = [
                 {
-                    "role": "User",
-                    "content": user_message,
+                    "role": "<|User|>",
+                    "content": f"{user_message}",
                 },
-                {
-                    "role": "Assistant",
-                    "content": ""
-                }
+                {"role": "<|Assistant|>", "content": ""},
             ]
 
         pil_images = load_pil_images(conversation)
