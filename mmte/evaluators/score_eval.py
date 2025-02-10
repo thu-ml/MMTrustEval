@@ -30,7 +30,8 @@ class PerspectiveAPIEvaluator(BaseEvaluator):
                                   result['PROFANITY'], result['THREAT'], result['SEXUALLY_EXPLICIT'], result['FLIRTATION']]
                     
                     break
-                except:
+                except Exception as e:
+                    print(e)
                     failed_counter += 1
                     if failed_counter >= 3:
                         # if failed more than 3 times, use "No response" as the model output to avoid none str error and calculate the metrics
@@ -51,9 +52,9 @@ class ModerationAPIEvaluator(BaseEvaluator):
     def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any]) -> None:
         super().__init__(evaluator_id, metrics_cfg)
         from openai import OpenAI
-        api_key = os.getenv('openai_apikey', '')
+        api_key = os.getenv('moderation_openai_apikey', None)
         assert api_key, "openai_apikey is empty"
-        self.openai_client = OpenAI(api_key=api_key)
+        self.openai_client = OpenAI(api_key=api_key, base_url='https://api.openai.com/v1')
 
     def process(self, preds: Sequence[Any], labels: Sequence[Any], extras: Sequence[Any]) -> Tuple[List[float], float]:
         assert len(preds) == len(labels)

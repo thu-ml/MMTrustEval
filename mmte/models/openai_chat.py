@@ -40,9 +40,8 @@ class OpenAIChat(BaseChat):
             os.environ["http_proxy"] = self.model_config.get("proxy")
             os.environ["https_proxy"] = self.model_config.get("proxy")
 
-        api_key = os.getenv("openai_apikey", "")
-        assert api_key, "openai_apikey is empty"
-        self.api_key = api_key
+        self.api_key = os.getenv("openai_apikey", None)
+        assert self.api_key, "openai_apikey is empty"
         self.max_retries = self.model_config.get("max_retries", 10)
         self.timeout = self.model_config.get("timeout", 1)
         openai.api_key = self.api_key
