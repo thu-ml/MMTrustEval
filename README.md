@@ -284,14 +284,10 @@ by GPT-4 or other classifiers; ◐: mixture evaluation.
 If you find our work helpful for your research, please consider citing our work.
 
 ```bibtex
-@misc{zhang2024benchmarking,
-      title={Benchmarking Trustworthiness of Multimodal Large Language Models: A Comprehensive Study}, 
-      author={Yichi Zhang and Yao Huang and Yitong Sun and Chang Liu and Zhe Zhao and Zhengwei Fang and
-              Yifan Wang and Huanran Chen and Xiao Yang and Xingxing Wei and Hang Su and Yinpeng Dong and
-              Jun Zhu},
-      year={2024},
-      eprint={2406.07057},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
-    }         
+@article{zhang2024benchmarking,
+  title={Benchmarking Trustworthiness of Multimodal Large Language Models: A Comprehensive Study},
+  author={Zhang, Yichi and Huang, Yao and Sun, Yitong and Liu, Chang and Zhao, Zhe and Fang, Zhengwei and Wang, Yifan and Chen, Huanran and Yang, Xiao and Wei, Xingxing and others},
+  journal={arXiv preprint arXiv:2406.07057},
+  year={2024}
+}  
 ```
