@@ -25,6 +25,7 @@ from mmte.models.cambrian_chat import CambrianChat
 from mmte.models.glm_chat import GLMChat
 from mmte.models.cogvlm2_chat import CogVLM2Chat
 from mmte.models.deepseek_janus_chat import DeepSeekJanusChat
+from mmte.models.deepseek_vl2_chat import DeepSeekVL2Chat
 from typing import List
 
 

@@ -215,3 +215,4 @@ model_scores.csv
 parse.py
 score.sh
 check_unfinished.py
+multigpu.sh
