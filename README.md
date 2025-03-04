@@ -39,6 +39,7 @@
 
 
 ## 🚀 News
+* **`2025.03.03`** 🌟 We have released the latest results for [DeepSeek-VL2](https://huggingface.co/deepseek-ai/deepseek-vl2) on our [project website](https://multi-trust.github.io/) ！
 * **`2025.02.11`** 🌟 We have released the latest results for [DeepSeek-Janus-Pro-7B](https://huggingface.co/deepseek-ai/Janus-Pro-7B), [CogVLM2-Llama3-Chat-19B](https://huggingface.co/THUDM/cogvlm2-llama3-chat-19B) and [GLM-4v-9B](https://huggingface.co/THUDM/glm-4v-9b) on our [project website](https://multi-trust.github.io/) ！
 * **`2024.11.05`** 🌟 We have released the dataset of MultiTrust on 🤗[Huggingface](https://huggingface.co/datasets/thu-ml/MultiTrust). Feel free to download and test your own model !
 * **`2024.11.05`** 🌟 We have updated the toolbox to support several latest models, e.g., [Phi-3.5](https://huggingface.co/microsoft/Phi-3.5-vision-instruct), [Cambrian-13B](https://huggingface.co/nyu-visionx/cambrian-13b), [Qwen2-VL-Instruct](https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct), [Llama-3.2-11B-Vision](https://huggingface.co/meta-llama/Llama-3.2-11B-Vision-Instruct), and their results have been uploaded to the [leaderboard](https://multi-trust.github.io/) !
