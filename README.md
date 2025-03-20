@@ -63,53 +63,55 @@ The envionment of this version has been updated to accommodate more latest model
     ```
 
 - Option B: Docker
-    - (Optional) Commands to install Docker
-    ```shell
-    # Our docker version:
-    #     Client: Docker Engine - Community
-    #     Version:           27.0.0-rc.1
-    #     API version:       1.46
-    #     Go version:        go1.21.11
-    #     OS/Arch:           linux/amd64
+    - How to install docker
+        ```shell
+        # Our docker version:
+        #     Client: Docker Engine - Community
+        #     Version:           27.0.0-rc.1
+        #     API version:       1.46
+        #     Go version:        go1.21.11
+        #     OS/Arch:           linux/amd64
 
-    distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-    curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-    curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+        distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+        curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+        curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 
-    sudo apt-get update
-    sudo apt-get install -y nvidia-container-toolkit
+        sudo apt-get update
+        sudo apt-get install -y nvidia-container-toolkit
 
-    sudo systemctl restart docker
-    sudo usermod -aG docker [your_username_here]
-    ```
-    - Commands to install environment
-    ```shell
-    #  Note: 
-    # [data] is the `absolute paths` of data.
+        sudo systemctl restart docker
+        sudo usermod -aG docker [your_username_here]
+        ```
+    - Get our image: 
+        - B.1: Pull image from DockerHub
+            ```shell
+            docker pull jankinfstmrvv/multitrust:latest
+            ```
+
+        - B.2: Build from scratch
+            ```shell
+            #  Note: 
+            # [data] is the `absolute paths` of data.
+
+            docker build --network=host -t multitrust:latest -f env/Dockerfile .
+            ```
     
-    cp -r /etc/apt ./env/apt
+    - Start a container:
+        ```shell
+        docker run -it \
+            --name multitrust \
+            --gpus all \
+            --privileged=true \
+            --shm-size=10gb \
+            -v $HOME/.cache/huggingface:/root/.cache/huggingface \
+            -v $HOME/.cache/torch:/root/.cache/torch \
+            -v [data]:/root/MMTrustEval/data \
+            -w /root/MMTrustEval \
+            -d multitrust:latest /bin/bash
 
-    docker build --network=host -t multitrust:v0.0.1 -f env/Dockerfile .
-
-    docker run -it \
-        --name multitrust \
-        --gpus all \
-        --privileged=true \
-        --shm-size=10gb \
-        -v $HOME/.cache/huggingface:/root/.cache/huggingface \
-        -v $HOME/.cache/torch:/root/.cache/torch \
-        -v [data]:/root/MMTrustEval/data \
-        -w /root/MMTrustEval \
-        -p 11180:22 \
-        -p 8000:8000 \
-        -d multitrust:v0.0.1 /bin/bash
-
-    # entering the container by docker exec
-    docker exec -it multitrust /bin/bash
-
-    # or entering by ssh
-    ssh -p 11180 root@[your_ip_here]
-    ```
+        # entering the container
+        docker exec -it multitrust /bin/bash
+        ```
   
 - Several tasks require the use of commercial APIs for auxiliary testing. Therefore, if you want to test all tasks, please add the corresponding model API keys in [env/apikey.yml](https://github.com/thu-ml/MMTrustEval/blob/v0.1.0/env/apikey.yml).
 
