@@ -172,12 +172,16 @@ cython_debug/
 *.run
 *.nfs*
 .DS_Store
-_*
+
 mmte/models/**/*.jpeg
 mmte/models/**/*.jpg
 mmte/models/**/*.svg
 mmte/models/**/*.png
 mmte/models/**/*.pdf
+mmte/models/cambrian/_serve
+mmte/models/cambrian/_train
+_*.sh
+_*.md
 comp/
 logs/
 tmpdata/
