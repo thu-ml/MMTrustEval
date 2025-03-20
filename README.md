@@ -85,22 +85,21 @@ The envionment of this version has been updated to accommodate more latest model
     - Commands to install environment
     ```shell
     #  Note: 
-    # [code] is an `absolute path` of project root: abspath(./)
-    # [data] and [playground] are `absolute paths` of data and model_playground(decompress our provided data/playground).
+    # [data] is the `absolute paths` of data.
     
-    docker build -t multitrust:v0.0.1 -f env/Dockerfile .
+    cp -r /etc/apt ./env/apt
+
+    docker build --network=host -t multitrust:v0.0.1 -f env/Dockerfile .
 
     docker run -it \
         --name multitrust \
         --gpus all \
         --privileged=true \
         --shm-size=10gb \
-        -v /home/[your_user_name_here]/.cache/huggingface:/root/.cache/huggingface \
-        -v /home/[your_user_name_here]/.cache/torch:/root/.cache/torch \
-        -v [code]:/root/multitrust \
-        -v [data]:/root/multitrust/data \
-        -v [playground]:/root/multitrust/playground \
-        -w /root/multitrust \
+        -v $HOME/.cache/huggingface:/root/.cache/huggingface \
+        -v $HOME/.cache/torch:/root/.cache/torch \
+        -v [data]:/root/MMTrustEval/data \
+        -w /root/MMTrustEval \
         -p 11180:22 \
         -p 8000:8000 \
         -d multitrust:v0.0.1 /bin/bash

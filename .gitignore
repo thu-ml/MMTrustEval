@@ -186,6 +186,7 @@ comp/
 logs/
 tmpdata/
 slurm_run/
+env/apt/
 data
 playground
 log_reload.py
