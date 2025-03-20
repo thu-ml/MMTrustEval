@@ -52,13 +52,14 @@
 
 The envionment of this version has been updated to accommodate more latest models. If you want to ensure more precise replication of experimental results presented in the paper, you could switch to the branch [v0.1.0](https://github.com/thu-ml/MMTrustEval/tree/v0.1.0).
 
-- Option A: Pip install
+- Option A: UV install
     ```shell
-    conda create -n multitrust python=3.9
-    conda activate multitrust
+    uv venv --python 3.9
+    source .venv/bin/activate
 
-    # Note: Tsinghua Source can be discarded.
-    pip install -r env/requirements.txt
+    uv pip install setuptools
+    uv pip install torch==2.3.0
+    uv pip sync --no-build-isolation env/requirements.txt
     ```
 
 - Option B: Docker
