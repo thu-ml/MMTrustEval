@@ -29,8 +29,8 @@ jobs:
           context: .
           file: env/Dockerfile
           tags: |
-            jankinfstmrvv/multitrust:latest
-            jankinfstmrvv/multitrust:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/multitrust:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/multitrust:${{ github.ref_name }}
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
