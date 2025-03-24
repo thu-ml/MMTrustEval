@@ -1,7 +1,9 @@
-from transformers import AutoModelForCausalLM, AutoProcessor, GenerationConfig
 from typing import List
-from PIL import Image
+
 import torch
+from PIL import Image
+from transformers import AutoModelForCausalLM, AutoProcessor, GenerationConfig
+
 from mmte.models.base import BaseChat, Response
 from mmte.utils.registry import registry
 

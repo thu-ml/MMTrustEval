@@ -1,8 +1,10 @@
 import os
 import time
-from typing import Any, Sequence, List, Tuple, Dict
+from typing import Any, Dict, List, Sequence, Tuple
+
 from mmte.evaluators.base import BaseEvaluator
 from mmte.utils.registry import registry
+
 
 @registry.register_evaluator()
 class PerspectiveAPIEvaluator(BaseEvaluator):

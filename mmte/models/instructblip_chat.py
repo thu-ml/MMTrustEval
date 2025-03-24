@@ -1,11 +1,12 @@
 from typing import List, Optional
+
+import torch
+from PIL import Image
+from transformers import InstructBlipForConditionalGeneration, InstructBlipProcessor
+from transformers.models.instructblip.modeling_instructblip import logger
+
 from mmte.models.base import BaseChat, Response
 from mmte.utils.registry import registry
-from PIL import Image
-
-from transformers import InstructBlipProcessor, InstructBlipForConditionalGeneration
-from transformers.models.instructblip.modeling_instructblip import logger
-import torch
 
 
 class InstructBlipForConditionalGenerationV2(InstructBlipForConditionalGeneration):

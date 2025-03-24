@@ -1,6 +1,8 @@
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 from typing import Any, List
+
 from mmte import _OutputType
+
 
 class BaseMethod(ABC):
     """

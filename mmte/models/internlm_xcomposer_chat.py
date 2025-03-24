@@ -1,8 +1,10 @@
-from transformers import AutoModel, AutoTokenizer, AutoConfig
 from typing import List
+
+import torch
+from transformers import AutoConfig, AutoModel, AutoTokenizer
+
 from mmte.models.base import BaseChat, Response
 from mmte.utils.registry import registry
-import torch
 
 torch.set_grad_enabled(False)
 

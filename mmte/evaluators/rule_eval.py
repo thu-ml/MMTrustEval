@@ -1,9 +1,11 @@
-from typing import Any, Sequence, List, Tuple, Dict, Union, Optional
+import re
+from itertools import chain
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
+
+import numpy as np
+
 from mmte.evaluators.base import BaseEvaluator
 from mmte.utils.registry import registry
-from itertools import chain
-import numpy as np
-import re
 
 
 @registry.register_evaluator()

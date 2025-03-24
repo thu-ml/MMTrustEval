@@ -1,20 +1,22 @@
 from typing import List
-from PIL import Image
+
 import torch
+from PIL import Image
+
+from mmte.models.base import BaseChat, Response
 from mmte.models.cambrian.constants import (
-    IMAGE_TOKEN_INDEX,
-    DEFAULT_IMAGE_TOKEN,
-    DEFAULT_IM_START_TOKEN,
     DEFAULT_IM_END_TOKEN,
+    DEFAULT_IM_START_TOKEN,
+    DEFAULT_IMAGE_TOKEN,
+    IMAGE_TOKEN_INDEX,
 )
 from mmte.models.cambrian.conversation import conv_templates
-from mmte.models.cambrian.model.builder import load_pretrained_model
 from mmte.models.cambrian.mm_utils import (
-    tokenizer_image_token,
-    process_images,
     get_model_name_from_path,
+    process_images,
+    tokenizer_image_token,
 )
-from mmte.models.base import BaseChat, Response
+from mmte.models.cambrian.model.builder import load_pretrained_model
 from mmte.utils.registry import registry
 
 

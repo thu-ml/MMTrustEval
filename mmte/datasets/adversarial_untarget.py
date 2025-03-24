@@ -1,13 +1,16 @@
-from torch.utils.data import DataLoader
+import json
+import os
 from typing import Optional, Sequence
-from mmte.methods.base import BaseMethod
+
+import yaml
+from torch.utils.data import DataLoader
+
+from mmte import ImageTxtSample, _OutputType
 from mmte.datasets.base import BaseDataset, collate_fn
 from mmte.methods import AdvGeneratedImage
+from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, _OutputType
-import yaml
-import os
-import json
+
 
 @registry.register_dataset()
 class AdvUntarget(BaseDataset):

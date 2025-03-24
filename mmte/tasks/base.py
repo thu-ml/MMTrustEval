@@ -1,15 +1,17 @@
-from abc import ABC
-from typing import Optional, List, Union, Sequence, Any, Dict, Type
-from torch.utils.data import DataLoader
-from mmte.datasets.base import BaseDataset, collate_fn
-from mmte.utils.registry import registry
-from mmte.methods.base import BaseMethod
-from mmte.models.base import BaseChat
-from mmte.evaluators.base import SequentialEvaluator
-import numpy as np
-import warnings
 import json
 import os
+import warnings
+from abc import ABC
+from typing import Any, Dict, List, Optional, Sequence, Type, Union
+
+import numpy as np
+from torch.utils.data import DataLoader
+
+from mmte.datasets.base import BaseDataset, collate_fn
+from mmte.evaluators.base import SequentialEvaluator
+from mmte.methods.base import BaseMethod
+from mmte.models.base import BaseChat
+from mmte.utils.registry import registry
 
 
 class BaseTask(ABC):

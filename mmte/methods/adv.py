@@ -1,13 +1,19 @@
+import os
 from typing import Any, List, Tuple
+
+import torch
+from PIL import Image
+from torchvision import transforms
+
+from mmte import ImageTxtSample, _OutputType
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import _OutputType, ImageTxtSample
-from mmte.utils.surrogates import DYPTransformerClipAttackVisionModel, DYPOpenClipAttackVisionModel
 from mmte.utils.SSA import SSA_CommonWeakness
-from torchvision import transforms
-from PIL import Image
-import torch
-import os
+from mmte.utils.surrogates import (
+    DYPOpenClipAttackVisionModel,
+    DYPTransformerClipAttackVisionModel,
+)
+
 
 class LossPrinter:
     def __init__(self, is_target = True):

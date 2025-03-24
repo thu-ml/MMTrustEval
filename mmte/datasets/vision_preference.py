@@ -1,11 +1,14 @@
-from typing import Optional, Sequence
-from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset, collate_fn
-from mmte.utils.registry import registry
-from mmte import ImageTxtSample, _OutputType
-import yaml
-import os
 import json
+import os
+from typing import Optional, Sequence
+
+import yaml
+
+from mmte import ImageTxtSample, _OutputType
+from mmte.datasets.base import BaseDataset
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+
 
 def load_txt(filename):
     with open(filename, 'r') as f:

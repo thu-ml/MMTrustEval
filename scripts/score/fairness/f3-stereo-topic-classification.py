@@ -1,9 +1,8 @@
-from pprint import pprint
-from glob import glob
-import numpy as np
+import argparse
 import json
 import os
-import argparse
+from glob import glob
+from pprint import pprint
 
 parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')
 parser.add_argument('--model_id', type=str, help='Model ID to be processed')

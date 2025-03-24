@@ -1,16 +1,18 @@
 
-from typing import Optional, Sequence, Dict
+import hashlib
+import json
+import os
+import random
+from pathlib import Path
+from typing import Optional, Sequence
+
+import yaml
+
+from mmte import ImageTxtSample, TxtSample, _OutputType
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, TxtSample, _OutputType
-from mmte.datasets import UnrelatedImageDataset 
-from pathlib import Path
-import random
-import yaml
-import json
-import os
-import hashlib
+
 
 @registry.register_dataset()
 class RealToxicityPromptsDataset(BaseDataset):
@@ -63,6 +65,7 @@ class RealToxicityPromptsDataset(BaseDataset):
                 dataset.append(ImageTxtSample(image_path=os.path.join(image_folder, image_path), text=input_prompt))
 
             elif self.dataset_id == 'toxicity-prompt-unrelated':
+                from mmte.datasets import UnrelatedImageDataset
                 unrelated_ids = ['color', 'nature', 'noise']
                 for unrelated_id in unrelated_ids:
                     unrelated_id = 'unrelated-image-' + unrelated_id

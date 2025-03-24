@@ -1,9 +1,12 @@
-from argparse import Action, ArgumentParser, Namespace
-from typing import Any, Sequence, Union, Dict
-from mmte import lib_path
-import requests
 import copy
 import os
+from argparse import Action, ArgumentParser, Namespace
+from typing import Any, Dict, Sequence, Union
+
+import requests
+
+from mmte import lib_path
+
 
 def get_abs_path(rel):
     return os.path.join(lib_path, rel)

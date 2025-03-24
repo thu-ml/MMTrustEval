@@ -1,16 +1,11 @@
-from abc import ABC, abstractmethod
-from typing import List, Dict, Any, Optional
-from dataclasses import dataclass, asdict
-import transformers
-from transformers import AutoModelForCausalLM
-from transformers import AutoProcessor
-from PIL import Image
+from typing import List
+
 import torch
-import requests
-from mmte.utils.registry import registry
-import sys
-import os
+from PIL import Image
+from transformers import AutoModelForCausalLM, AutoProcessor
+
 from mmte.models.base import BaseChat, Response
+from mmte.utils.registry import registry
 
 
 @registry.register_chatmodel()

@@ -1,15 +1,17 @@
-from typing import List
-from google.generativeai.types import HarmBlockThreshold, HarmCategory, GenerationConfig
-from google.generativeai.types.answer_types import to_finish_reason
-import google.generativeai as genai
-from mmte.models.base import BaseChat, Response
-from mmte.utils.utils import get_abs_path
-from mmte.utils.registry import registry
-from PIL import Image
 import base64
-import time
-import yaml
 import os
+import time
+from typing import List
+
+import google.generativeai as genai
+import yaml
+from google.generativeai.types import GenerationConfig, HarmBlockThreshold, HarmCategory
+from google.generativeai.types.answer_types import to_finish_reason
+from PIL import Image
+
+from mmte.models.base import BaseChat, Response
+from mmte.utils.registry import registry
+from mmte.utils.utils import get_abs_path
 
 
 @registry.register_chatmodel()

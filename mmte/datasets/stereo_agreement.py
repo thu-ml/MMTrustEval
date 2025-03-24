@@ -1,14 +1,15 @@
-from torch.utils.data import DataLoader
-from typing import Optional, Sequence
-from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset, collate_fn
-from mmte.utils.registry import registry
-from mmte.datasets import UnrelatedImageDataset 
-from mmte import ImageTxtSample, TxtSample, _OutputType
-import random
-import yaml
-import os
 import csv
+import os
+import random
+from typing import Optional, Sequence
+
+import yaml
+
+from mmte import ImageTxtSample, TxtSample, _OutputType
+from mmte.datasets.base import BaseDataset
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+
 
 @registry.register_dataset()
 class StereoAgreement(BaseDataset):
@@ -40,6 +41,7 @@ class StereoAgreement(BaseDataset):
         self.prompts = [self.prompt_template.format(given_sentence=statement) for statement in self.statements]
 
         if self.dataset_id in ["stereo-agreement-unrelated-image-color", "stereo-agreement-unrelated-image-nature", "stereo-agreement-unrelated-image-noise"]:
+            from mmte.datasets import UnrelatedImageDataset
             unrelated_id = self.dataset_id.split('stereo-agreement-')[1]
             unrelated_dataset = UnrelatedImageDataset(dataset_id=unrelated_id)
             

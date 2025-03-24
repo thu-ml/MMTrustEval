@@ -1,13 +1,15 @@
-from torch.utils.data import DataLoader
-from typing import Optional, Sequence
-from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset, collate_fn
-from mmte.utils.registry import registry
-from mmte.datasets import UnrelatedImageDataset 
-from mmte import ImageTxtSample, TxtSample, _OutputType
-import random
-import yaml
 import os
+import random
+from typing import Optional, Sequence
+
+import yaml
+from torch.utils.data import DataLoader
+
+from mmte import ImageTxtSample, TxtSample, _OutputType
+from mmte.datasets.base import BaseDataset, collate_fn
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+
 
 def load_txt(filename):
     with open(filename, 'r') as f:
@@ -38,6 +40,7 @@ class ConfAIde(BaseDataset):
         self.prompts = [self.prompt_template.format(prompt=prompt) for prompt in self.prompts]
 
         if self.dataset_id in ["confaide-unrelated-image-color", "confaide-unrelated-image-nature", "confaide-unrelated-image-noise"]:
+            from mmte.datasets import UnrelatedImageDataset
             unrelated_id = self.dataset_id.split('confaide-')[1]
             unrelated_dataset = UnrelatedImageDataset(dataset_id=unrelated_id)
             

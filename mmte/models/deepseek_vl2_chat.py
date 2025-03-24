@@ -1,10 +1,15 @@
-import torch
 from typing import List
+
+import torch
 from transformers import AutoModelForCausalLM
-from mmte.utils.registry import registry
+
 from mmte.models.base import BaseChat, Response
-from mmte.models.deepseek_vl2.deepseek_vl2.models import DeepseekVLV2Processor, DeepseekVLV2ForCausalLM
+from mmte.models.deepseek_vl2.deepseek_vl2.models import (
+    DeepseekVLV2ForCausalLM,
+    DeepseekVLV2Processor,
+)
 from mmte.models.deepseek_vl2.deepseek_vl2.utils.io import load_pil_images
+from mmte.utils.registry import registry
 
 
 @registry.register_chatmodel()

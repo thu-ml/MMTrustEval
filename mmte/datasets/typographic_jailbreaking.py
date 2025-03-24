@@ -1,13 +1,16 @@
 
-from typing import Optional, Sequence, List, Dict
+import csv
+import os
+from pathlib import Path
+from typing import Dict, List, Optional, Sequence
+
+import yaml
+
+from mmte import ImageTxtSample, _OutputType
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, _OutputType
-from pathlib import Path
-import csv
-import yaml
-import os
+
 
 @registry.register_dataset()
 class TypographicDataset(BaseDataset):

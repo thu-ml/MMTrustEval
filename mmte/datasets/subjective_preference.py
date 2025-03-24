@@ -1,13 +1,15 @@
-from typing import Optional, Sequence
-from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset
-from mmte.utils.registry import registry
-from mmte.datasets import UnrelatedImageDataset 
-from mmte import ImageTxtSample, TxtSample, _OutputType
-import random
-import yaml
-import os
 import json
+import os
+import random
+from typing import Optional, Sequence
+
+import yaml
+
+from mmte import ImageTxtSample, TxtSample, _OutputType
+from mmte.datasets.base import BaseDataset
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+
 
 @registry.register_dataset()
 class SubPreference(BaseDataset):
@@ -53,9 +55,11 @@ class SubPreference(BaseDataset):
         
 
         if self.dataset_id in ["subjective-preference-plain-unrelated-image-color", "subjective-preference-plain-unrelated-image-nature", "subjective-preference-plain-unrelated-image-noise"]:
+            from mmte.datasets import UnrelatedImageDataset
             unrelated_id = self.dataset_id.split('subjective-preference-plain-')[1]
             unrelated_dataset = UnrelatedImageDataset(dataset_id=unrelated_id)
         elif self.dataset_id in ["subjective-preference-force-unrelated-image-color", "subjective-preference-force-unrelated-image-nature", "subjective-preference-force-unrelated-image-noise"]:
+            from mmte.datasets import UnrelatedImageDataset
             unrelated_id = self.dataset_id.split('subjective-preference-force-')[1]
             unrelated_dataset = UnrelatedImageDataset(dataset_id=unrelated_id)
             

@@ -1,13 +1,16 @@
 
-from typing import Optional, Sequence, List, Dict
+import json
+import os
+from pathlib import Path
+from typing import Dict, Optional, Sequence
+
+import yaml
+
+from mmte import ImageTxtSample, _OutputType
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, TxtSample, _OutputType
-from pathlib import Path
-import yaml
-import json
-import os
+
 
 @registry.register_dataset()
 class MMSafetyBenchDataset(BaseDataset):

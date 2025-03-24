@@ -1,7 +1,9 @@
-from typing import Any, Sequence, List, Tuple, Dict, Optional
+import string
+from typing import Any, Dict, List, Optional, Sequence, Tuple
+
 from mmte.evaluators.base import BaseEvaluator
 from mmte.utils.registry import registry
-import string
+
 
 @registry.register_evaluator()
 class ChatModelEvaluator(BaseEvaluator):

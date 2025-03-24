@@ -1,7 +1,7 @@
 import argparse
-from glob import glob
 import json
 import os
+from glob import glob
 from pprint import pprint
 
 parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')

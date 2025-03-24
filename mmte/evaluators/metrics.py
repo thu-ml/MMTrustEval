@@ -1,8 +1,9 @@
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+import json
 from typing import Optional, Union
+
 import numpy as np
 import scipy
-import json
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
 """
 Input Requirement

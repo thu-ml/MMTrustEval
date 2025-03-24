@@ -1,10 +1,11 @@
-import json
-import pandas as pd
-from scipy.stats import chi2_contingency
-import os
 import argparse
+import json
+import os
 from glob import glob
 from pprint import pprint
+
+import pandas as pd
+from scipy.stats import chi2_contingency
 
 parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')
 parser.add_argument('--model_id', type=str, help='Model ID to be processed')

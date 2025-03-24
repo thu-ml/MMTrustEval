@@ -1,8 +1,9 @@
 import os
-import yaml
+from dataclasses import asdict, dataclass
 from pprint import pformat
-from dataclasses import dataclass, asdict
-from typing import Optional, Dict, Any, Union
+from typing import Any, Dict, Optional, Union
+
+import yaml
 
 lib_path = os.path.dirname(os.path.abspath(__file__))
 repo_path = os.path.join(lib_path, '..')

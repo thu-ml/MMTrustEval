@@ -1,14 +1,16 @@
-from typing import List, Dict, Any, Literal
+import base64
+import io
+import os
+import time
+from typing import Any, Dict, List
+
 import openai
 import yaml
-from mmte.utils.registry import registry
-from mmte.models.base import BaseChat, Response
-from mmte.utils.utils import get_abs_path
-import os
-import base64
-import time
-import io
 from PIL import Image
+
+from mmte.models.base import BaseChat, Response
+from mmte.utils.registry import registry
+from mmte.utils.utils import get_abs_path
 
 
 @registry.register_chatmodel()

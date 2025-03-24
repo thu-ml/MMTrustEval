@@ -1,11 +1,13 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
 from typing import List
-from PIL import Image
+
 import torch
 import yaml
+from PIL import Image
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
 from mmte.models.base import BaseChat, Response
-from mmte.utils.utils import get_abs_path
 from mmte.utils.registry import registry
+from mmte.utils.utils import get_abs_path
 
 
 @registry.register_chatmodel()

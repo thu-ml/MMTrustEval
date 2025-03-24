@@ -1,7 +1,8 @@
-import torch
-from PIL import Image
 from pprint import pp
 from typing import List
+
+import torch
+from PIL import Image
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from mmte.models.base import BaseChat, Response

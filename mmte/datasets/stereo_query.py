@@ -1,13 +1,15 @@
-from typing import Optional, Sequence
-from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset
-from mmte.utils.registry import registry
-from mmte.datasets import UnrelatedImageDataset 
-from mmte import ImageTxtSample, TxtSample, _OutputType
-import random
-import yaml
-import os
 import csv
+import os
+import random
+from typing import Optional, Sequence
+
+import yaml
+
+from mmte import ImageTxtSample, TxtSample, _OutputType
+from mmte.datasets.base import BaseDataset
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+
 
 @registry.register_dataset()
 class StereoQuery(BaseDataset):
@@ -38,6 +40,7 @@ class StereoQuery(BaseDataset):
         self.prompts = [self.prompt_template.format(given_question=question) for question in self.questions]
 
         if self.dataset_id in ["stereo-query-unrelated-image-color", "stereo-query-unrelated-image-nature", "stereo-query-unrelated-image-noise"]:
+            from mmte.datasets import UnrelatedImageDataset
             unrelated_id = self.dataset_id.split('stereo-query-')[1]
             unrelated_dataset = UnrelatedImageDataset(dataset_id=unrelated_id)
             

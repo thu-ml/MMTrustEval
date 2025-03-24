@@ -1,7 +1,7 @@
-import os
-import json
-import pandas as pd
 import argparse
+import json
+
+import pandas as pd
 
 parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')
 parser.add_argument('--model_id', type=str, default='llava-v1.5-7b', help='Model ID to be processed')

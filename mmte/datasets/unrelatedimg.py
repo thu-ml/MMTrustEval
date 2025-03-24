@@ -1,13 +1,16 @@
+import os
+from glob import glob
+from typing import Optional, Sequence
+
+import yaml
+from natsort import natsorted
+from torch.utils.data import DataLoader
+
+from mmte import ImageTxtSample, _OutputType
 from mmte.datasets.base import BaseDataset, collate_fn
 from mmte.methods.base import BaseMethod
-from mmte import ImageTxtSample, _OutputType
-from typing import Optional, Sequence
 from mmte.utils.registry import registry
-from torch.utils.data import DataLoader
-from natsort import natsorted
-from glob import glob
-import yaml
-import os
+
 
 @registry.register_dataset()
 class UnrelatedImageDataset(BaseDataset):

@@ -1,28 +1,28 @@
 from typing import List
+
 import torch
-from PIL import Image
 from omegaconf import OmegaConf
+from PIL import Image
+
 from mmte.models.base import BaseChat, Response
-from mmte.utils.utils import get_abs_path
-from mmte.utils.registry import registry
-from transformers import TextStreamer
 from mmte.models.mPLUG_Owl.mPLUG_Owl2.mplug_owl2.constants import (
-    IMAGE_TOKEN_INDEX,
     DEFAULT_IMAGE_TOKEN,
+    IMAGE_TOKEN_INDEX,
 )
 from mmte.models.mPLUG_Owl.mPLUG_Owl2.mplug_owl2.conversation import (
     conv_templates,
-    SeparatorStyle,
+)
+from mmte.models.mPLUG_Owl.mPLUG_Owl2.mplug_owl2.mm_utils import (
+    KeywordsStoppingCriteria,
+    get_model_name_from_path,
+    process_images,
+    tokenizer_image_token,
 )
 from mmte.models.mPLUG_Owl.mPLUG_Owl2.mplug_owl2.model.builder import (
     load_pretrained_model,
 )
-from mmte.models.mPLUG_Owl.mPLUG_Owl2.mplug_owl2.mm_utils import (
-    process_images,
-    tokenizer_image_token,
-    get_model_name_from_path,
-    KeywordsStoppingCriteria,
-)
+from mmte.utils.registry import registry
+from mmte.utils.utils import get_abs_path
 
 
 @registry.register_chatmodel()

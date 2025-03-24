@@ -1,14 +1,16 @@
-from typing import Any, List, Tuple, Optional
-from mmte.methods.base import BaseMethod
-from PIL import Image, ImageDraw, ImageFont
-from mmte import _OutputType, ImageTxtSample
-from mmte.utils.registry import registry
-from diffusers import DiffusionPipeline
-from PIL import Image
 import hashlib
-import torch
 import math
 import os
+from typing import Any, List, Optional, Tuple
+
+import torch
+from diffusers import DiffusionPipeline
+from PIL import Image, ImageDraw, ImageFont
+
+from mmte import ImageTxtSample, _OutputType
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+
 
 @registry.register_method()
 class RelatedGeneratedImage(BaseMethod):

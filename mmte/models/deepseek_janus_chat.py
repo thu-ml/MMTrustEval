@@ -1,10 +1,15 @@
-import torch
 from typing import List
+
+import torch
 from transformers import AutoModelForCausalLM
-from mmte.utils.registry import registry
+
 from mmte.models.base import BaseChat, Response
-from mmte.models.deepseek_janus.janus.models import MultiModalityCausalLM, VLChatProcessor
+from mmte.models.deepseek_janus.janus.models import (
+    MultiModalityCausalLM,
+    VLChatProcessor,
+)
 from mmte.models.deepseek_janus.janus.utils.io import load_pil_images
+from mmte.utils.registry import registry
 
 
 @registry.register_chatmodel()

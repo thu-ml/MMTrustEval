@@ -1,17 +1,18 @@
+import json
+import os
+import random
+import string
+from datetime import datetime
 from typing import Optional, Sequence
+
+import yaml
+from datasets import load_dataset
+
+from mmte import ImageTxtSample, TxtSample, _OutputType
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte.datasets import UnrelatedImageDataset 
-from mmte.methods import RelatedTextEmbedImage
-from mmte import ImageTxtSample, TxtSample, _OutputType
-from datasets import load_dataset
-from datetime import datetime
-import random
-import string
-import yaml
-import json
-import os
+
 
 def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
@@ -88,6 +89,7 @@ class EnronEmailDataset(BaseDataset):
         self.k_shot_example = load_dataset_by_name(self.config.get('K_SHOT_FILENAME'))
 
         if self.dataset_id in ["enron-email-unrelated-image-color", "enron-email-unrelated-image-nature", "enron-email-unrelated-image-noise"]:
+            from mmte.datasets import UnrelatedImageDataset
             unrelated_id = self.dataset_id.split('enron-email-')[1]
             unrelated_dataset = UnrelatedImageDataset(dataset_id=unrelated_id)
         
@@ -103,6 +105,7 @@ class EnronEmailDataset(BaseDataset):
             if dataset_id == "enron-email-text":
                 self.dataset.append(TxtSample(text=prompt, target=sample['gt']))
             elif dataset_id.startswith("enron-email-image-"):
+                from mmte.methods import RelatedTextEmbedImage
                 related_type = dataset_id.split("enron-email-image-")[1]
 
                 if related_type == 'typeinfo':

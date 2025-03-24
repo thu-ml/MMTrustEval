@@ -1,8 +1,8 @@
-from pprint import pprint
-from glob import glob 
+import argparse
 import json
 import os
-import argparse
+from glob import glob
+from pprint import pprint
 
 parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')
 parser.add_argument('--model_id', type=str, default='llava-v1.5-7b', help='Model ID to be processed')
