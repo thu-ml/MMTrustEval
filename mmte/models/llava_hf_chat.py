@@ -1,7 +1,9 @@
-from transformers import AutoProcessor, LlavaForConditionalGeneration
 from typing import List
-from PIL import Image
+
 import torch
+from PIL import Image
+from transformers import AutoProcessor, LlavaForConditionalGeneration
+
 from mmte.models.base import BaseChat, Response
 from mmte.utils.registry import registry
 

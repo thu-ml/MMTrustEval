@@ -1,8 +1,11 @@
-from abc import abstractmethod, ABC
-from typing import Optional, Any, Sequence, List
+from abc import ABC, abstractmethod
+from typing import Any, List, Optional, Sequence
+
 from torch.utils.data import Dataset
+
+from mmte import ImageTxtSample, TxtSample, _OutputType
 from mmte.methods.base import BaseMethod
-from mmte import _OutputType, ImageTxtSample, TxtSample
+
 
 def collate_fn(batch_data: List[_OutputType]):
     collate_batch_data = []

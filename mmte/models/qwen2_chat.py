@@ -1,12 +1,15 @@
-from typing import List
-import torch
-from mmte.models.base import BaseChat, Response
-from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
-from mmte.utils.registry import registry
-from mmte.models.qwen2_vl.utils.src.qwen_vl_utils import process_vision_info
 import base64
 import io
+from typing import List
+
+import torch
 from PIL import Image
+from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
+
+from mmte.models.base import BaseChat, Response
+from mmte.models.qwen2_vl.utils.src.qwen_vl_utils import process_vision_info
+from mmte.utils.registry import registry
+
 
 @registry.register_chatmodel()
 class Qwen2Chat(BaseChat):

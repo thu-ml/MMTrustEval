@@ -1,11 +1,13 @@
 from typing import List
+
 import torch
-from PIL import Image
 from omegaconf import OmegaConf
-from mmte.models.base import BaseChat, Response
-from mmte.utils.utils import get_abs_path
-from mmte.utils.registry import registry
+from PIL import Image
 from transformers import AutoModel, AutoTokenizer
+
+from mmte.models.base import BaseChat, Response
+from mmte.utils.registry import registry
+from mmte.utils.utils import get_abs_path
 
 
 @registry.register_chatmodel()

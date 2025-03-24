@@ -1,16 +1,17 @@
-from typing import List, Dict, Any, Literal
+import base64
+import imghdr
+import io
+import os
+import time
+from typing import Any, Dict, List
+
 import anthropic
 import yaml
-from mmte.utils.registry import registry
-from mmte.models.base import BaseChat, Response
-from mmte.utils.utils import get_abs_path
-import os
-import base64
-import time
-import io
-import httpx
 from PIL import Image
-import imghdr
+
+from mmte.models.base import BaseChat, Response
+from mmte.utils.registry import registry
+from mmte.utils.utils import get_abs_path
 
 
 def encode_image(image_path: str):

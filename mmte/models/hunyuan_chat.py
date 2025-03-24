@@ -1,21 +1,19 @@
-from typing import List, Dict, Any, Literal
-import openai
-import yaml
-from mmte.utils.registry import registry
-from mmte.models.base import BaseChat, Response
-from mmte.utils.utils import get_abs_path
-import os
 import base64
-import time
 import io
-from PIL import Image
+import os
+import time
+from typing import List
 
+from PIL import Image
 from tencentcloud.common import credential
 from tencentcloud.common.exception.tencent_cloud_sdk_exception import (
     TencentCloudSDKException,
 )
 from tencentcloud.common.profile.client_profile import ClientProfile
 from tencentcloud.hunyuan.v20230901 import hunyuan_client, models
+
+from mmte.models.base import BaseChat, Response
+from mmte.utils.registry import registry
 
 
 @registry.register_chatmodel()

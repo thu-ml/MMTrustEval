@@ -1,12 +1,15 @@
-from typing import Any, List, Tuple
-from mmte.methods.base import BaseMethod
-from mmte import _OutputType, ImageTxtSample
-from mmte.utils.registry import registry
-from PIL import Image
-from glob import glob
-import random
 import hashlib
 import os
+import random
+from glob import glob
+from typing import Any, List, Tuple
+
+from PIL import Image
+
+from mmte import ImageTxtSample, _OutputType
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+
 
 @registry.register_method()
 class UnrelatedNatureImage(BaseMethod):

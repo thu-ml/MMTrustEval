@@ -1,10 +1,11 @@
-from transformers import MllamaForConditionalGeneration, AutoProcessor
 from typing import List
-from PIL import Image
+
 import torch
+from PIL import Image
+from transformers import AutoProcessor, MllamaForConditionalGeneration
+
 from mmte.models.base import BaseChat, Response
 from mmte.utils.registry import registry
-
 
 
 @registry.register_chatmodel()

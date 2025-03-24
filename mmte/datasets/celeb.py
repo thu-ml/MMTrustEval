@@ -1,12 +1,15 @@
-from typing import Optional, Sequence, Dict
-from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset
-from mmte.utils.registry import registry
-from mmte import ImageTxtSample, _OutputType
-from mmte.utils.utils import download_image
 import csv
-import yaml
 import os
+from typing import Dict, Optional, Sequence
+
+import yaml
+
+from mmte import ImageTxtSample, _OutputType
+from mmte.datasets.base import BaseDataset
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+from mmte.utils.utils import download_image
+
 
 @registry.register_dataset()
 class Celebrities(BaseDataset):

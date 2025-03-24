@@ -1,13 +1,16 @@
-import os
-import yaml
 import argparse
+import os
 import warnings
 from pprint import pprint
+
+import yaml
+
 warnings.filterwarnings("ignore")
+from mmte.evaluators.metrics import _supported_metrics  # noqa: F401
 from mmte.tasks.base import BaseTask
-from mmte.utils.registry import registry
-from mmte.evaluators.metrics import _supported_metrics
+from mmte.utils.registry import registry  # noqa: F401
 from mmte.utils.utils import DictAction, merge_config
+
 
 def parse_args():
     parser = argparse.ArgumentParser()

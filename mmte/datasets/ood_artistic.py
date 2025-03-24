@@ -1,12 +1,15 @@
-from torch.utils.data import DataLoader
-from typing import Optional, Sequence
-from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset, collate_fn
-from mmte.utils.registry import registry
-from mmte import ImageTxtSample, _OutputType
-import yaml
-import os
 import json
+import os
+from typing import Optional, Sequence
+
+import yaml
+from torch.utils.data import DataLoader
+
+from mmte import ImageTxtSample, _OutputType
+from mmte.datasets.base import BaseDataset, collate_fn
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+
 
 @registry.register_dataset()
 class OODArtistic(BaseDataset):
@@ -21,7 +24,7 @@ class OODArtistic(BaseDataset):
         self.annotation_dir = self.config.get('annotation_dir', '')
         assert os.path.exists(self.image_dir) and os.path.exists(self.annotation_dir)
 
-        self.prompt = f'Please provide a detailed description of the image.'
+        self.prompt = 'Please provide a detailed description of the image.'
             
         dataset = []
         category = self.dataset_id.replace('coco-o-', '')

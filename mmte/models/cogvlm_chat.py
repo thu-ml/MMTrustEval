@@ -1,13 +1,15 @@
-from typing import List, Optional, Tuple, Literal
-from transformers import LlamaTokenizer
-from torchvision import transforms
-from PIL import Image
+from typing import List, Literal, Optional, Tuple
+
 import torch
 import yaml
-from mmte.models.cogvlm.modeling_cogvlm import CogVLMForCausalLM
+from PIL import Image
+from torchvision import transforms
+from transformers import LlamaTokenizer
+
 from mmte.models.base import BaseChat, Response
-from mmte.utils.utils import get_abs_path
+from mmte.models.cogvlm.modeling_cogvlm import CogVLMForCausalLM
 from mmte.utils.registry import registry
+from mmte.utils.utils import get_abs_path
 
 LANGUAGE_TOKEN_TYPE = 0
 VISION_TOKEN_TYPE = 1
@@ -109,7 +111,7 @@ class CogVLMChat(BaseChat):
         image_size: int = self.model.config.vision_config["image_size"]
         patch_size: int = self.model.config.vision_config["patch_size"]
         template_version = template_version or self.model.config.template_version
-        assert images is None or len(images) <= 1, f"not support multi images by now."
+        assert images is None or len(images) <= 1, "not support multi images by now."
         history = history or []
         text = self._history_to_prompt(template_version, history)
 

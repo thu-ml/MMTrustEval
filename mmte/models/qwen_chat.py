@@ -1,7 +1,9 @@
 from typing import List
+
 import torch
-from mmte.models.base import BaseChat, Response
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
+from mmte.models.base import BaseChat, Response
 from mmte.utils.registry import registry
 
 

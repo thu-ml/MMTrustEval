@@ -1,7 +1,9 @@
-from abc import abstractmethod, ABC
-from typing import Dict, Any, Sequence, List, Tuple, Union, Optional
+from abc import ABC, abstractmethod
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
+
 from mmte.evaluators.metrics import _supported_metrics
 from mmte.utils.registry import registry
+
 
 class BaseEvaluator(ABC):
     """

@@ -1,15 +1,16 @@
 
-from typing import Optional, Sequence, Dict
+import csv
+import os
+import random
+from pathlib import Path
+from typing import Optional, Sequence
+
+import yaml
+
+from mmte import ImageTxtSample, TxtSample, _OutputType
 from mmte.datasets.base import BaseDataset
 from mmte.methods.base import BaseMethod
 from mmte.utils.registry import registry
-from mmte import ImageTxtSample, TxtSample, _OutputType
-from mmte.datasets import UnrelatedImageDataset 
-from pathlib import Path
-import csv
-import random
-import yaml
-import os
 
 
 @registry.register_dataset()
@@ -47,6 +48,7 @@ class CrossModalJailbreakDataset(BaseDataset):
                     dataset.append(TxtSample(text=jailbreak_prompt, target=question))
 
                 elif self.dataset_id == 'crossmodal-jailbreak-unrelated':
+                    from mmte.datasets import UnrelatedImageDataset
                     unrelated_ids = ['color', 'nature', 'noise']
                     for unrelated_id in unrelated_ids:
                         unrelated_id = 'unrelated-image-' + unrelated_id

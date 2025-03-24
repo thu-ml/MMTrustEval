@@ -1,8 +1,9 @@
-from pprint import pprint
-from glob import glob 
+import argparse
 import json
 import os
-import argparse
+from glob import glob
+from pprint import pprint
+
 import numpy as np
 
 parser = argparse.ArgumentParser(description='Process JSON files for fairness analysis.')

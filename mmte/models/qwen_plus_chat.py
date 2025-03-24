@@ -1,10 +1,12 @@
 import os
-import yaml
-import dashscope
 from http import HTTPStatus
-from typing import List, Dict, Any
-from mmte.utils.registry import registry
+from typing import Any, Dict, List
+
+import dashscope
+import yaml
+
 from mmte.models.base import BaseChat, Response
+from mmte.utils.registry import registry
 from mmte.utils.utils import get_abs_path
 
 

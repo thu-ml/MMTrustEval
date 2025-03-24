@@ -1,8 +1,10 @@
-from typing import Any, Sequence, List, Tuple, Dict, Optional
+from typing import Any, Dict, List, Optional, Sequence, Tuple
+
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
 from mmte.evaluators.base import BaseEvaluator
 from mmte.utils.registry import registry
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
 
 LLAMA2_CLS_PROMPT = {
         "description": "Template For Llama-2-13b-behavior classifier",

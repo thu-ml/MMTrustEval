@@ -1,8 +1,8 @@
-import torch
-from torch import nn, Tensor
-from transformers import CLIPProcessor, CLIPModel, CLIPVisionModel, CLIPTextModel
-from torchvision import transforms
 import open_clip
+import torch
+from torch import Tensor, nn
+from torchvision import transforms
+from transformers import CLIPModel, CLIPProcessor
 
 __all__ = ["DYPTransformerClipAttackVisionModel", "DYPOpenClipAttackVisionModel"]
 

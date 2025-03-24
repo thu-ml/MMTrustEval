@@ -1,13 +1,16 @@
-from typing import Optional, Sequence
-from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset
-from mmte.utils.registry import registry
-from mmte.datasets import UnrelatedImageDataset 
-from mmte import ImageTxtSample, TxtSample, _OutputType
-import random
-import yaml
-import os
 import json
+import os
+import random
+from typing import Optional, Sequence
+
+import yaml
+
+from mmte import ImageTxtSample, TxtSample, _OutputType
+from mmte.datasets import UnrelatedImageDataset
+from mmte.datasets.base import BaseDataset
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+
 
 @registry.register_dataset()
 class VisualMisleadingData(BaseDataset):

@@ -1,13 +1,14 @@
-from typing import Optional, Sequence, Dict
-from mmte.datasets.base import BaseDataset
-from mmte.methods.base import BaseMethod
-from mmte.utils.registry import registry
-from mmte import ImageTxtSample, _OutputType
-import yaml
 import json
 import os
 import warnings
+from typing import Dict, Optional, Sequence
 
+import yaml
+
+from mmte import ImageTxtSample, _OutputType
+from mmte.datasets.base import BaseDataset
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
 
 
 @registry.register_dataset()

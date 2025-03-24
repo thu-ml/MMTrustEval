@@ -3,14 +3,15 @@ reference:
 https://github.com/yuyang-long/SSA
 """
 
-from torch.autograd import Variable as V
 from abc import abstractmethod
-from torch import Tensor
 from math import ceil
+from typing import Callable, List
+
 import numpy as np
 import torch
-from torch import nn
-from typing import Callable, List
+from torch import Tensor, nn
+from torch.autograd import Variable as V
+
 
 def dct(x, norm=None):
     """

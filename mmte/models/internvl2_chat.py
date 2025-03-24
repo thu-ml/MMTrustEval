@@ -1,14 +1,15 @@
-import torch
 from typing import List
-from omegaconf import OmegaConf
-from mmte.utils.registry import registry
-from mmte.utils.utils import get_abs_path
-from mmte.models.base import BaseChat, Response
 
+import torch
 import torchvision.transforms as T
+from omegaconf import OmegaConf
 from PIL import Image
 from torchvision.transforms.functional import InterpolationMode
 from transformers import AutoModel, AutoTokenizer
+
+from mmte.models.base import BaseChat, Response
+from mmte.utils.registry import registry
+from mmte.utils.utils import get_abs_path
 
 IMAGENET_MEAN = (0.485, 0.456, 0.406)
 IMAGENET_STD = (0.229, 0.224, 0.225)

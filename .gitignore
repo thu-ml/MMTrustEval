@@ -187,6 +187,9 @@ logs/
 tmpdata/
 slurm_run/
 env/apt/
+_slurm_run/
+_docker/
+_comp/
 data
 playground
 log_reload.py
@@ -221,3 +224,4 @@ parse.py
 score.sh
 check_unfinished.py
 multigpu.sh
+_load_credentials.py

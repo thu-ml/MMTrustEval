@@ -1,8 +1,10 @@
 from typing import List
+
 import torch
-from mmte.models.base import BaseChat, Response
 from PIL import Image
 from transformers import CLIPImageProcessor
+
+from mmte.models.base import BaseChat, Response
 from mmte.models.otter import OtterForConditionalGeneration
 from mmte.utils.registry import registry
 

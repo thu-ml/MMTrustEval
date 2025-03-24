@@ -1,15 +1,16 @@
-from torch.utils.data import DataLoader
-from typing import Optional, Sequence
-from mmte.methods.base import BaseMethod
-from mmte.datasets.base import BaseDataset, collate_fn
-from mmte.datasets import UnrelatedImageDataset
-from mmte.methods import RelatedGeneratedImage
-from mmte.utils.registry import registry
-from mmte import ImageTxtSample, TxtSample, _OutputType
-import yaml
-import os
 import json
+import os
 import random
+from typing import Optional, Sequence
+
+import yaml
+from torch.utils.data import DataLoader
+
+from mmte import ImageTxtSample, TxtSample, _OutputType
+from mmte.datasets.base import BaseDataset, collate_fn
+from mmte.methods.base import BaseMethod
+from mmte.utils.registry import registry
+
 
 @registry.register_dataset()
 class OODText(BaseDataset):
@@ -33,9 +34,11 @@ class OODText(BaseDataset):
             test_data_dict = json.load(f)
 
         if self.dataset_id in ["dt-unrelated-image-color", "dt-unrelated-image-nature", "dt-unrelated-image-noise"]:
+            from mmte.datasets import UnrelatedImageDataset
             unrelated_id = self.dataset_id.split('dt-')[1]
             unrelated_dataset = UnrelatedImageDataset(dataset_id=unrelated_id)
         if self.dataset_id == "dt-related-image" and self.generate_image:
+            from mmte.methods import RelatedGeneratedImage
             related_generator = RelatedGeneratedImage(method_id="related-image-generated", img_dir=self.related_image_dir)
 
         dataset = []
