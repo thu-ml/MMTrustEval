@@ -1,4 +1,4 @@
-export APIKEY_FILE='env/apikey_local.yml' 
+export APIKEY_FILE='env/apikey.yml' 
 source activate mllm-dev
 
 if [ $# -eq 0 ]; then
