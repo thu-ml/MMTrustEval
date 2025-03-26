@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Task - MMTrustEval Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Task";
+        var mkdocs_page_input_path = "task.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+ <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> MMTrustEval Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../structure/">Structure</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dataclass/">Dataclass</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../modules/">Modules</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Task</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#task-pipeline">Task Pipeline</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#task-configuration">Task Configuration</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../tutorial/">Tutorial</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">MMTrustEval Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Task</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="task">Task</h1>
+<p>A task powered by MMTrustEval is a collection of the aforementioned modules, i.e., a certain model is evaluated on a certain dataset with certain metrics. Here, we introduce the basic logic of a task workflow in MMTrustEval and how to construct a task via a configuration file. </p>
+<p>Note that, the purpose of MMTrustEval is to provide modularized tools for developing new tasks to evaluate trustworthiness of MLLMs, instead of to restrict the implementation to modularized configuration. While the tasks in MultiTrust are organized with these modules, users are free to implement their own tasks in a more customized style and only use one or several modules like unified models and off-the-shelf evaluators to facilitate their evaluation.</p>
+<h2 id="task-pipeline">Task Pipeline</h2>
+<p>We provide a <code>BaseTask</code> class to organize the modules in a standardized logic and provide a way for modular customization. The modules for different elements are instantiated according to the configuration from a yaml file or commandline argurments automatically and the user can simply launch the evaluation with one command. </p>
+<p>Source code in <code>mmte/tasks/base.py</code></p>
+<pre><code class="language-python">class BaseTask(ABC):    
+    def __init__(self, dataset_id: str, model_id: str, method_cfg: Optional[Dict] = {}, 
+                dataset_cfg: Optional[Dict] = {}, evaluator_seq_cfgs: List = [], 
+                log_file: Optional[str] = None) -&gt; None:
+        self.dataset_id = dataset_id
+        self.model_id = model_id
+        self.method_cfg = method_cfg
+        self.dataset_cfg = dataset_cfg
+        self.evaluator_seq_cfgs = evaluator_seq_cfgs
+        self.log_file = log_file
+
+    def pipeline(self) -&gt; None:
+        self.get_handlers() # automatic module instantiation
+        dataloader = self.get_dataloader()
+        responses = self.generate(dataloader) # unified model inference
+        results = self.eval(responses) # response postprocessing and metrics computation
+        self.save_results(results) # result logging
+</code></pre>
+<h2 id="task-configuration">Task Configuration</h2>
+<ul>
+<li>
+<p><code>model_id</code>: The ID of the model</p>
+</li>
+<li>
+<p><code>dataset_id</code>: The ID of the dataset</p>
+</li>
+<li>
+<p><code>log_file</code>: The file path for the output JSON file</p>
+</li>
+<li>
+<p><code>method_cfg</code>: Configuration for the method, formatted as <code>{method_id: method_kwargs, ...}</code>. Default: <code>{}</code></p>
+</li>
+<li>
+<p><code>dataset_cfg</code>: Additional parameters required for initializing the dataset, formatted as <code>dataset_kwargs</code>. Default: <code>{}</code></p>
+</li>
+<li>
+<p><code>generation_kwargs</code>: Additional parameters used for inference with the chat model. Default: <code>{}</code></p>
+</li>
+<li>
+<p><code>evaluator_seq_cfgs</code>: Configuration for the evaluator sequence. Each list item represents a different evaluator sequence, with each sequence containing multiple evaluators, and each evaluator corresponding to multiple metrics. Default: <code>[]</code></p>
+</li>
+</ul>
+<pre><code class="language-python">List[
+    {evaluator_id: 
+
+        {metrics_cfg: 
+
+            {metrics_id: metrics_kwargs},
+            {metrics_id: metrics_kwargs},
+            ...
+
+        },
+        ...
+    },
+    ...
+]
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../modules/" class="btn btn-neutral float-left" title="Modules"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tutorial/" class="btn btn-neutral float-right" title="Tutorial">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../modules/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tutorial/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+</script></body>
+</html>

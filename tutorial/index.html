@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Tutorial - MMTrustEval Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Tutorial";
+        var mkdocs_page_input_path = "tutorial.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+ <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> MMTrustEval Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../structure/">Structure</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dataclass/">Dataclass</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../modules/">Modules</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task/">Task</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Tutorial</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#define-the-dataset">Define the Dataset</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#define-the-evaluator">Define the Evaluator</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#edit-task_configyaml">Edit task_config.yaml</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#run-with-a-single-command">Run with a Single Command</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">MMTrustEval Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Tutorial</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="tutorial-to-add-tasks">Tutorial to Add Tasks</h1>
+<p>Using the example of Privacy Task P3: infoflow-expectation with dataset <code>confaide-unrelated-image-color</code>:</p>
+<h2 id="define-the-dataset">Define the Dataset</h2>
+<p>Define the dataset and register the <code>dataset_id</code>: <code>confaide-unrelated-image-color</code> (refer to <code>mmte/datasets/confaide.py</code>).</p>
+<blockquote>
+<p>If you need to do some preprocessing to your custom dataset, please define <code>Method</code> and use it as a hook function in your dataset.</p>
+</blockquote>
+<h2 id="define-the-evaluator">Define the Evaluator</h2>
+<p>Define the evaluator and register the <code>evaluator_id</code>: <code>rule_match_and_score_eval</code> (refer to <code>mmte/evaluators/rule_eval.py</code>).</p>
+<p>If additional metrics are required, modify <code>mmte/evaluators/metrics.py</code> and register the <code>metrics_fn</code> in <code>_supported_metrics</code>.</p>
+<h2 id="edit-task_configyaml">Edit <code>task_config.yaml</code></h2>
+<p>(refer to <code>mmte/configs/task/privacy/infoflow.yaml</code>)</p>
+<pre><code class="language-yaml">dataset_id: &quot;confaide-unrelated-image-color&quot;
+model_id: &quot;llava-v1.5-7b&quot;
+
+log_file: &quot;./logs/privacy/infoflow.json&quot;
+
+evaluator_seq_cfgs:
+  [
+    {
+      &quot;rule_match_and_score_eval&quot;:
+        { metrics_cfg: { pearson_corr: {}, failure: {} } },
+    },
+  ]
+
+
+</code></pre>
+<h2 id="run-with-a-single-command">Run with a Single Command</h2>
+<pre><code class="language-shell">python run_task.py --config mmte/configs/task/privacy/infoflow.yaml
+</code></pre>
+<blockquote>
+<p>To modify configurations without changing the yaml file, one can <code>ADD</code> or <code>OVERWRITE</code> configurations in yaml files using the <code>--cfg-options</code> parameter. For example:</p>
+</blockquote>
+<pre><code class="language-shell">python run_task.py --config mmte/configs/task/privacy/infoflow.yaml --cfg-options dataset_id=confaide-image log_file=&quot;logs/privacy/infoflow-confaide-image.json&quot;
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../task/" class="btn btn-neutral float-left" title="Task"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../task/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+</script></body>
+</html>

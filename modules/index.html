@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Modules - MMTrustEval Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Modules";
+        var mkdocs_page_input_path = "modules.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+ <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> MMTrustEval Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../structure/">Structure</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dataclass/">Dataclass</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Modules</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#datasets">Datasets</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#models">Models</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#evaluators">Evaluators</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#baseevaluator">BaseEvaluator</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sequentialevaluator">SequentialEvaluator</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#metrics">Metrics</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../task/">Task</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../tutorial/">Tutorial</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">MMTrustEval Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Modules</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="modules">Modules</h1>
+<p>In this section, we introduce each element in the <a href="../structure/#flow">task flow</a> about their interface, typical usage, etc., in the order of their parts in the workflow. All elements are registered by an unique identifier into the global <code>registry</code> (defined in <code>mmte/utils/registry.py</code>) and can be accessed by the <code>registry.get_**_class(id)</code> method.</p>
+<h2 id="datasets">Datasets</h2>
+<p>Datasets are defined to collect the samples to be tested for a specific task. It provides the prompt, image path, labels and possibly other information about the data point to the following process. Here are some technical notes about this class.</p>
+<ol>
+<li>The class is a subclass of the <code>torch.utils.data.Dataset</code> and users can iterate through the dataset by the default <code>torch.utils.data.Dataloader</code>. To customize a dataset, user need to define <code>__getitem__</code> and <code>__len__</code> as usual along with a <code>collate_fn</code> so that the dataloader can support the dataclass of <code>TxtSample</code> and <code>ImageTxtSample</code>. We provide a default one in <code>mmte.datasets.base.collate_fn</code> which should work for most cases, one can customized your own collate_fn if necessary.</li>
+<li>A method to further process the data for a certain task, which can be independent from the original dataset, can be optionally specified via the argument <code>method_hook</code> when initialization. This could make additional augmentation, attack and other preprocessing to the existing datasets more convenient. This is illustrated in the <a href="#method">Method</a> part.</li>
+<li>Some information about the dataset can be configured through a yaml config file, like the directory of images, the path to the annotation file. </li>
+<li><code>dataset_ids</code> is the list of supported <code>dataset_id</code> for this class, which specify the different splits and processors in sample preparing.</li>
+</ol>
+<!-- 1. 该类继承自torch的dataset，可以使用torch自带的dataloader读取数据，获取到的数据类型必须是TxtSample或者ImageTxtSample类型
+   - 因为dataloader不支持ImageTxtSample和TxtSample，所以在使用的时候需要用户自己实现collate_fn，默认可以使用`from mmte.datasets.base import collate_fn`
+2. method_hook并不是必须的选项，当数据不需要做额外的预处理或者数据生成时，method_hook可以是None -->
+
+<p>Source code in <code>mmte/datasets/base.py</code>. Refer to <code>mmte/datasets/celeb.py</code> for an example.</p>
+<pre><code class="language-python">class BaseDataset(Dataset, ABC):
+    &quot;&quot;&quot;
+    Base class for datasets, __getitem__ function return Union[ImageTxtSample, TxtSample].
+    &quot;&quot;&quot;
+
+    dataset_id: str # Identifier for the dataset
+    dataset_ids: Sequence[str] = [] # List of available datasets
+    dataset_config: Optional[str] = &quot;&quot; # dataset config path
+
+    def __init__(self, dataset_id: str, method_hook: Optional[BaseMethod] = None, **kwargs) -&gt; None:
+        &quot;&quot;&quot;
+        Initializing dataset instance.
+
+        Arguments:
+            dataset_id: Identifier for the dataset
+            method_hook: A method instance, which is used as a preprocess hook for __getitem__ funtion
+            kwargs: extra configurations
+
+        &quot;&quot;&quot;
+
+        assert dataset_id in self.dataset_ids, f&quot;Dataset {dataset_id} must be one of {self.dataset_ids}.&quot;
+        self.dataset_id = dataset_id
+        if method_hook:
+            self.method_hook = method_hook
+        else:
+            self.method_hook = None
+        self.dataset: List[Any] = []
+
+    @abstractmethod
+    def __getitem__(self, index: int) -&gt; _OutputType:
+        if self.method_hook:
+            return self.method_hook.run(self.dataset[index])
+        return self.dataset[index]
+
+    @abstractmethod
+    def __len__(self) -&gt; int:
+        return len(self.dataset)
+</code></pre>
+<h2 id="methods"><a name="method"></a> Methods</h2>
+<p>Methods are designed for additional data processing independent from and universal across datasets, for instance, generating adversarial examples, pairing text prompts with diverse images. Users do not need to modify the code for datasets but only implement a new class of <code>Method</code> and pass it as a hook to the dataset. Here are some technical notes about this class.</p>
+<ol>
+<li>This class works as a hook in the function <code>__getitem__</code> of a dataset, which is optional. </li>
+<li>For cases where new images are generated with time-consuming methods or reproducibility is needed, we can set the <code>lazy_mode=True</code> to utilize the previously generated samples. To tackle the challenge that text-only data may not have clear identifiers pointing to a sample, a <code>hash</code> function can be defined to generate the filename for the generated data.</li>
+</ol>
+<!-- 1. 该类的主要作用是作为一个hook，作用于dataset中的getitem函数，在取样本的时候对样本进行实时的数据处理，包括但不限于对抗样本生成、相关图片生成、无关图片生成等。
+2. 如果需要加载预生成的数据，可以设置lazy_mode=True，则无需重新执行run-time generation。
+3. 考虑到有些数据可能只有文本信息（TxtSample），生成图片的存取路径未经定义，为了存取图片方便，可以自定义hash函数生成图片的文件名，以便后续加载预生成的数据。 -->
+
+<p>Source code in <code>mmte/methods/base.py</code>. Refer to <code>mmte/methods/unrelated_color.py</code> for an example.</p>
+<pre><code class="language-python">class BaseMethod(ABC):
+    &quot;&quot;&quot;
+    Base class for methods, which can be applied to any Dataset inherits from BaseDataset as a hook in __getitem__ function.
+    &quot;&quot;&quot;
+
+    method_id: str # Identifier for the method
+    method_ids: List[str] # List of available methods
+
+    def __init__(self, method_id: str, img_dir: str, lazy_mode: bool = True) -&gt; None:
+        &quot;&quot;&quot;
+        Initializing method instance.
+
+        Arguments:
+            method_id: Identifier for the method
+            img_dir: Folder to save images
+            lazy_mode: If True, it will reuse the already generated dataset. If False, it will regenerate the result
+
+        Return:
+            evaluation result
+        &quot;&quot;&quot;
+        assert method_id in self.method_ids, f&quot;Method {self.method_id} is not available. Only methods in {self.method_ids} can be used.&quot;
+        self.method_id = method_id
+        self.img_dir = img_dir
+        self.lazy_mode = lazy_mode
+
+    @abstractmethod
+    def run(self, data: _OutputType, **kwargs) -&gt; _OutputType:
+        &quot;&quot;&quot;
+        Preprocess each sample in the Dataset one by one.
+
+        Arguments:
+            data: Union[ImageTxtSample, TxtSample], one sample in Dataset
+            kwargs: extra configurations
+
+
+        Return:
+            processed sample
+        &quot;&quot;&quot;
+        raise NotImplementedError
+
+    @abstractmethod
+    def hash(self, to_hash_str: str, **kwargs) -&gt; str:
+        &quot;&quot;&quot;
+        Get hash code given to_hash_str, to provide an identifier for the data sample and to reuse the generated samples.
+
+        Arguments:
+            to_hash_str: str
+            kwargs: extra configurations
+
+
+        Return:
+            hash code
+        &quot;&quot;&quot;
+        raise NotImplementedError
+
+    def __call__(self, *args: Any, **kwds: Any) -&gt; Any:
+        return self.run(*args, **kwds)
+
+</code></pre>
+<h2 id="models">Models</h2>
+<p>Models encapsulate the chat model of MLLMs into a unified interface for inference. This enables more convenient standardized evaluation of diverse models. Here are some technical notes about this class.</p>
+<ol>
+<li><code>chat</code> unifies the interface for generation. <code>messages</code> is a list representing the conversation history, <code>generation_kwargs</code> is the generation configuration, indicating whether to <code>do_sample</code>, the setting of <code>temperature</code>, <code>max_new_tokens</code>, etc. The setting of generation configuration follows that in huggingface transformers. </li>
+<li><code>model_id</code> is the unique identifier to get the chatmodel from <code>registry_getchatmodel_class</code> and <code>model_family</code> defines the list of available model identifiers.</li>
+</ol>
+<p>Source code in <code>mmte/models/base.py</code>. Refer to <code>mmte/models/openai_chat.py</code> for an example.</p>
+<pre><code class="language-python">class BaseChat(ABC):
+    &quot;&quot;&quot;
+    Base class for models to be evaluated in a generative/chat manner.
+    &quot;&quot;&quot;
+
+    model_id: str = ''   # ID for a chat model, e.g., minigpt-4-vicuna-7b-v0
+    model_arch: str = '' # Architecture of the model, e.g., minigpt-4
+    model_family: List[str] = [] # List of available model_ids
+
+
+
+    def __init__(self, model_id:str) -&gt; None:
+        self.model_id = model_id
+        assert self.model_id in self.model_family, f&quot;Model {self.model_id} is not available. Only models in {self.model_family} can be used.&quot;
+
+
+    @abstractmethod
+    def chat(self, 
+             messages: List, 
+             **generation_kwargs,
+             ) -&gt; &quot;Response&quot;:
+        &quot;&quot;&quot;
+        Chat interface for generative evaluation with batch size of 1.
+
+        messages: a list of messages, comprising the conversation history and following the format 
+            [
+                {
+                    'role': 'system'/'user'/'assistant', 
+                    'content': str/dict
+                },
+                ...
+            ], 
+            where content is a dict {'text': str, 'image_path': str} when it's multimodal.
+        generation_kwargs: generation configuration specified for different models, including:
+            temperature: float, usually between 0-2, smaller means more deterministic
+            do_sample: bool, whether take sampling as the decoding strategy
+            num_beams: int, the parameter for beam search
+            max_new_tokens: int, maximal number of tokens to be generated
+            stop_sequences: str/List[str], stop words where the model will stop generating further tokens
+            output_scores: bool, whether return the logits of the generated tokens (not very practical)
+        &quot;&quot;&quot;
+        raise NotImplementedError
+</code></pre>
+<h2 id="evaluators">Evaluators</h2>
+<p>source_code: <code>mmte/evaluators/base.py</code></p>
+<h3 id="baseevaluator">BaseEvaluator</h3>
+<p>This class is primarily used for evaluating the results output by a chat model. The <code>process</code> function preprocesses the input sequences of predictions (<code>preds</code>) and labels (<code>labels</code>)—these sequences can be numerical or textual. The preprocessing aims to generate simple numerical sequences that can be directly used in the <code>eval</code> function, which subsequently calls the <code>metrics</code> function (the <code>metrics</code> function only accepts numerical sequences).</p>
+<p>Currently, there are three main types of evaluators:</p>
+<ol>
+<li><strong>ChatModel Evaluator</strong>: Processes and evaluates the results using a chat model.</li>
+<li><strong>Classifier Evaluator</strong>: Scores the results using a classifier. Currently, it supports the <code>longformer-action-ro</code> model.</li>
+<li><strong>Rule-based Evaluator</strong>: Includes tools for template matching for refusal and score extraction.</li>
+</ol>
+<p>Evaluators can be chained together to form an evaluator sequence (refer to <code>SequentialEvaluator</code> for details). The primary purpose is to reuse the <code>process</code> functions of different evaluators (for example, first using the chat model evaluator for text preprocessing, followed by the rule-based evaluator for scoring).</p>
+<pre><code class="language-python">
+class BaseEvaluator(ABC):
+    &quot;&quot;&quot;
+    Base class for evaluators, to evaluate the responses from chatmodels.
+    &quot;&quot;&quot;
+
+    evaluator_ids: List[str] = []
+    def __init__(self, evaluator_id: str, metrics_cfg: Dict[str, Any]) -&gt; None:
+        &quot;&quot;&quot;
+        Initializing evaluator instance.
+
+        Arguments:
+            evaluator_id: Identifier for the evaluator
+            metrics_cfg: config dict for metrics hooks, format: {metrics_id: metrics_kwargs, ...}
+
+        &quot;&quot;&quot;
+        assert evaluator_id in self.evaluator_ids, f&quot;Evaluator {self.evaluator_id} is not available. Only Evaluators in {self.evaluator_ids} can be used.&quot;
+
+        self.evaluator_id = evaluator_id
+
+        self.metrics_cfg = metrics_cfg
+        for metrics_id in self.metrics_cfg.keys():
+            assert metrics_id in _supported_metrics.keys(), f&quot;{metrics_id} is not supported.&quot;
+
+    @abstractmethod
+    def process(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, extras: Optional[Sequence[Any]] = None, **kwargs) -&gt; Tuple[Sequence[Any], Sequence[Any]]:
+        &quot;&quot;&quot;
+        1. Perform some processing on sequence data, mainly including scoring/text-extraction with chatmodel/classifier/rule-based, etc.
+        2. Different evaluators can be concatenated, and the process function can be cascaded to perform multi-step processing on sequence data.
+
+        Arguments:
+            preds: responses from chatmodels or preds from `process` function of another evaluator
+            labels: groundtruth labels or labels from `process` function of another evaluator
+            extras: extra parameters or extra sequence from `process` function of another evaluator
+
+        Return:
+            preds: processed preds sequence
+            labels: processed labels sequence
+            extras: processed extra sequence
+        &quot;&quot;&quot;
+
+        # no-op
+        return preds, labels, extras
+
+    def eval(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, extras: Optional[Sequence[Any]] = None, **kwargs) -&gt; Dict[str, Union[Sequence, float]]:
+        &quot;&quot;&quot;
+        Evaluate pipeline including data processing and metrics calculation.
+
+        Arguments:
+            preds: responses from chatmodels
+            labels: groundtruth labels
+            extras: extra parameters
+
+        Return:
+            results
+        &quot;&quot;&quot;
+
+        processed_preds, processed_labels, processed_extras = self.process(preds, labels, extras)
+        results = {}
+
+        for metrics_id, kwargs in self.metrics_cfg.items():
+            metrics_fn = _supported_metrics[metrics_id]
+            results[metrics_id] = metrics_fn(processed_labels, processed_preds, **kwargs)
+
+        return results
+
+    def __call__(self, *args: Any, **kwds: Any) -&gt; Any:
+        return self.eval(*args, **kwds)
+
+</code></pre>
+<h3 id="sequentialevaluator">SequentialEvaluator</h3>
+<pre><code class="language-python">class SequentialEvaluator:
+    &quot;&quot;&quot;
+    Class for cascading evaluators to perform multi-step processing on sequence data and get results from final sequence data.
+    &quot;&quot;&quot;
+
+    def __init__(self, evaluator_seq_cfg: Dict[str, Any]) -&gt; None:
+        &quot;&quot;&quot;
+        Initializing sequence-evaluator instance.
+
+        Arguments:
+            evaluator_seq_cfg: config dict for instantiatizing evaluators, format: {evaluator: evaluator_kwargs, ...}
+
+        &quot;&quot;&quot;
+
+        evaluator_seq, evaluator_cls_names = [], []
+        for evaluator_id, evaluator_kwargs in evaluator_seq_cfg.items():
+            evaluator_cls = registry.get_evaluator_class(evaluator_id)
+            evaluator = evaluator_cls(evaluator_id, **evaluator_kwargs)
+            evaluator_cls_names.append(evaluator_cls.__name__)
+            evaluator_seq.append(evaluator)
+        self.evaluator_seq = evaluator_seq
+        self.keyname_prefix_seq = self.create_sequence_list(evaluator_cls_names)
+
+    def create_sequence_list(self, input_list: List[str]) -&gt; List[str]:
+        result = []
+        current = &quot;&quot;
+        for item in input_list:
+            if current:
+                current += f&quot;-&gt;{item}&quot;
+            else:
+                current = item
+            result.append(current)
+        return result
+
+    def eval(self, preds: Sequence[Any], labels: Optional[Sequence[Any]] = None, extras: Optional[Sequence[Any]] = None, **kwargs) -&gt; Dict[str, Union[Sequence, float]]:
+        &quot;&quot;&quot;
+        Evaluate pipeline including data processing and metrics calculation.
+
+        Arguments:
+            preds: responses from chatmodels
+            labels: groundtruth labels
+            extras: extra parameters
+
+        Return:
+            results
+        &quot;&quot;&quot;
+        prefix_results = {}
+        seq_len = len(self.evaluator_seq)
+        for evaluator_idx, (evaluator, keyname_prefix) in enumerate(zip(self.evaluator_seq, self.keyname_prefix_seq)):
+            if evaluator_idx &lt; seq_len - 1:
+                preds, labels, extras = evaluator.process(preds, labels, extras)
+                prefix_results.update({f&quot;{keyname_prefix}:pred_no_op&quot;: preds})
+            else:
+                # final evaluator
+                results = evaluator(preds, labels, extras)
+                prefix_results.update({f&quot;{keyname_prefix}:{key}&quot;: value for key, value in results.items()})
+
+        return prefix_results
+
+    def __call__(self, *args: Any, **kwds: Any) -&gt; Any:
+        return self.eval(*args, **kwds)
+
+
+</code></pre>
+<h2 id="metrics">Metrics</h2>
+<p>We pre-define some common metrics for users to call. These functions to calculate metrics take two array-like arguments of digits to compute the statistical or sample-wise results. We also consider some cases where simple operations of aggregation are needed, e.g., sum, mean.</p>
+<p>Source code in <code>mmte/evaluators/metrics.py</code>.</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Input Requirement
+y_true: 1d array-like
+y_pred: 1d array-like
+&quot;&quot;&quot;
+
+_supported_metrics = {
+    # aggregation op
+    &quot;pred_no_op&quot;: pred_no_op,
+    &quot;pred_sum&quot;: pred_sum,
+    &quot;pred_mean&quot;: pred_mean,
+
+    # general metrics
+    &quot;accuracy_score&quot;: accuracy_score,
+    &quot;precision_score&quot;: precision_score,
+    &quot;recall_score&quot;: recall_score, 
+    &quot;f1_score&quot;: f1_score,
+    &quot;pearson_corr&quot;: pearson_corr,
+    &quot;failure&quot;: failure,
+}
+
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../dataclass/" class="btn btn-neutral float-left" title="Dataclass"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../task/" class="btn btn-neutral float-right" title="Task">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../dataclass/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../task/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+</script></body>
+</html>
